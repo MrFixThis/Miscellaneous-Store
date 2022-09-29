@@ -2,14 +2,19 @@ package com.edu.unbosque.entity;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -20,13 +25,13 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "employee")
 @Data
-@NoArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class Employee {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@Column(name = "first_name", length = 80, nullable = false)
 	private String firstName;
@@ -58,7 +63,10 @@ public class Employee {
 	@Column(name = "basic_salary", nullable = false)
 	private Long basicSalary;
 
-	@Column(name = "basicSalary", nullable = false)
-	// @ManyToOne()
-	private BranchOffice branchOfficeId;
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "branch_office_id", referencedColumnName = "id",
+		nullable = false
+	)
+	private BranchOffice branchOffice;
 }
