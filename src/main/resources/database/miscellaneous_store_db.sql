@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS miscellaneous_store_db.transaction (
   client_identification_number VARCHAR(25) NOT NULL,
   client_identification_type VARCHAR(80) NOT NULL,
   product_name VARCHAR(255) NOT NULL,
-  product_type VARCHAR(15) NOT NULL,
+  product_type ENUM('Magazine', 'Book', 'Disc', 'Vinyl Record') NOT NULL,
   product_price BIGINT NOT NULL,
   branch_office_id BIGINT NOT NULL,
   PRIMARY KEY(id),
