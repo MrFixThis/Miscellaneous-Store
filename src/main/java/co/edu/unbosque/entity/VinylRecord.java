@@ -55,12 +55,11 @@ public class VinylRecord {
 
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "inventory_id", referencedColumnName = "id",
-		nullable = false
-	)
-	private Set<Inventory> inventories;
+	@JoinColumn(name = "inventory_id", nullable = false,
+		insertable = false, updatable = false)
+	private Set<Inventory> vinylRecordInventories;
 
 	{
-		inventories = new HashSet<>();
+		vinylRecordInventories = new HashSet<>();
 	}
 }

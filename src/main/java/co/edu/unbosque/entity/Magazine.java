@@ -45,12 +45,11 @@ public class Magazine {
 
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "inventory_id", referencedColumnName = "id",
-		nullable = false
-	)
-	private Set<Inventory> inventories;
+	@JoinColumn(name = "inventory_id", nullable = false,
+		insertable = false, updatable = false)
+	private Set<Inventory> magazineInventories;
 
 	{
-		inventories = new HashSet<>();
+		magazineInventories = new HashSet<>();
 	}
 }

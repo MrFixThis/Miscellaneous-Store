@@ -54,6 +54,9 @@ public class Client {
 	@Column(name = "email_address", nullable = false)
 	private String emailAddress;
 
+	@Column(name = "purchases_number", nullable = false)
+	private int prchasesNumber;
+
 	@JsonIgnore
 	@ManyToMany(mappedBy = "clients")
 	private Set<BranchOffice> branchOffices;
