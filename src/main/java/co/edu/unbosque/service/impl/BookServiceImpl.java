@@ -29,8 +29,8 @@ public class BookServiceImpl implements BookService {
 	 */
 	@Override
 	public ResponseEntity<Book> createBook(Book book) {
-		// TODO Auto-generated method stub
-		return null;
+		final Book savedBook = bookRepository.save(book);
+		return ResponseEntity.ok(savedBook);
 	}
 
 	/**
@@ -43,8 +43,11 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public ResponseEntity<Book> getBookByIsbn(String isbn)
 		throws BookNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		final Book book = bookRepository.findById(isbn)
+			.orElseThrow(() -> new BookNotFoundException(
+							String.format("book with isbn % not found", isbn)
+						));
+		return ResponseEntity.ok(book);
 	}
 
 	/**
@@ -57,8 +60,11 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public ResponseEntity<Book> getBookByName(String name)
 		throws BookNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		final Book book = bookRepository.findByName(name)
+			.orElseThrow(() -> new BookNotFoundException(
+							String.format("book with name %s not found", name)
+						));
+		return ResponseEntity.ok(book);
 	}
 
 	/**
@@ -69,8 +75,8 @@ public class BookServiceImpl implements BookService {
 	 */
 	@Override
 	public ResponseEntity<List<Book>> getBooks() {
-		// TODO Auto-generated method stub
-		return null;
+		final List<Book> books = bookRepository.findAll();
+		return ResponseEntity.ok(books);
 	}
 
 	/**
@@ -84,8 +90,21 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public ResponseEntity<Book> updateBookByIsbn(String isbn, Book updatedBook)
 		throws BookNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		Book book = bookRepository.findById(isbn)
+			.orElseThrow(() -> new BookNotFoundException(
+							String.format("book with isbn % not found", isbn)
+						));
+
+		book.setName(updatedBook.getName());
+		book.setAuthorName(updatedBook.getAuthorName());
+		book.setPublisherName(updatedBook.getPublisherName());
+		book.setPagesNumber(updatedBook.getPagesNumber());
+		book.setPublicationDate(updatedBook.getPublicationDate());
+		book.setPrice(updatedBook.getPrice());
+		book.setAvailableUnits(updatedBook.getAvailableUnits());
+
+		book = bookRepository.save(book);
+		return ResponseEntity.ok(book);
 	}
 
 	/**
@@ -98,7 +117,12 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public ResponseEntity<?> deleteBookByIsbn(String isbn)
 		throws BookNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		Book book = bookRepository.findById(isbn)
+			.orElseThrow(() -> new BookNotFoundException(
+							String.format("book with isbn % not found", isbn)
+						));
+		bookRepository.delete(book);
+
+		return ResponseEntity.noContent().build();
 	}
 }

@@ -18,7 +18,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
 
-	//TODO: impement the external (client) behavior
+	//TODO: impement the external (client) behavior [purchases number]
 	private TransactionRepository transactionRepository;
 
 	/**
@@ -30,7 +30,8 @@ public class TransactionServiceImpl implements TransactionService {
 	 */
 	@Override
 	public ResponseEntity<Transaction> createTransaction(Transaction transaction) {
-		Transaction savedTrasaction = transactionRepository.save(transaction);
+		final Transaction savedTrasaction =
+			transactionRepository.save(transaction);
 		return ResponseEntity.ok(savedTrasaction);
 	}
 
@@ -44,7 +45,7 @@ public class TransactionServiceImpl implements TransactionService {
 	@Override
 	public ResponseEntity<Transaction> getTransactionById(Long id)
 		throws TransactionNotFoundException {
-		Transaction transaction = transactionRepository.findById(id)
+		final Transaction transaction = transactionRepository.findById(id)
 			.orElseThrow(() -> new TransactionNotFoundException(
 							String.format("transaction with id %d not found",
 								id)
@@ -60,7 +61,7 @@ public class TransactionServiceImpl implements TransactionService {
 	 */
 	@Override
 	public ResponseEntity<List<Transaction>> getTransactions() {
-		List<Transaction> transactions = transactionRepository.findAll();
+		final List<Transaction> transactions = transactionRepository.findAll();
 		return ResponseEntity.ok(transactions);
 	}
 

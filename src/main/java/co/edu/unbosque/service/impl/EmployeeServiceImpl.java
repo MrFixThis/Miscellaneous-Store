@@ -30,8 +30,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public ResponseEntity<Employee> createEmployee(
 			Employee empolyee) {
-		Employee savedEmployee =
-			empolyeeRepository.save(empolyee);
+		final Employee savedEmployee = empolyeeRepository.save(empolyee);
 		return ResponseEntity.ok(savedEmployee);
 	}
 
@@ -45,7 +44,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public ResponseEntity<Employee> getEmployeeById(Long id)
 		throws EmployeeNotFoundException {
-		Employee empolyee = empolyeeRepository.findById(id)
+		final Employee empolyee = empolyeeRepository.findById(id)
 			.orElseThrow(() -> new EmployeeNotFoundException(
 						String.format("empolyee with id %d not found",id)));
 		return ResponseEntity.ok(empolyee);
@@ -59,7 +58,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 */
 	@Override
 	public ResponseEntity<List<Employee>> getEmployees() {
-		List<Employee> empolyees = empolyeeRepository.findAll();
+		final List<Employee> empolyees = empolyeeRepository.findAll();
 		return ResponseEntity.ok(empolyees);
 	}
 

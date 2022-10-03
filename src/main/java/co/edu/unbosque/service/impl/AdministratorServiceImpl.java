@@ -30,7 +30,7 @@ public class AdministratorServiceImpl implements AdministratorService {
 	@Override
 	public ResponseEntity<Administrator> createAdministrator(
 			Administrator administrator) {
-		Administrator savedAdministrator =
+		final Administrator savedAdministrator =
 			administratorRepository.save(administrator);
 		return ResponseEntity.ok(savedAdministrator);
 	}
@@ -45,7 +45,7 @@ public class AdministratorServiceImpl implements AdministratorService {
 	@Override
 	public ResponseEntity<Administrator> getAdministratorById(Long id)
 		throws AdministratorNotFoundException {
-		Administrator administrator = administratorRepository.findById(id)
+		final Administrator administrator = administratorRepository.findById(id)
 			.orElseThrow(() -> new AdministratorNotFoundException(
 						String.format("administrator with id %d not found",id)));
 		return ResponseEntity.ok(administrator);
@@ -59,7 +59,7 @@ public class AdministratorServiceImpl implements AdministratorService {
 	 */
 	@Override
 	public ResponseEntity<List<Administrator>> getAdministrators() {
-		List<Administrator> administrators = administratorRepository.findAll();
+		final List<Administrator> administrators = administratorRepository.findAll();
 		return ResponseEntity.ok(administrators);
 	}
 

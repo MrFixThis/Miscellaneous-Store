@@ -30,7 +30,7 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 	@Override
 	public ResponseEntity<BranchOffice> createBranchOffice(
 			BranchOffice branchOffice) {
-		BranchOffice savedBranchOffice =
+		final BranchOffice savedBranchOffice =
 			branchOfficeRepository.save(branchOffice);
 		return ResponseEntity.ok(savedBranchOffice);
 	}
@@ -45,7 +45,7 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 	@Override
 	public ResponseEntity<BranchOffice> getBranchOfficeById(Long id)
 		throws BranchOfficeNotFoundException {
-		BranchOffice branchOffice = branchOfficeRepository.findById(id)
+		final BranchOffice branchOffice = branchOfficeRepository.findById(id)
 			.orElseThrow(() -> new BranchOfficeNotFoundException(
 							String.format("branch office with id %d not found",
 								id)
@@ -61,7 +61,7 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 	 */
 	@Override
 	public ResponseEntity<List<BranchOffice>> getBranchOffices() {
-		List<BranchOffice> branchOffices = branchOfficeRepository.findAll();
+		final List<BranchOffice> branchOffices = branchOfficeRepository.findAll();
 		return ResponseEntity.ok(branchOffices);
 	}
 

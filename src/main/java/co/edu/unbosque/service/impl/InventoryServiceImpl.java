@@ -29,7 +29,7 @@ public class InventoryServiceImpl implements InventoryService {
 	 */
 	@Override
 	public ResponseEntity<Inventory> createInventory(Inventory inventory) {
-		Inventory savedInventory = inventoryRepository.save(inventory);
+		final Inventory savedInventory = inventoryRepository.save(inventory);
 		return ResponseEntity.ok(savedInventory);
 	}
 
@@ -43,7 +43,7 @@ public class InventoryServiceImpl implements InventoryService {
 	@Override
 	public ResponseEntity<Inventory> getInventoryById(Long id)
 		throws InventoryNotFoundException {
-		Inventory inventory = inventoryRepository.findById(id)
+		final Inventory inventory = inventoryRepository.findById(id)
 			.orElseThrow(() -> new InventoryNotFoundException(
 							String.format("inventory wit id %d not found", id)
 						));
@@ -58,7 +58,7 @@ public class InventoryServiceImpl implements InventoryService {
 	 */
 	@Override
 	public ResponseEntity<List<Inventory>> getInventories() {
-		List<Inventory> inventories = inventoryRepository.findAll();
+		final List<Inventory> inventories = inventoryRepository.findAll();
 		return ResponseEntity.ok(inventories);
 	}
 

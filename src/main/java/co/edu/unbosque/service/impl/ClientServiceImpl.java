@@ -29,7 +29,7 @@ public class ClientServiceImpl implements ClientService {
 	 */
 	@Override
 	public ResponseEntity<Client> createClient(Client client) {
-		Client savedClient = clientRepository.save(client);
+		final Client savedClient = clientRepository.save(client);
 		return ResponseEntity.ok(savedClient);
 	}
 
@@ -43,7 +43,7 @@ public class ClientServiceImpl implements ClientService {
 	@Override
 	public ResponseEntity<Client> getClientById(Long id)
 		throws ClientNotFoundException {
-		Client client = clientRepository.findById(id)
+		final Client client = clientRepository.findById(id)
 			.orElseThrow(() -> new ClientNotFoundException(
 							String.format("client with id %d not found", id)));
 		return ResponseEntity.ok(client);
@@ -57,7 +57,7 @@ public class ClientServiceImpl implements ClientService {
 	 */
 	@Override
 	public ResponseEntity<List<Client>> getClients() {
-		List<Client> clients = clientRepository.findAll();
+		final List<Client> clients = clientRepository.findAll();
 		return ResponseEntity.ok(clients);
 	}
 

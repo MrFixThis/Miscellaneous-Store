@@ -29,8 +29,9 @@ public class VinylRecordServiceImpl implements VinylRecordService {
 	 */
 	@Override
 	public ResponseEntity<VinylRecord> createVinylRecord(VinylRecord vinylRecord) {
-		// TODO Auto-generated method stub
-		return null;
+		final VinylRecord savedVinylRecord =
+			vinylRecordRepository.save(vinylRecord);
+		return ResponseEntity.ok(savedVinylRecord);
 	}
 
 	/**
@@ -43,8 +44,12 @@ public class VinylRecordServiceImpl implements VinylRecordService {
 	@Override
 	public ResponseEntity<VinylRecord> getVinylRecordById(Long id)
 		throws VinylRecordNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		final VinylRecord vinylRecord = vinylRecordRepository.findById(id)
+			.orElseThrow(() -> new VinylRecordNotFoundException(
+							String.format("vinylRecord with id %d not found",
+								id)
+							));
+		return ResponseEntity.ok(vinylRecord);
 	}
 
 	/**
@@ -57,8 +62,12 @@ public class VinylRecordServiceImpl implements VinylRecordService {
 	@Override
 	public ResponseEntity<VinylRecord> getVinylRecordByName(String name)
 		throws VinylRecordNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		final VinylRecord vinylRecord = vinylRecordRepository.findByName(name)
+			.orElseThrow(() -> new VinylRecordNotFoundException(
+							String.format("vinylRecord with name %s not found",
+								name)
+							));
+		return ResponseEntity.ok(vinylRecord);
 	}
 
 	/**
@@ -69,8 +78,8 @@ public class VinylRecordServiceImpl implements VinylRecordService {
 	 */
 	@Override
 	public ResponseEntity<List<VinylRecord>> getVinylRecords() {
-		// TODO Auto-generated method stub
-		return null;
+		final List<VinylRecord> vinylRecords = vinylRecordRepository.findAll();
+		return ResponseEntity.ok(vinylRecords);
 	}
 
 	/**
@@ -85,8 +94,22 @@ public class VinylRecordServiceImpl implements VinylRecordService {
 	public ResponseEntity<VinylRecord> updateVinylRecordById(Long id,
 			VinylRecord updatedVinylRecord)
 			throws VinylRecordNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		VinylRecord vinylRecord = vinylRecordRepository.findById(id)
+			.orElseThrow(() -> new VinylRecordNotFoundException(
+							String.format("vinylRecord with id %d not found",
+								id)
+							));
+
+		vinylRecord.setRecordProductionName(
+				updatedVinylRecord.getRecordProductionName());
+		vinylRecord.setArtistGroupName(updatedVinylRecord.getArtistGroupName());
+		vinylRecord.setPublicationDate(updatedVinylRecord.getPublicationDate());
+		vinylRecord.setMusicalGenre(updatedVinylRecord.getMusicalGenre());
+		vinylRecord.setPrice(updatedVinylRecord.getPrice());
+		vinylRecord.setAvailableUnits(updatedVinylRecord.getAvailableUnits());
+
+		vinylRecord = vinylRecordRepository.save(vinylRecord);
+		return ResponseEntity.ok(vinylRecord);
 	}
 
 	/**
@@ -99,7 +122,13 @@ public class VinylRecordServiceImpl implements VinylRecordService {
 	@Override
 	public ResponseEntity<?> deleteVinylRecordById(Long id)
 		throws VinylRecordNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		VinylRecord vinylRecord = vinylRecordRepository.findById(id)
+			.orElseThrow(() -> new VinylRecordNotFoundException(
+							String.format("vinylRecord with id %d not found",
+								id)
+							));
+		vinylRecordRepository.delete(vinylRecord);
+
+		return ResponseEntity.noContent().build();
 	}
 }
