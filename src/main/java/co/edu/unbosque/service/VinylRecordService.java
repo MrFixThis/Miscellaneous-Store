@@ -36,7 +36,7 @@ public interface VinylRecordService {
 	 *
 	 * @param name the name of the VinylRecord entity to retrive
 	 * @return the result of the CRUD's retrive operation over VinylRecord
-	 * @see co.edu.unbosque.repository.VinylRecordRepository#findByName(String)
+	 * @see co.edu.unbosque.repository.VinylRecordRepository#findByRecordProductionName(String)
 	 */
 	ResponseEntity<VinylRecord> getVinylRecordByName(String name)
 		throws VinylRecordNotFoundException;
