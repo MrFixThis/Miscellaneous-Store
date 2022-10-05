@@ -60,12 +60,20 @@
 				</h5>
 				<div class="container mt-4">
 					<div class="form-floating">
-					  <textarea class="form-control" placeholder="Leave a comment here"
-						  id="floatingTextarea2" style="resize:none; height: 100px; background-color: #f0f5f4"
-						  maxlength="255">
-					  </textarea>
-					  <label class="text-muted" for="floatingTextarea2">What's in the inventory?</label>
+					  <textarea class="form-control"id="floatingTextarea2"
+							style="resize:none; height: 100px; background-color: #f0f5f4"
+						  maxlength="255"></textarea>
+					  <label class="text-muted" for="floatingTextarea2">What's mainly in the inventory?</label>
 					</div>
+				</div>
+				<h5 class="h5 text-muted text-center mt-4">
+					<strong>Products specification</strong>
+				</h5>
+				<h6 class="h6 text-muted text-center mt-4">
+					Magazines
+				</h6>
+				<div class="container mt-4">
+					
 				</div>
 			</div>
 		</div>

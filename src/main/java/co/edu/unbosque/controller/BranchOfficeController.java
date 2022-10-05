@@ -40,26 +40,6 @@ public class BranchOfficeController {
 			administratorServiceImpl.getAdministrators().getBody();
 		model.addAttribute("administrators", administrators);
 
-		Administrator a = new Administrator();
-		a.setId(1L);
-		a.setFirstName("Bryan");
-		a.setPaternalLastName("Baronesuhasoetu");
-
-		administrators.add(a);
-		administrators.add(a);
-		administrators.add(a);
-		administrators.add(a);
-		administrators.add(a);
-		administrators.add(a);
-		administrators.add(a);
-		administrators.add(a);
-		administrators.add(a);
-		administrators.add(a);
-		administrators.add(a);
-		administrators.add(a);
-		administrators.add(a);
-		administrators.add(a);
-
 		return "branchOfficeActions";
 	}
 }
