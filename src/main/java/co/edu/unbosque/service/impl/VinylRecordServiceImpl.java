@@ -53,14 +53,14 @@ public class VinylRecordServiceImpl implements VinylRecordService {
 	}
 
 	/**
-	 * Retrives a name-specified VinylRecord entity
+	 * Retrives a record production name-specified VinylRecord entity
 	 *
-	 * @param recordProductionName the name of the VinylRecord entity to retrive
+	 * @param recordProductionName the record production name of the VinylRecord entity to retrive
 	 * @return the result of the CRUD's retrive operation over VinylRecord
 	 * @see co.edu.unbosque.repository.VinylRecordRepository#findByRecordProductionName(String)
 	 */
 	@Override
-	public ResponseEntity<VinylRecord> getVinylRecordByName(
+	public ResponseEntity<VinylRecord> getVinylRecordByRecordProductionName(
 			String recordProductionName) throws VinylRecordNotFoundException {
 		final VinylRecord vinylRecord =
 			vinylRecordRepository.findByRecordProductionName(recordProductionName)

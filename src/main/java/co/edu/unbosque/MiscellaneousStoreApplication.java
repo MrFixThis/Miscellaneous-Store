@@ -5,6 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
+/**
+ * @author Bryan Baron
+ */
 @SpringBootApplication
 public class MiscellaneousStoreApplication extends SpringBootServletInitializer {
 

@@ -12,7 +12,7 @@ import co.edu.unbosque.entity.VinylRecord;
 public interface VinylRecordRepository extends JpaRepository<VinylRecord, Long> {
 
 	/**
-	 * Retrieves a vinyl record by its name.
+	 * Retrieves a vinyl record by its record production name.
 	 *
 	 * @param recordProductionName must not be {@literal null}.
 	 * @return the entity with the given id or {@literal Optional#empty()} if none found.

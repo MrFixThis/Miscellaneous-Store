@@ -34,6 +34,12 @@ public class Administrator {
 	@Column(name = "middle_name", length = 80, nullable = true)
 	private String middleName;
 
+	@Column(name = "paternal_last_name", length = 80, nullable = false)
+	private String paternalLastName;
+
+	@Column(name = "maternal_last_name", length = 80, nullable = true)
+	private String maternalLastName;
+
 	@Column(name = "identification_number", length = 25, nullable = false)
 	private String identificationNumber;
 
