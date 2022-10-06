@@ -11,7 +11,7 @@
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 	  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 		<li class="nav-item dropdown">
-		  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+		  <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
 			   aria-expanded="false">Branch Offices
 		  </a>
 		  <ul class="dropdown-menu">
@@ -21,13 +21,13 @@
 		  </ul>
 		</li>
 		<li class="nav-item dropdown">
-		  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+		  <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
 			  aria-expanded="false">Employees
 		  </a>
 		  <ul class="dropdown-menu">
-			<li><a class="dropdown-item" href="#">Administrators</a></li>
+			<li><a class="dropdown-item" href="/administrators">Administrators</a></li>
 			<li><hr class="dropdown-divider"></li>
-			<li><a class="dropdown-item" href="#">Workers</a></li>
+			<li><a class="dropdown-item" href="/workers">Workers</a></li>
 		  </ul>
 		</li>
 		<li class="nav-item">

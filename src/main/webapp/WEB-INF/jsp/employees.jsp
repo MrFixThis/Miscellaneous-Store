@@ -11,7 +11,7 @@
 			<div class="container mt-4">
 				<h1 class="h1 text-center">
 					<span class="badge" style="background-color: #dee34d">
-						Register New Branch Office
+						Employees
 					</span>
 				</h1>
 			</div>
@@ -19,7 +19,17 @@
 		<div class="text-success"><hr class="w-50 mx-auto"></div>
 		<div class="continer mt-4">
 			<h3 class="h3 text-muted text-center">
-				<strong>Administrator Specification</strong>
+				<strong>
+					<c:choose>
+						<c:when test="${type.equals('administrator')}">
+							Administrator
+						</c:when>
+						<c:otherwise>
+							Worker
+						</c:otherwise>
+					</c:choose>
+					List
+				</strong>
 			</h3>
 			<div class="container justify-content-md-center">
 				<c:choose>
@@ -55,10 +65,20 @@
 					<c:otherwise>
 						<div class="container mt-4">
 							<h5 class="h5 text-center text-muted">
-								<em>There is no administrators registered</em>
+								<em>There is no
+									<c:choose>
+										<c:when test="${type.equals('administrator')}">
+											administrators
+										</c:when>
+										<c:otherwise>
+											workers
+										</c:otherwise>
+									</c:choose>
+									registered
+								</em>
 							</h5>
 							<div class="container mt-4 text-center">
-								<form action="/administrators/new">
+								<form action="/${endpoint_sfx}/new">
 									<input type="submit" value="Register New"
 										class="btn btn-outline-primary btn-sm">
 								</form>

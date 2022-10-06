@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import co.edu.unbosque.entity.Administrator;
-import co.edu.unbosque.exception.AdministratorNotFoundException;
+import co.edu.unbosque.exception.EmployeeNotFoundException;
 
 /**
  * @author Bryan Baron
@@ -30,7 +30,7 @@ public interface AdministratorService {
 	 * @see co.edu.unbosque.repository.AdministratorRepository#findById(Long)
 	 */
 	ResponseEntity<Administrator> getAdministratorById(Long id)
-			throws AdministratorNotFoundException;
+			throws EmployeeNotFoundException;
 
 	/**
 	 * Retrives all the Administrator entities
@@ -50,7 +50,7 @@ public interface AdministratorService {
 	 */
 	ResponseEntity<Administrator> updateAdministratorById(Long id,
 			Administrator updatedAdministrator)
-			throws AdministratorNotFoundException;
+			throws EmployeeNotFoundException;
 
 	/**
 	 * Deletes an id-specified Administrator entity
@@ -60,5 +60,5 @@ public interface AdministratorService {
 	 * @see co.edu.unbosque.repository.AdministratorRepository#deleteById(Long)
 	 */
 	ResponseEntity<?> deleteAdministratorById(Long id)
-			throws AdministratorNotFoundException;
+			throws EmployeeNotFoundException;
 }

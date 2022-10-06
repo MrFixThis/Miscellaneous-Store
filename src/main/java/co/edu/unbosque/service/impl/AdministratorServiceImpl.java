@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import co.edu.unbosque.entity.Administrator;
-import co.edu.unbosque.exception.AdministratorNotFoundException;
+import co.edu.unbosque.exception.EmployeeNotFoundException;
 import co.edu.unbosque.repository.AdministratorRepository;
 import co.edu.unbosque.service.AdministratorService;
 import lombok.AllArgsConstructor;
@@ -44,9 +44,9 @@ public class AdministratorServiceImpl implements AdministratorService {
 	 */
 	@Override
 	public ResponseEntity<Administrator> getAdministratorById(Long id)
-		throws AdministratorNotFoundException {
+		throws EmployeeNotFoundException {
 		final Administrator administrator = administratorRepository.findById(id)
-			.orElseThrow(() -> new AdministratorNotFoundException(
+			.orElseThrow(() -> new EmployeeNotFoundException(
 						String.format("administrator with id %d not found",id)));
 		return ResponseEntity.ok(administrator);
 	}
@@ -74,9 +74,9 @@ public class AdministratorServiceImpl implements AdministratorService {
 	@Override
 	public ResponseEntity<Administrator> updateAdministratorById(
 			Long id, Administrator updatedAdministrator)
-			throws AdministratorNotFoundException {
+			throws EmployeeNotFoundException {
 		Administrator administrator = administratorRepository.findById(id)
-			.orElseThrow(() -> new AdministratorNotFoundException(
+			.orElseThrow(() -> new EmployeeNotFoundException(
 						String.format("administrator with id %d not found",id)));
 
 		administrator.setFirstName(updatedAdministrator.getFirstName());
@@ -105,9 +105,9 @@ public class AdministratorServiceImpl implements AdministratorService {
 	 */
 	@Override
 	public ResponseEntity<?> deleteAdministratorById(Long id)
-		throws AdministratorNotFoundException {
+		throws EmployeeNotFoundException {
 		Administrator administrator = administratorRepository.findById(id)
-			.orElseThrow(() -> new AdministratorNotFoundException(
+			.orElseThrow(() -> new EmployeeNotFoundException(
 						String.format("administrator with id %d not found",id)));
 		administratorRepository.delete(administrator);
 

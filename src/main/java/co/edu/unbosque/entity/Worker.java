@@ -23,11 +23,11 @@ import lombok.NoArgsConstructor;
  * @athor Bryan Baron
  */
 @Entity
-@Table(name = "employee")
+@Table(name = "worker")
 @Data
 @NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Employee {
+public class Worker {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

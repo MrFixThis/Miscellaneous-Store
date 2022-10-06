@@ -126,7 +126,7 @@ CREATE TABLE IF NOT EXISTS miscellaneous_store_db.branch_office_clients (
     ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS miscellaneous_store_db.employee (
+CREATE TABLE IF NOT EXISTS miscellaneous_store_db.worker (
   id BIGINT AUTO_INCREMENT,
   first_name VARCHAR(80) NOT NULL,
   middle_name VARCHAR(80),
@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS miscellaneous_store_db.employee (
   basic_salary VARCHAR(255) NOT NULL,
   branch_office_id BIGINT NOT NULL,
   PRIMARY KEY(id),
-  CONSTRAINT fk_employee_branch_office FOREIGN KEY (branch_office_id)
+  CONSTRAINT fk_worker_branch_office FOREIGN KEY (branch_office_id)
     REFERENCES miscellaneous_store_db.branch_office(id)
     ON UPDATE CASCADE ON DELETE CASCADE
 );
