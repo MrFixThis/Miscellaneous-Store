@@ -45,7 +45,7 @@ public class InventoryServiceImpl implements InventoryService {
 		throws InventoryNotFoundException {
 		final Inventory inventory = inventoryRepository.findById(id)
 			.orElseThrow(() -> new InventoryNotFoundException(
-							String.format("inventory wit id %d not found", id)
+							String.format("Inventory with id %d not found", id)
 						));
 		return ResponseEntity.ok(inventory);
 	}
@@ -76,7 +76,7 @@ public class InventoryServiceImpl implements InventoryService {
 			throws InventoryNotFoundException {
 		Inventory inventory = inventoryRepository.findById(id)
 			.orElseThrow(() -> new InventoryNotFoundException(
-							String.format("inventory wit id %d not found", id)
+							String.format("Inventory with id %d not found", id)
 						));
 
 		inventory.setDescription(updatedInventory.getDescription());
@@ -97,7 +97,7 @@ public class InventoryServiceImpl implements InventoryService {
 		throws InventoryNotFoundException {
 		Inventory inventory = inventoryRepository.findById(id)
 			.orElseThrow(() -> new InventoryNotFoundException(
-							String.format("inventory wit id %d not found", id)
+							String.format("Inventory with id %d not found", id)
 						));
 		inventoryRepository.delete(inventory);
 

@@ -45,7 +45,7 @@ public class BookServiceImpl implements BookService {
 		throws BookNotFoundException {
 		final Book book = bookRepository.findById(isbn)
 			.orElseThrow(() -> new BookNotFoundException(
-							String.format("book with isbn % not found", isbn)
+							String.format("Book with isbn % not found", isbn)
 						));
 		return ResponseEntity.ok(book);
 	}
@@ -92,7 +92,7 @@ public class BookServiceImpl implements BookService {
 		throws BookNotFoundException {
 		Book book = bookRepository.findById(isbn)
 			.orElseThrow(() -> new BookNotFoundException(
-							String.format("book with isbn % not found", isbn)
+							String.format("Book with isbn % not found", isbn)
 						));
 
 		book.setName(updatedBook.getName());
@@ -119,7 +119,7 @@ public class BookServiceImpl implements BookService {
 		throws BookNotFoundException {
 		Book book = bookRepository.findById(isbn)
 			.orElseThrow(() -> new BookNotFoundException(
-							String.format("book with isbn % not found", isbn)
+							String.format("Book with isbn % not found", isbn)
 						));
 		bookRepository.delete(book);
 

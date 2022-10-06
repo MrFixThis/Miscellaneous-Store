@@ -55,6 +55,7 @@
 				<h3 class="h3 text-muted text-center mt-4">
 					<strong>Inventory Creation</strong>
 				</h3>
+				<div class="text-success"><hr class="w-25 mx-auto"></div>
 				<h5 class="h5 text-muted text-center mt-4">
 					<strong>Description of the inventory</strong>
 				</h5>
@@ -66,6 +67,7 @@
 					  <label class="text-muted" for="floatingTextarea2">What's mainly in the inventory?</label>
 					</div>
 				</div>
+				<div class="text-success"><hr class="w-50 mx-auto"></div>
 				<h5 class="h5 text-muted text-center mt-4">
 					<strong>Products specification</strong>
 				</h5>

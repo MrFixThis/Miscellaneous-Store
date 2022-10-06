@@ -46,7 +46,7 @@ public class VinylRecordServiceImpl implements VinylRecordService {
 		throws VinylRecordNotFoundException {
 		final VinylRecord vinylRecord = vinylRecordRepository.findById(id)
 			.orElseThrow(() -> new VinylRecordNotFoundException(
-							String.format("vinylRecord with id %d not found",
+							String.format("Vinyl record with id %d not found",
 								id)
 							));
 		return ResponseEntity.ok(vinylRecord);
@@ -97,7 +97,7 @@ public class VinylRecordServiceImpl implements VinylRecordService {
 			throws VinylRecordNotFoundException {
 		VinylRecord vinylRecord = vinylRecordRepository.findById(id)
 			.orElseThrow(() -> new VinylRecordNotFoundException(
-							String.format("vinylRecord with id %d not found",
+							String.format("Vinyl record with id %d not found",
 								id)
 							));
 
@@ -125,7 +125,7 @@ public class VinylRecordServiceImpl implements VinylRecordService {
 		throws VinylRecordNotFoundException {
 		VinylRecord vinylRecord = vinylRecordRepository.findById(id)
 			.orElseThrow(() -> new VinylRecordNotFoundException(
-							String.format("vinylRecord with id %d not found",
+							String.format("Vinyl record with id %d not found",
 								id)
 							));
 		vinylRecordRepository.delete(vinylRecord);

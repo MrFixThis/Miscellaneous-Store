@@ -28,7 +28,8 @@
 										<p class="card-text">Managed by ${branchOffice.getAdministrator()
 											.getFirstName()} ${branchOffice.getAdministrator()
 											.getPaternalLastName()}</p>
-										<a href="#" class="btn btn-primary">See more</a>
+										<a href="/branch_offices/${branchOffice.getId()}"
+											class="btn btn-primary">See more</a>
 									  </div>
 									</div>
 								</div>

@@ -46,7 +46,7 @@ public class WorkerServiceImpl implements WorkerService {
 		throws EmployeeNotFoundException {
 		final Worker worker = workerRepository.findById(id)
 			.orElseThrow(() -> new EmployeeNotFoundException(
-						String.format("worker with id %d not found",id)));
+						String.format("Worker with id %d not found",id)));
 		return ResponseEntity.ok(worker);
 	}
 
@@ -76,7 +76,7 @@ public class WorkerServiceImpl implements WorkerService {
 			throws EmployeeNotFoundException {
 		Worker worker = workerRepository.findById(id)
 			.orElseThrow(() -> new EmployeeNotFoundException(
-						String.format("worker with id %d not found",id)));
+						String.format("Worker with id %d not found",id)));
 
 		worker.setFirstName(updatedWorker.getFirstName());
 		worker.setMiddleName(updatedWorker.getMiddleName());
@@ -107,7 +107,7 @@ public class WorkerServiceImpl implements WorkerService {
 		throws EmployeeNotFoundException {
 		Worker worker = workerRepository.findById(id)
 			.orElseThrow(() -> new EmployeeNotFoundException(
-						String.format("worker with id %d not found",id)));
+						String.format("Worker with id %d not found",id)));
 		workerRepository.delete(worker);
 
 		return ResponseEntity.noContent().build();

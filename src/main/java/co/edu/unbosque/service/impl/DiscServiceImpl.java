@@ -45,7 +45,7 @@ public class DiscServiceImpl implements DiscService {
 		throws DiscNotFoundException {
 		final Disc disc = discRepository.findById(id)
 			.orElseThrow(() -> new DiscNotFoundException(
-							String.format("disc with id %d not found", id)
+							String.format("Disc with id %d not found", id)
 						));
 		return ResponseEntity.ok(disc);
 	}
@@ -92,7 +92,7 @@ public class DiscServiceImpl implements DiscService {
 			throws DiscNotFoundException {
 		Disc disc = discRepository.findById(id)
 			.orElseThrow(() -> new DiscNotFoundException(
-							String.format("disc with id %d not found", id)
+							String.format("Disc with id %d not found", id)
 						));
 
 		disc.setName(updatedDisc.getName());
@@ -120,7 +120,7 @@ public class DiscServiceImpl implements DiscService {
 		throws DiscNotFoundException {
 		Disc disc = discRepository.findById(id)
 			.orElseThrow(() -> new DiscNotFoundException(
-							String.format("disc with id %d not found", id)
+							String.format("Disc with id %d not found", id)
 						));
 		discRepository.delete(disc);
 

@@ -45,7 +45,7 @@ public class ClientServiceImpl implements ClientService {
 		throws ClientNotFoundException {
 		final Client client = clientRepository.findById(id)
 			.orElseThrow(() -> new ClientNotFoundException(
-							String.format("client with id %d not found", id)));
+							String.format("Client with id %d not found", id)));
 		return ResponseEntity.ok(client);
 	}
 
@@ -74,7 +74,7 @@ public class ClientServiceImpl implements ClientService {
 			Client updatedClient) throws ClientNotFoundException {
 		Client client = clientRepository.findById(id)
 			.orElseThrow(() -> new ClientNotFoundException(
-							String.format("client with id %d not found", id)));
+							String.format("Client with id %d not found", id)));
 
 		client.setFirstName(updatedClient.getFirstName());
 		client.setMiddleName(updatedClient.getMiddleName());
@@ -100,7 +100,7 @@ public class ClientServiceImpl implements ClientService {
 		throws ClientNotFoundException {
 		Client client = clientRepository.findById(id)
 			.orElseThrow(() -> new ClientNotFoundException(
-							String.format("client with id %d not found", id)));
+							String.format("Client with id %d not found", id)));
 		clientRepository.delete(client);
 
 		return ResponseEntity.noContent().build();

@@ -47,7 +47,7 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 		throws BranchOfficeNotFoundException {
 		final BranchOffice branchOffice = branchOfficeRepository.findById(id)
 			.orElseThrow(() -> new BranchOfficeNotFoundException(
-							String.format("branch office with id %d not found",
+							String.format("Branch office with id %d not found",
 								id)
 							));
 		return ResponseEntity.ok(branchOffice);
@@ -79,7 +79,7 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 			throws BranchOfficeNotFoundException {
 		BranchOffice branchOffice = branchOfficeRepository.findById(id)
 			.orElseThrow(() -> new BranchOfficeNotFoundException(
-							String.format("branch office with id %d not found",
+							String.format("Branch office with id %d not found",
 								id)
 							));
 
@@ -102,7 +102,7 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 		throws BranchOfficeNotFoundException {
 		BranchOffice branchOffice = branchOfficeRepository.findById(id)
 			.orElseThrow(() -> new BranchOfficeNotFoundException(
-							String.format("branch office with id %d not found",
+							String.format("Branch office with id %d not found",
 								id)
 							));
 		branchOfficeRepository.delete(branchOffice);

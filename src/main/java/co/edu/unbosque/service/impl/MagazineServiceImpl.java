@@ -45,7 +45,7 @@ public class MagazineServiceImpl implements MagazineService {
 		throws MagazineNotFoundException {
 		final Magazine magazine = magazineRepository.findById(isbn)
 			.orElseThrow(() -> new MagazineNotFoundException(
-							String.format("magazine with isbn % not found", isbn)
+							String.format("Magazine with isbn % not found", isbn)
 						));
 		return ResponseEntity.ok(magazine);
 	}
@@ -94,7 +94,7 @@ public class MagazineServiceImpl implements MagazineService {
 			throws MagazineNotFoundException {
 		Magazine magazine = magazineRepository.findById(isbn)
 			.orElseThrow(() -> new MagazineNotFoundException(
-							String.format("magazine with isbn % not found",
+							String.format("Magazine with isbn % not found",
 								isbn)
 							));
 
@@ -119,7 +119,7 @@ public class MagazineServiceImpl implements MagazineService {
 		throws MagazineNotFoundException {
 		Magazine magazine = magazineRepository.findById(isbn)
 			.orElseThrow(() -> new MagazineNotFoundException(
-							String.format("magazine with isbn % not found",
+							String.format("Magazine with isbn % not found",
 								isbn)
 							));
 		magazineRepository.delete(magazine);

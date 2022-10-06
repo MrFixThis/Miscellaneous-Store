@@ -47,7 +47,7 @@ public class AdministratorServiceImpl implements AdministratorService {
 		throws EmployeeNotFoundException {
 		final Administrator administrator = administratorRepository.findById(id)
 			.orElseThrow(() -> new EmployeeNotFoundException(
-						String.format("administrator with id %d not found",id)));
+						String.format("Administrator with id %d not found",id)));
 		return ResponseEntity.ok(administrator);
 	}
 
@@ -77,7 +77,7 @@ public class AdministratorServiceImpl implements AdministratorService {
 			throws EmployeeNotFoundException {
 		Administrator administrator = administratorRepository.findById(id)
 			.orElseThrow(() -> new EmployeeNotFoundException(
-						String.format("administrator with id %d not found",id)));
+						String.format("Administrator with id %d not found",id)));
 
 		administrator.setFirstName(updatedAdministrator.getFirstName());
 		administrator.setMiddleName(updatedAdministrator.getMiddleName());
@@ -108,7 +108,7 @@ public class AdministratorServiceImpl implements AdministratorService {
 		throws EmployeeNotFoundException {
 		Administrator administrator = administratorRepository.findById(id)
 			.orElseThrow(() -> new EmployeeNotFoundException(
-						String.format("administrator with id %d not found",id)));
+						String.format("Administrator with id %d not found",id)));
 		administratorRepository.delete(administrator);
 
 		return ResponseEntity.noContent().build();
