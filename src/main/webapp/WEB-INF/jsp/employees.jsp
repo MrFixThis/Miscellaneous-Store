@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
 <c:set var="endpoint_sfx" value="${type.equals('administrator') ? 'administrators' : 'workers'}"/>
+<!DOCTYPE html>
 <html lang="en">
     <head>
 		<%@include file="./headContent.jsp"%>
@@ -55,7 +55,7 @@
 						  </tbody>
 						</table>
 						<div class="container mt-4 text-center">
-							<form action="/${endpoint_sfx}/new">
+							<form action="/${endpoint_sfx}/create">
 								<input type="submit" value="Register New"
 									class="btn btn-outline-primary btn-lg">
 							</form>
@@ -71,7 +71,7 @@
 								</em>
 							</h5>
 							<div class="container mt-4 text-center">
-								<form action="/${endpoint_sfx}/new">
+								<form action="/${endpoint_sfx}/create">
 									<input type="submit" value="Register New"
 										class="btn btn-outline-primary btn-sm">
 								</form>
