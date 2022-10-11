@@ -5,6 +5,7 @@ import java.sql.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,13 +37,13 @@ public class Worker {
 	@Column(name = "first_name", length = 80, nullable = false)
 	private String firstName;
 
-	@Column(name = "middle_name", length = 80, nullable = true)
+	@Column(name = "middle_name", length = 80)
 	private String middleName;
 
 	@Column(name = "paternal_last_name", length = 80, nullable = false)
 	private String paternalLastName;
 
-	@Column(name = "maternal_last_name", length = 80, nullable = true)
+	@Column(name = "maternal_last_name", length = 80)
 	private String maternalLastName;
 
 	@Column(name = "identification_number", length = 25, nullable = false)
@@ -63,6 +64,9 @@ public class Worker {
 	@Column(name = "email_address", nullable = false)
 	private String emailAddress;
 
+	@Column(name = "residence_address", nullable = false)
+	private String residenceAddress;
+
 	@Column(name = "role", length = 80, nullable = false)
 	private String role;
 
@@ -70,9 +74,7 @@ public class Worker {
 	private Long basicSalary;
 
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "branch_office_id", referencedColumnName = "id",
-		nullable = false
-	)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "branch_office_id", referencedColumnName = "id")
 	private BranchOffice branchOffice;
 }

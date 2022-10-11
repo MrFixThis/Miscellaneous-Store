@@ -10,7 +10,7 @@
 		<div class="container pt-2">
 			<div class="container mt-4">
 				<h1 class="h1 text-center">
-					<span class="badge" style="background-color: #dee34d">
+					<span class="badge" style="background-color: #46e385">
 						Register New Branch Office
 					</span>
 				</h1>
@@ -41,7 +41,7 @@
 								<em>There is no administrators registered</em>
 							</h5>
 							<div class="container mt-4 text-center">
-								<form action="/administrators/new">
+								<form action="/administrators/create">
 									<input type="submit" value="Register New"
 										class="btn btn-outline-primary btn-sm">
 								</form>

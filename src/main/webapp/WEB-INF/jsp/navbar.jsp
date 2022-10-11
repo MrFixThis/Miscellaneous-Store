@@ -31,7 +31,7 @@
 		  </ul>
 		</li>
 		<li class="nav-item">
-		  <a class="nav-link" href="#" role="button">Clients</a>
+		  <a class="nav-link" href="/clients" role="button">Clients</a>
 		</li>
 	  </ul>
 	</div>

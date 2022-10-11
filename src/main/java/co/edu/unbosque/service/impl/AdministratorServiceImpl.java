@@ -89,6 +89,7 @@ public class AdministratorServiceImpl implements AdministratorService {
 		administrator.setDateOfHire(updatedAdministrator.getDateOfHire());
 		administrator.setPhoneNumber(updatedAdministrator.getPhoneNumber());
 		administrator.setEmailAddress(updatedAdministrator.getEmailAddress());
+		administrator.setResidenceAddress(updatedAdministrator.getResidenceAddress());
 		administrator.setRole(updatedAdministrator.getRole());
 		administrator.setBasicSalary(updatedAdministrator.getBasicSalary());
 

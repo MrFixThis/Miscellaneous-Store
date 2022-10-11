@@ -88,6 +88,7 @@ public class WorkerServiceImpl implements WorkerService {
 		worker.setDateOfHire(updatedWorker.getDateOfHire());
 		worker.setPhoneNumber(updatedWorker.getPhoneNumber());
 		worker.setEmailAddress(updatedWorker.getEmailAddress());
+		worker.setResidenceAddress(updatedWorker.getResidenceAddress());
 		worker.setRole(updatedWorker.getRole());
 		worker.setBasicSalary(updatedWorker.getBasicSalary());
 

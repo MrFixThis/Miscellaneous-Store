@@ -11,7 +11,7 @@
 		<div class="container pt-2">
 			<div class="container mt-4">
 				<h1 class="h1 text-center">
-					<span class="badge" style="background-color: #dee34d">
+					<span class="badge" style="background-color: #e3b64d">
 						Employees
 					</span>
 				</h1>
@@ -54,7 +54,7 @@
 							  </c:forEach>
 						  </tbody>
 						</table>
-						<div class="container mt-4 text-center">
+						<div class="container mt-4 mb-4 text-center">
 							<form action="/${endpoint_sfx}/create">
 								<input type="submit" value="Register New"
 									class="btn btn-outline-primary btn-lg">
@@ -63,17 +63,17 @@
 					</c:when>
 					<c:otherwise>
 						<div class="container mt-4">
-							<h5 class="h5 text-center text-muted">
+							<h2 class="h2 text-center text-muted">
 								<em>
 									There is no
 									${type.equals("administrator") ? "administrators" : "workers"}
 									registered
 								</em>
-							</h5>
+							</h2>
 							<div class="container mt-4 text-center">
 								<form action="/${endpoint_sfx}/create">
 									<input type="submit" value="Register New"
-										class="btn btn-outline-primary btn-sm">
+										class="btn btn-outline-primary">
 								</form>
 							</div>
 						</div>
