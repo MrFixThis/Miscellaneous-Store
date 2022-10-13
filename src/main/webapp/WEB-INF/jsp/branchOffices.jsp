@@ -43,7 +43,7 @@
 							<em>There is no branch offices active</em>
 						</h2>
 						<div class="container mt-4 text-center">
-							<form action="/branch_offices/new">
+							<form action="/branch_offices/create">
 								<input type="submit" value="Register New"
 									class="btn btn-outline-primary">
 							</form>

@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -65,7 +66,8 @@ public class Client {
 	private int purchasesNumber;
 
 	@JsonIgnore
-	@ManyToMany(mappedBy = "clients")
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST},
+		fetch = FetchType.EAGER, mappedBy = "clients")
 	private Set<BranchOffice> branchOffices;
 
 	{

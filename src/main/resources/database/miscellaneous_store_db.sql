@@ -88,8 +88,8 @@ CREATE TABLE IF NOT EXISTS miscellaneous_store_db.vinyl_record (
 
 CREATE TABLE IF NOT EXISTS miscellaneous_store_db.branch_office (
   id BIGINT AUTO_INCREMENT,
-  inventory_id BIGINT,
   administrator_id BIGINT,
+  inventory_id BIGINT,
   PRIMARY KEY(id),
   CONSTRAINT fk_branch_office_inventory FOREIGN KEY (inventory_id)
     REFERENCES miscellaneous_store_db.inventory(id)

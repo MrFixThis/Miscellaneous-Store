@@ -90,38 +90,36 @@
 								value="${client.getPhoneNumber()}" maxlength="15" ${locker}>
 							<span class="input-group-text text-muted">Date of birth</span>
 							<input name="bDay" class="DTD form-control" type="text" maxlength="2" placeholder="DD"
-								value="${bDate.getBDay()}" ${locker}>
+								value="${bDate[2]}" ${locker}>
 							<input name="bMonth" class="DTM form-control" type="text" maxlength="2" placeholder="MM"
-								value="${bDate.getBMonth()}" ${locker}>
+								value="${bDate[1]}" ${locker}>
 							<input name="bYear" class="DTY form-control" type="text" maxlength="4" placeholder="YY"
-								value="${bDate.getBYear()}" ${locker}>
+								value="${bDate[0]}" ${locker}>
 						</div>
 					  </div>
 					</div>
 				</div>
-				<c:if test="${action.equals('get')}">
-					<div class="text-success"><hr class="w-50 mx-auto"></div>
-					<h5 class="h5 text-muted text-center mt-4">
-						<strong>Shopping Information</strong>
-					</h5>
-					<div class="container mt-4">
-						<div class="input-group mb-3">
-							<span class="input-group-text text-muted">Purchases Number</span>
-							<input type="text" name="numberOfPurchases" class="TXT form-control"
-								value="${client.getPurchasesNumber()}" ${locker}>
-							<c:if test="${branchOffices != null}">
+					<c:if test="${action.equals('get')}">
+						<div class="text-success"><hr class="w-50 mx-auto"></div>
+						<h5 class="h5 text-muted text-center mt-4">
+							<strong>Shopping Information</strong>
+						</h5>
+						<div class="container mt-4">
+							<div class="input-group mb-3">
+								<span class="input-group-text text-muted">Purchases Number</span>
+								<input type="text" name="numberOfPurchases" class="TXT form-control"
+									value="${client.getPurchasesNumber()}" ${locker}>
 								<span class="input-group-text text-muted">Client of branch office</span>
-								<select class="form-select" id="floatingSelect" style="background-color: #f0f5f4">
-									<c:forEach items="${branchOffices}" var="branchOffice">
+								<select class="NBR form-select" id="floatingSelect">
+									<c:forEach items="${cBranchOffices}" var="branchOffice">
 										<option value="${branchOffice.getId()}">
 											${branchOffice.getId()}
 										</option>
 									 </c:forEach>
 								</select>
-							</c:if>
+							</div>
 						</div>
-					</div>
-				</c:if>
+					</c:if>
 				<div class="text-success"><hr class="w-50 mx-auto"></div>
 				<div class="container mt-4 text-center">
 					<c:choose>

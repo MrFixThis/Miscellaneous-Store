@@ -74,7 +74,7 @@ public class Worker {
 	private Long basicSalary;
 
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	@JoinColumn(name = "branch_office_id", referencedColumnName = "id")
 	private BranchOffice branchOffice;
 }

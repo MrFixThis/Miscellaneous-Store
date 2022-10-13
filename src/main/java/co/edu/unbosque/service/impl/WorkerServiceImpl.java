@@ -91,6 +91,7 @@ public class WorkerServiceImpl implements WorkerService {
 		worker.setResidenceAddress(updatedWorker.getResidenceAddress());
 		worker.setRole(updatedWorker.getRole());
 		worker.setBasicSalary(updatedWorker.getBasicSalary());
+		worker.setBranchOffice(updatedWorker.getBranchOffice());
 
 		worker = workerRepository.save(worker);
 		return ResponseEntity.ok(worker);

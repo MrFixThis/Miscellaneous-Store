@@ -13,9 +13,10 @@ let submitBtn = document.getElementById("sbtn")
     * Validates the information for all the form's fields
 */
 const fieldValidation = () => {
-    let regexCmn = [/[^A-Za-z0-9 ]/, /\D/]
+    let regexCmn = [/[^A-Za-z0-9 \n]/, /\D/]
+    10
     let regexDt = [
-        /\b((0|[1-2])?[1-9]|3[0-1])\b/,
+        /\b((0|[1-2])?[1-9]|[1-3][0-1])\b/,
         /\b(0?[1-9]|1[0-2])\b/,
         /\b[1-2][0-9][0-9][0-9]\b/
     ]

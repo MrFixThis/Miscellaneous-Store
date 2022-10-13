@@ -1,5 +1,6 @@
 package co.edu.unbosque.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -7,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import co.edu.unbosque.bean.BirthDate;
 import co.edu.unbosque.entity.BranchOffice;
 import co.edu.unbosque.entity.Client;
 import co.edu.unbosque.service.impl.BranchOfficeServiceImpl;
@@ -23,8 +24,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ClientController {
 
-	private BranchOfficeServiceImpl branchOfficeServiceImpl;
 	private ClientServiceImpl clientServiceImpl;
+	private BranchOfficeServiceImpl branchOfficeServiceImpl;
 
 	/**
 	 * 
@@ -41,8 +42,13 @@ public class ClientController {
 	 * 
 	 */
 	@GetMapping("/clients/manage/create")
-	public String createClient(Client newClient, BirthDate birthDate) {
-		newClient.setDateOfBirth(DateManager.createSQLDate(birthDate));
+	public String createClient(Client newClient,
+			@RequestParam(name = "bDay") String bDay,
+			@RequestParam(name = "bMonth") String bMonth,
+			@RequestParam(name = "bYear") String bYear) {
+
+		newClient.setDateOfBirth(Date.valueOf(
+					String.format("%s-%s-%s", bYear, bMonth, bDay)));
 		clientServiceImpl.createClient(newClient);
 
 		return "redirect:/clients";
@@ -52,18 +58,17 @@ public class ClientController {
 	 * 
 	 */
 	@GetMapping("/clients/{id}")
-	public String showClient(@PathVariable(value = "id", required = true)
-			Long id, Model model) {
+	public String showClient(@PathVariable(name = "id") Long id, Model model) {
 		Client client = clientServiceImpl.getClientById(id).getBody();
-		List<BranchOffice> branchOffices =
-			branchOfficeServiceImpl.getBranchOffices().getBody();
-		BirthDate bDate = DateManager.transformStringDate(client.getDateOfBirth()
-				.toString(), new BirthDate());
+		String[] bDate = DateManager.transformStringDate(client.getDateOfBirth()
+				.toString());
+		List<BranchOffice> cBranchOffices =
+			branchOfficeServiceImpl.getBranchOfficesByClientsId(id).getBody();
 
 		model.addAttribute("action", "get");
 		model.addAttribute("client", client);
-		model.addAttribute("branchOffices", branchOffices);
 		model.addAttribute("bDate", bDate);
+		model.addAttribute("cBranchOffices", cBranchOffices);
 
 		return "clientActions";
 	}
@@ -83,11 +88,11 @@ public class ClientController {
 	 * 
 	 */
 	@GetMapping("/clients/update/{id}")
-	public String updateClient(@PathVariable(value = "id", required = true)
-			Long id, Model model) {
+	public String updateClient(@PathVariable(name = "id") Long id,
+			Model model) {
 		Client client = clientServiceImpl.getClientById(id).getBody();
-		BirthDate bDate = DateManager.transformStringDate(client.getDateOfBirth()
-				.toString(), new BirthDate());
+		String[] bDate = DateManager.transformStringDate(client.getDateOfBirth()
+				.toString());
 
 		model.addAttribute("action", "put");
 		model.addAttribute("client", client);
@@ -100,9 +105,14 @@ public class ClientController {
 	 * 
 	 */
 	@GetMapping("/clients/manage/update/{id}")
-	public String updateClient( @PathVariable(value = "id", required = true)
-			Long id, Client updatedClient, BirthDate birthDate) {
-		updatedClient.setDateOfBirth(DateManager.createSQLDate(birthDate));
+	public String updateClient(Client updatedClient,
+			@PathVariable(name = "id") Long id,
+			@RequestParam(name = "bDay") String bDay,
+			@RequestParam(name = "bMonth") String bMonth,
+			@RequestParam(name = "bYear") String bYear) {
+
+		updatedClient.setDateOfBirth(Date.valueOf(
+					String.format("%s-%s-%s", bYear, bMonth, bDay)));
 		clientServiceImpl.updateClientById(id, updatedClient);
 
 		return String.format("redirect:/clients/%d", updatedClient.getId());
@@ -112,8 +122,7 @@ public class ClientController {
 	 * 
 	 */
 	@PostMapping("/clients/manage/delete/{id}")
-	public String deleteClient(
-			@PathVariable(value = "id", required = true) Long id) {
+	public String deleteClient(@PathVariable(name = "id") Long id) {
 		clientServiceImpl.deleteClientById(id);
 		return "redirect:/clients";
 	}

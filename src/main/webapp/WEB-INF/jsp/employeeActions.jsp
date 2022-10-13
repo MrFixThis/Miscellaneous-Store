@@ -97,11 +97,11 @@
 								value="${employee.getEmailAddress()}" maxlength="255" ${locker}>
 							<span class="input-group-text text-muted">Date of birth</span>
 							<input name="bDay" class="DTD form-control" type="text" maxlength="2" placeholder="DD"
-								value="${bDate.getBDay()}" ${locker}>
+								value="${bDate[2]}" ${locker}>
 							<input name="bMonth" class="DTM form-control" type="text" maxlength="2" placeholder="MM"
-								value="${bDate.getBMonth()}" ${locker}>
+								value="${bDate[1]}" ${locker}>
 							<input name="bYear" class="DTY form-control" type="text" maxlength="4" placeholder="YY"
-								value="${bDate.getBYear()}" ${locker}>
+								value="${bDate[0]}" ${locker}>
 						</div>
 					  </div>
 					</div>
@@ -119,12 +119,13 @@
 					<div class="input-group mb-3">
 						<c:if test="${employee.getBranchOffice() != null || type.equals('worker')}">
 							<span class="input-group-text text-muted">Working BO</span>
-							<input type="${boQuantity == 0 ?'text' : 'number'}" name="data" id="wbo"
+							<input type="${boQuantity == 0 ?'text' : 'number'}" name="branchOfficeId" id="wbo"
 								class="NBR form-control ${boQuantity == 0 ? 'is-invalid' : ''}"
 								value="${boQuantity == 0 ? 'No B.Os' : employee.getBranchOffice().getId()}"
 								min="${boQuantity == 0 ? 0 : 1}" max="${boQuantity}"
-								data-bs-toggle="tooltip" data-bs-placement="bottom" title="There is no branch offices active"
-								${type.equals('worker') && action.equals('post') && boQuantity != 0 ? '' : 'readonly'}>
+								${action.equals('post') && boQuantity == 0 ? "data-bs-toggle='tooltip' data-bs-placement='bottom' title='There is no branch offices active'" : ''}
+								onkeydown="return false"
+								${action.equals('post') && boQuantity != 0 ? '' : 'readonly'}>
 						</c:if>
 						<span class="input-group-text text-muted">Basic salary</span>
 						<span class="input-group-text text-muted">$</span>
@@ -132,11 +133,11 @@
 							min="0" value="${employee.getBasicSalary()}" ${locker}>
 						<span class="input-group-text text-muted">Date of hire</span>
 						<input name="hDay" class="DTD form-control" type="text" maxlength="2" placeholder="DD"
-							  value="${hDate.getHDay()}" ${locker}>
+							  value="${hDate[2]}" ${locker}>
 						<input name="hMonth" class="DTM form-control" type="text" maxlength="2" placeholder="MM"
-							value="${hDate.getHMonth()}" ${locker}>
+							value="${hDate[1]}" ${locker}>
 						<input name="hYear" class="DTY form-control" type="text" maxlength="4" placeholder="YY"
-							value="${hDate.getHYear()}" ${locker}>
+							value="${hDate[0]}" ${locker}>
 					</div>
 				</div>
 				<div class="text-success"><hr class="w-50 mx-auto"></div>

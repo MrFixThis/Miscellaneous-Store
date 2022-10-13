@@ -1,5 +1,6 @@
 package co.edu.unbosque.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -7,9 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import co.edu.unbosque.bean.BirthDate;
-import co.edu.unbosque.bean.HireDate;
 import co.edu.unbosque.entity.Administrator;
 import co.edu.unbosque.service.impl.AdministratorServiceImpl;
 import co.edu.unbosque.util.DateManager;
@@ -42,9 +42,17 @@ public class AdministratorController {
 	 */
 	@GetMapping("/administrators/manage/create")
 	public String createAdministrator(Administrator newAdministrator,
-			BirthDate birthDate, HireDate hireDate) {
-		newAdministrator.setDateOfBirth(DateManager.createSQLDate(birthDate));
-		newAdministrator.setDateOfHire(DateManager.createSQLDate(hireDate));
+			@RequestParam(name = "bDay") String bDay,
+			@RequestParam(name = "bMonth") String bMonth,
+			@RequestParam(name = "bYear") String bYear,
+			@RequestParam(name = "hDay") String hDay,
+			@RequestParam(name = "hMonth") String hMonth,
+			@RequestParam(name = "hYear") String hYear) {
+
+		newAdministrator.setDateOfBirth(Date.valueOf(
+					String.format("%s-%s-%s", bYear, bMonth, bDay)));
+		newAdministrator.setDateOfHire(Date.valueOf(
+					String.format("%s-%s-%s", hYear, hMonth, hDay)));
 		administratorServiceImpl.createAdministrator(newAdministrator);
 
 		return "redirect:/administrators";
@@ -54,14 +62,14 @@ public class AdministratorController {
 	 * 
 	 */
 	@GetMapping("/administrators/{id}")
-	public String showAdministrator(@PathVariable(value = "id", required = true)
-			Long id, Model model) {
+	public String showAdministrator(@PathVariable(name = "id") Long id,
+			Model model) {
 		Administrator administrator =
 			administratorServiceImpl.getAdministratorById(id).getBody();
-		BirthDate bDate = DateManager.transformStringDate(
-				administrator.getDateOfBirth().toString(), new BirthDate());
-		HireDate hDate = DateManager.transformStringDate(
-				administrator.getDateOfHire() .toString(), new HireDate());
+		String[] bDate = DateManager.transformStringDate(administrator
+				.getDateOfBirth().toString());
+		String[] hDate = DateManager.transformStringDate(administrator
+				.getDateOfHire().toString());
 
 		model.addAttribute("type", "administrator");
 		model.addAttribute("action", "get");
@@ -89,14 +97,14 @@ public class AdministratorController {
 	 * 
 	 */
 	@GetMapping("/administrators/update/{id}")
-	public String updateAdministrator(@PathVariable(value = "id", required = true)
-			Long id, Model model) {
+	public String updateAdministrator(@PathVariable(name = "id") Long id,
+			Model model) {
 		Administrator administrator =
 			administratorServiceImpl.getAdministratorById(id).getBody();
-		BirthDate bDate = DateManager.transformStringDate(
-				administrator.getDateOfBirth().toString(), new BirthDate());
-		HireDate hDate = DateManager.transformStringDate(
-				administrator.getDateOfHire() .toString(), new HireDate());
+		String[] bDate = DateManager.transformStringDate(administrator
+				.getDateOfBirth().toString());
+		String[] hDate = DateManager.transformStringDate(administrator
+				.getDateOfHire().toString());
 
 		model.addAttribute("type", "administrator");
 		model.addAttribute("action", "put");
@@ -111,11 +119,19 @@ public class AdministratorController {
 	 * 
 	 */
 	@GetMapping("/administrators/manage/update/{id}")
-	public String updateAdministrator(@PathVariable(value = "id", required = true)
-			Long id, Administrator updatedAdministrator, BirthDate birthDate,
-			HireDate hireDate) {
-		updatedAdministrator.setDateOfBirth(DateManager.createSQLDate(birthDate));
-		updatedAdministrator.setDateOfHire(DateManager.createSQLDate(hireDate));
+	public String updateAdministrator(Administrator updatedAdministrator,
+			@PathVariable(name = "id") Long id,
+			@RequestParam(name = "bDay") String bDay,
+			@RequestParam(name = "bMonth") String bMonth,
+			@RequestParam(name = "bYear") String bYear,
+			@RequestParam(name = "hDay") String hDay,
+			@RequestParam(name = "hMonth") String hMonth,
+			@RequestParam(name = "hYear") String hYear) {
+
+		updatedAdministrator.setDateOfBirth(Date.valueOf(
+					String.format("%s-%s-%s", bYear, bMonth, bDay)));
+		updatedAdministrator.setDateOfHire(Date.valueOf(
+					String.format("%s-%s-%s", hYear, hMonth, hDay)));
 		administratorServiceImpl.updateAdministratorById(id, updatedAdministrator);
 
 		return String.format("redirect:/administrators/%d",
@@ -126,8 +142,7 @@ public class AdministratorController {
 	 * 
 	 */
 	@PostMapping("/administrators/manage/delete/{id}")
-	public String deleteAdministrator(@PathVariable(value = "id", required = true)
-			Long id) {
+	public String deleteAdministrator(@PathVariable(name = "id") Long id) {
 		administratorServiceImpl.deleteAdministratorById(id);
 		return "redirect:/administrators";
 	}

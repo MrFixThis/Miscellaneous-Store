@@ -1,8 +1,6 @@
 package co.edu.unbosque.entity;
 
 import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -54,12 +52,8 @@ public class VinylRecord {
 	private Integer availableUnits;
 
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "inventory_id", nullable = false,
-		insertable = false, updatable = false)
-	private Set<Inventory> vinylRecordInventories;
-
-	{
-		vinylRecordInventories = new HashSet<>();
-	}
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "inventory_id", nullable = false, insertable = false,
+		updatable = false)
+	private Inventory vinylRecordInventory;
 }

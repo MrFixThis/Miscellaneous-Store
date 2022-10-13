@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,25 +37,24 @@ public class BranchOffice {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "administrator_id")
 	private Administrator administrator;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "inventory_id")
 	private Inventory inventory;
 
 	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST},
+		fetch = FetchType.EAGER)
 	@JoinTable(
 		name = "branch_office_clients",
 		joinColumns = @JoinColumn(
-					name = "branch_office_id", referencedColumnName = "id",
-					nullable = false
+					name = "branch_office_id", nullable = false
 				),
 		inverseJoinColumns = @JoinColumn(
-					name = "client_id", referencedColumnName = "id",
-					nullable = false
+					name = "client_id", nullable = false
 				)
 	)
 	private Set<Client> clients;

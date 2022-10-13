@@ -40,6 +40,15 @@ public interface ClientService {
 	ResponseEntity<List<Client>> getClients();
 
 	/**
+	 * Retrieves all the Client entities by a BranchOffice's entity id.
+	 *
+	 * @param branchOfficeId the id of the BranchOffice's entity related to Client's entities
+	 * @return the result of the CRUD's retrive operation over Client
+	 * @see co.edu.unbosque.repository.ClientRepository#findClientsByBranchOfficesId(Long)
+	 */
+	ResponseEntity<List<Client>> getClientsByBranchOfficesId(Long branchOfficeId);
+
+	/**
 	 * Updates an id-specified Client entity
 	 *
 	 * @param id the id of the Client entity to update

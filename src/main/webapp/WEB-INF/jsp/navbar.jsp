@@ -17,7 +17,7 @@
 		  <ul class="dropdown-menu">
 			<li><a class="dropdown-item" href="/branch_offices">Active</a></li>
 			<li><hr class="dropdown-divider"></li>
-			<li><a class="dropdown-item" href="/branch_offices/new">Register New</a></li>
+			<li><a class="dropdown-item" href="/branch_offices/create">Register New</a></li>
 		  </ul>
 		</li>
 		<li class="nav-item dropdown">

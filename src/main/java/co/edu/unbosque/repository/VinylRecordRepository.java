@@ -15,7 +15,7 @@ public interface VinylRecordRepository extends JpaRepository<VinylRecord, Long> 
 	 * Retrieves a vinyl record by its record production name.
 	 *
 	 * @param recordProductionName must not be {@literal null}.
-	 * @return the entity with the given id or {@literal Optional#empty()} if none found.
+	 * @return the entity with the given id or {@literal Optional#empty()} if none is found.
 	 * @throws IllegalArgumentException if {@literal name} is {@literal null}.
 	 */
 	Optional<VinylRecord> findByRecordProductionName(String recordProductionName);

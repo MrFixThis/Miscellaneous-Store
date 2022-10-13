@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import co.edu.unbosque.entity.BranchOffice;
 import co.edu.unbosque.exception.BranchOfficeNotFoundException;
+import co.edu.unbosque.exception.ClientNotFoundException;
 import co.edu.unbosque.repository.BranchOfficeRepository;
 import co.edu.unbosque.service.BranchOfficeService;
 import lombok.AllArgsConstructor;
@@ -63,6 +64,26 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 	public ResponseEntity<List<BranchOffice>> getBranchOffices() {
 		final List<BranchOffice> branchOffices = branchOfficeRepository.findAll();
 		return ResponseEntity.ok(branchOffices);
+	}
+
+	/**
+	 * Retrieves all the BranchOffice entities by a Client's entity id.
+	 *
+	 * @param clientId the id of the Client's entity related to BranchOffice's entities
+	 * @return the result of the CRUD's retrive operation over BranchOffice
+	 * @see co.edu.unbosque.repository.BranchOfficeRepository#findBranchOfficesByClientsId(Long)
+	 */
+	@Override
+	public ResponseEntity<List<BranchOffice>> getBranchOfficesByClientsId(
+			Long clientId) {
+		final List<BranchOffice> branchOffices
+			= branchOfficeRepository.findBranchOfficesByClientsId(clientId)
+				.orElseThrow(() -> new ClientNotFoundException(
+								String.format("Client with id %d not found",
+									clientId)
+								));
+		return ResponseEntity.ok(branchOffices);
+
 	}
 
 	/**
