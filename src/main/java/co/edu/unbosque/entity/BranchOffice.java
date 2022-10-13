@@ -41,7 +41,9 @@ public class BranchOffice {
 	@JoinColumn(name = "administrator_id")
 	private Administrator administrator;
 
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = {
+		CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE,
+	})
 	@JoinColumn(name = "inventory_id")
 	private Inventory inventory;
 

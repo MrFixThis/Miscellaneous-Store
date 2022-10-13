@@ -32,12 +32,13 @@ public class WorkerController {
 	 */
 	@GetMapping("/workers/create")
 	public String createWorker(Model model) {
-		int boQuantity = branchOfficeServiceImpl
-			.getBranchOffices().getBody().size();
+		List<BranchOffice> branchOffices = branchOfficeServiceImpl
+			.getBranchOffices().getBody();
+
 		model.addAttribute("type", "worker");
 		model.addAttribute("action", "post");
 		model.addAttribute("employee", null);
-		model.addAttribute("boQuantity", boQuantity);
+		model.addAttribute("branchOffices", branchOffices);
 
 		return "employeeActions";
 	}

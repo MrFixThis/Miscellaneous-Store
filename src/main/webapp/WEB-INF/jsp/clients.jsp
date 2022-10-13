@@ -10,7 +10,7 @@
 		<div class="container pt-2">
 			<div class="container mt-4">
 				<h1 class="h1 text-center">
-					<span class="badge" style="background-color: #d362d9">
+					<span class="badge" style="background-color: #D362D9">
 						Clients
 					</span>
 				</h1>

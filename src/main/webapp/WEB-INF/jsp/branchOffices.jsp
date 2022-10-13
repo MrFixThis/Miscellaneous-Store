@@ -10,7 +10,7 @@
 		<div class="container pt-2">
 			<div class="container mt-4">
 				<h1 class="h1 text-center">
-					<span class="badge" style="background-color: #46e385">
+					<span class="badge" style="background-color: #46E385">
 						Actvie Branch Offices
 					</span>
 				</h1>
@@ -21,15 +21,25 @@
 					<div class="container mt-4">
 						<div class="row justify-content-md-center">
 							<c:forEach items="${branchOffices}" var="branchOffice">
+								<c:set var="isWithoutAdmin" value="${branchOffice.getAdministrator() == null ? true : false}"/>
 								<div class="col-md-auto">
-									<div class="card text-center mb-4" style="width: 18rem; background-color: #FAEFFF">
+									<div class="card text-center mb-4" style="width: 18rem; background-color: ${isWithoutAdmin ? '#FFEFD4' :'#FAEFFF'}">
 									  <div class="card-body">
 										<h5 class="card-title">Branch Office #${branchOffice.getId()}</h5>
-										<p class="card-text">Managed by ${branchOffice.getAdministrator()
-											.getFirstName()} ${branchOffice.getAdministrator()
-											.getPaternalLastName()}</p>
+										<c:choose>
+											<c:when test="${isWithoutAdmin}">
+												<p class="card-text">Without administration</p>
+											</c:when>
+											<c:otherwise>
+												<p class="card-text">Managed by ${branchOffice.getAdministrator()
+													.getFirstName()} ${branchOffice.getAdministrator()
+													.getPaternalLastName()}</p>
+											</c:otherwise>
+										</c:choose>
 										<a href="/branch_offices/${branchOffice.getId()}"
-											class="btn btn-primary">See more</a>
+											class="btn btn-${isWithoutAdmin ? 'warning' : 'primary'}">
+											${isWithoutAdmin ? 'Assign administrator' : 'See more'}
+										</a>
 									  </div>
 									</div>
 								</div>

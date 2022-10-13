@@ -11,7 +11,7 @@
 		<div class="container pt-2">
 			<div class="container mt-4">
 				<h1 class="h1 text-center">
-					<span class="badge" style="background-color: #e3b64d">
+					<span class="badge" style="background-color: #E3B64D">
 						Employees
 					</span>
 				</h1>

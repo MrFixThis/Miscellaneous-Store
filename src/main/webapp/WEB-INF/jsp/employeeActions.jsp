@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="endpoint_sfx" value="${type.equals('administrator') ? 'administrators' : 'workers'}"/>
 <c:set var="tittle_sfx" value="${action.equals('get') ? 'administrators' : 'workers'}"/>
 <c:set var="locker" value="${!(action.equals('post') || action.equals('put')) ? 'readonly' : ''}"/>
@@ -16,7 +17,7 @@
 		<div class="container pt-2">
 			<div class="container mt-4">
 				<h1 class="h1 text-center">
-					<span class="badge" style="background-color: #e3b64d">
+					<span class="badge" style="background-color: #E3B64D">
 						<c:choose>
 							<c:when test="${action.equals('post')}">
 								Register New
@@ -119,13 +120,14 @@
 					<div class="input-group mb-3">
 						<c:if test="${employee.getBranchOffice() != null || type.equals('worker')}">
 							<span class="input-group-text text-muted">Working BO</span>
-							<input type="${boQuantity == 0 ?'text' : 'number'}" name="branchOfficeId" id="wbo"
-								class="NBR form-control ${boQuantity == 0 ? 'is-invalid' : ''}"
-								value="${boQuantity == 0 ? 'No B.Os' : employee.getBranchOffice().getId()}"
-								min="${boQuantity == 0 ? 0 : 1}" max="${boQuantity}"
-								${action.equals('post') && boQuantity == 0 ? "data-bs-toggle='tooltip' data-bs-placement='bottom' title='There is no branch offices active'" : ''}
+							<input type="${branchOffices.size() == 0 ?'text' : 'number'}" name="branchOfficeId" id="wbo"
+								class="NBR form-control ${branchOffices.size() == 0 ? 'is-invalid' : ''}"
+								value="${branchOffices.size() == 0 ? 'No B.Os' : employee.getBranchOffice().getId()}"
+								min="${branchOffices.size() == 0 ? 0 : branchOffices.get(0).getId()}"
+								max="${branchOffices.size() == 0 ? 0 : branchOffices.get(branchOffices.size()-1).getId()}"
+								${action.equals('post') && branchOffices.size() == 0 ? "data-bs-toggle='tooltip' data-bs-placement='bottom' title='There is no branch offices active'" : ''}
 								onkeydown="return false"
-								${action.equals('post') && boQuantity != 0 ? '' : 'readonly'}>
+								${action.equals('post') && branchOffices.size() != 0 ? '' : 'readonly'}>
 						</c:if>
 						<span class="input-group-text text-muted">Basic salary</span>
 						<span class="input-group-text text-muted">$</span>

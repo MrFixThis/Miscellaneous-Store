@@ -73,7 +73,7 @@ public class Administrator {
 	private Long basicSalary;
 
 	@JsonIgnore
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "administrator",
+	@OneToOne(cascade = CascadeType.REFRESH, mappedBy = "administrator",
 		fetch = FetchType.LAZY)
 	private BranchOffice branchOffice;
 }
