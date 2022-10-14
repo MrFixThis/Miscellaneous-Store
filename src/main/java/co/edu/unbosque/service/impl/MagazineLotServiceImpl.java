@@ -1,6 +1,7 @@
 package co.edu.unbosque.service.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -38,10 +39,10 @@ public class MagazineLotServiceImpl implements MagazineLotService {
 	 *
 	 * @param isbn the isbn of the MagazineLot entity to retrive
 	 * @return the result of the CRUD's retrive operation over MagazineLot
-	 * @see co.edu.unbosque.repository.MagazineLotRepository#findById(String)
+	 * @see co.edu.unbosque.repository.MagazineLotRepository#findById(UUID)
 	 */
 	@Override
-	public ResponseEntity<MagazineLot> getMagazineLotByIsbn(String isbn)
+	public ResponseEntity<MagazineLot> getMagazineLotByIsbn(UUID isbn)
 		throws MagazineLotNotFoundException {
 		final MagazineLot magazineLot = magazineLotRepository.findById(isbn)
 			.orElseThrow(() -> new MagazineLotNotFoundException(
@@ -89,7 +90,7 @@ public class MagazineLotServiceImpl implements MagazineLotService {
 	 * @see co.edu.unbosque.repository.MagazineLotRepository#save(MagazineLot)
 	 */
 	@Override
-	public ResponseEntity<MagazineLot> updateMagazineLotByIsbn(String isbn,
+	public ResponseEntity<MagazineLot> updateMagazineLotByIsbn(UUID isbn,
 			MagazineLot updatedMagazineLot)
 			throws MagazineLotNotFoundException {
 		MagazineLot magazineLot = magazineLotRepository.findById(isbn)
@@ -112,10 +113,10 @@ public class MagazineLotServiceImpl implements MagazineLotService {
 	 *
 	 * @param isbn the isbn of the MagazineLot entity to delete
 	 * @return the result of the CRUD's delete operation over MagazineLot
-	 * @see co.edu.unbosque.repository.MagazineLotRepository#deleteById(String)
+	 * @see co.edu.unbosque.repository.MagazineLotRepository#deleteById(UUID)
 	 */
 	@Override
-	public ResponseEntity<?> deleteMagazineLotByIsbn(String isbn)
+	public ResponseEntity<?> deleteMagazineLotByIsbn(UUID isbn)
 		throws MagazineLotNotFoundException {
 		MagazineLot magazineLot = magazineLotRepository.findById(isbn)
 			.orElseThrow(() -> new MagazineLotNotFoundException(

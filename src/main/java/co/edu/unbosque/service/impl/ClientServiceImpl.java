@@ -98,6 +98,8 @@ public class ClientServiceImpl implements ClientService {
 
 		client.setFirstName(updatedClient.getFirstName());
 		client.setMiddleName(updatedClient.getMiddleName());
+		client.setPaternalLastName(updatedClient.getPaternalLastName());
+		client.setMaternalLastName(updatedClient.getMaternalLastName());
 		client.setIdentificationNumber(updatedClient.getIdentificationNumber());
 		client.setIdentificationType(updatedClient.getIdentificationType());
 		client.setDateOfBirth(updatedClient.getDateOfBirth());

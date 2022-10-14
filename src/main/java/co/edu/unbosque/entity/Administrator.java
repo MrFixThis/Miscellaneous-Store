@@ -73,7 +73,8 @@ public class Administrator {
 	private Long basicSalary;
 
 	@JsonIgnore
-	@OneToOne(cascade = CascadeType.REFRESH, mappedBy = "administrator",
-		fetch = FetchType.LAZY)
+	@EqualsAndHashCode.Exclude
+	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH},
+		fetch = FetchType.LAZY, mappedBy = "administrator")
 	private BranchOffice branchOffice;
 }

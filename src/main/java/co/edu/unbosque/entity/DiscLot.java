@@ -35,7 +35,7 @@ public class DiscLot {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "name", unique = true, nullable = false)
+	@Column(name = "name", nullable = false)
 	private String name;
 
 	@Column(name = "publication_date", nullable = false)
@@ -61,9 +61,8 @@ public class DiscLot {
 	private Integer availableUnits;
 
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "inventory_id", nullable = false, insertable = false,
-		updatable = false)
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "inventory_id")
 	private Inventory discInventory;
 
 	public enum DiscFormat {

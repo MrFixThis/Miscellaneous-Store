@@ -1,6 +1,7 @@
 package co.edu.unbosque.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 
@@ -26,9 +27,9 @@ public interface BookLotService {
 	 *
 	 * @param isbn the isbn of the BookLot entity to retrive
 	 * @return the result of the CRUD's retrive operation over BookLot
-	 * @see co.edu.unbosque.repository.BookLotRepository#findById(String)
+	 * @see co.edu.unbosque.repository.BookLotRepository#findById(UUID)
 	 */
-	ResponseEntity<BookLot> getBookLotByIsbn(String ibsn)
+	ResponseEntity<BookLot> getBookLotByIsbn(UUID isbn)
 			throws BookLotNotFoundException;
 
 	/**
@@ -57,7 +58,7 @@ public interface BookLotService {
 	 * @return the result of the CRUD's update operation over BookLot
 	 * @see co.edu.unbosque.repository.BookLotRepository#save(BookLot)
 	 */
-	ResponseEntity<BookLot> updateBookLotByIsbn(String isbn, BookLot updatedBookLot)
+	ResponseEntity<BookLot> updateBookLotByIsbn(UUID isbn, BookLot updatedBookLot)
 			throws BookLotNotFoundException;
 
 	/**
@@ -65,8 +66,8 @@ public interface BookLotService {
 	 *
 	 * @param isbn the isbn of the BookLot entity to delete
 	 * @return the result of the CRUD's delete operation over BookLot
-	 * @see co.edu.unbosque.repository.BookLotRepository#deleteById(String)
+	 * @see co.edu.unbosque.repository.BookLotRepository#deleteById(UUID)
 	 */
-	ResponseEntity<?> deleteBookLotByIsbn(String isbn)
+	ResponseEntity<?> deleteBookLotByIsbn(UUID isbn)
 			throws BookLotNotFoundException;
 }

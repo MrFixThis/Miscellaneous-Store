@@ -80,6 +80,8 @@ public class WorkerServiceImpl implements WorkerService {
 
 		worker.setFirstName(updatedWorker.getFirstName());
 		worker.setMiddleName(updatedWorker.getMiddleName());
+		worker.setPaternalLastName(updatedWorker.getPaternalLastName());
+		worker.setMaternalLastName(updatedWorker.getMaternalLastName());
 		worker.setIdentificationNumber(updatedWorker
 				.getIdentificationNumber());
 		worker.setIdentificationType(updatedWorker

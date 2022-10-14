@@ -1,6 +1,7 @@
 package co.edu.unbosque.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 
@@ -26,9 +27,9 @@ public interface MagazineLotService {
 	 *
 	 * @param isbn the isbn of the MagazineLot entity to retrive
 	 * @return the result of the CRUD's retrive operation over MagazineLot
-	 * @see co.edu.unbosque.repository.MagazineLotRepository#findById(String)
+	 * @see co.edu.unbosque.repository.MagazineLotRepository#findById(UUID)
 	 */
-	ResponseEntity<MagazineLot> getMagazineLotByIsbn(String ibsn)
+	ResponseEntity<MagazineLot> getMagazineLotByIsbn(UUID isbn)
 			throws MagazineLotNotFoundException;
 
 	/**
@@ -57,7 +58,7 @@ public interface MagazineLotService {
 	 * @return the result of the CRUD's update operation over MagazineLot
 	 * @see co.edu.unbosque.repository.MagazineLotRepository#save(MagazineLot)
 	 */
-	ResponseEntity<MagazineLot> updateMagazineLotByIsbn(String isbn,
+	ResponseEntity<MagazineLot> updateMagazineLotByIsbn(UUID isbn,
 			MagazineLot updatedMagazineLot)
 			throws MagazineLotNotFoundException;
 
@@ -66,8 +67,8 @@ public interface MagazineLotService {
 	 *
 	 * @param isbn the isbn of the MagazineLot entity to delete
 	 * @return the result of the CRUD's delete operation over MagazineLot
-	 * @see co.edu.unbosque.repository.MagazineLotRepository#deleteById(String)
+	 * @see co.edu.unbosque.repository.MagazineLotRepository#deleteById(UUID)
 	 */
-	ResponseEntity<?> deleteMagazineLotByIsbn(String isbn)
+	ResponseEntity<?> deleteMagazineLotByIsbn(UUID isbn)
 			throws MagazineLotNotFoundException;
 }

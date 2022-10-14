@@ -26,8 +26,8 @@ CREATE TABLE IF NOT EXISTS miscellaneous_store_db.inventory (
 );
 
 CREATE TABLE IF NOT EXISTS miscellaneous_store_db.magazine_lot (
-  isbn VARCHAR(13),
-  name VARCHAR(255) UNIQUE NOT NULL,
+  isbn BINARY(16) NOT NULL,
+  name VARCHAR(255) NOT NULL,
   publisher_name VARCHAR(255) NOT NULL,
   price_per_unit BIGINT NOT NULL,
   available_units INT NOT NULL,
@@ -39,8 +39,8 @@ CREATE TABLE IF NOT EXISTS miscellaneous_store_db.magazine_lot (
 );
 
 CREATE TABLE IF NOT EXISTS miscellaneous_store_db.book_lot (
-  isbn VARCHAR(13),
-  name VARCHAR(255) UNIQUE NOT NULL,
+  isbn BINARY(16) NOT NULL,
+  name VARCHAR(255) NOT NULL,
   author_name VARCHAR(255) NOT NULL,
   publisher_name VARCHAR(255) NOT NULL,
   pages_number INT NOT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS miscellaneous_store_db.book_lot (
 
 CREATE TABLE IF NOT EXISTS miscellaneous_store_db.disc_lot (
   id BIGINT AUTO_INCREMENT,
-  name VARCHAR(255) UNIQUE  NOT NULL,
+  name VARCHAR(255) NOT NULL,
   publication_date DATE NOT NULL,
   disc_lot_format ENUM('DVD', 'Blue-Ray') NOT NULL,
   execution_time_in_minutes INT NOT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS miscellaneous_store_db.disc_lot (
 
 CREATE TABLE IF NOT EXISTS miscellaneous_store_db.vinyl_record_lot (
   id BIGINT AUTO_INCREMENT,
-  record_production_name VARCHAR(255) UNIQUE NOT NULL,
+  record_production_name VARCHAR(255) NOT NULL,
   artist_group_name VARCHAR(180) NOT NULL,
   publication_date DATE NOT NULL,
   musical_genre VARCHAR(180) NOT NULL,

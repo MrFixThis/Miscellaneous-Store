@@ -28,9 +28,6 @@
 							<c:when test="${action.equals('put')}">
 								Update
 							</c:when>
-							<c:otherwise>
-								Delete
-							</c:otherwise>
 						</c:choose>
 						${type.equals("administrator") ? "Administrator" : "Worker"}
 					</span>
@@ -114,25 +111,47 @@
 				<div class="container mt-4">
 					<div class="input-group mb-3">
 						<span class="input-group-text text-muted">Role</span>
-						<input type="text" name="role" class="TXT form-control w-25"
+						<input type="text" name="role" class="TXT form-control"
 							value="${employee.getRole()}" maxlength="80" ${locker}>
 					</div>
-					<div class="input-group mb-3">
-						<c:if test="${employee.getBranchOffice() != null || type.equals('worker')}">
+				<div class="input-group mb-3">
+					<c:if test="${type.equals('administrator') && employee.getBranchOffice() != null && action.equals('get') || type.equals('worker')}">
 							<span class="input-group-text text-muted">Working BO</span>
-							<input type="${branchOffices.size() == 0 ?'text' : 'number'}" name="branchOfficeId" id="wbo"
-								class="NBR form-control ${branchOffices.size() == 0 ? 'is-invalid' : ''}"
-								value="${branchOffices.size() == 0 ? 'No B.Os' : employee.getBranchOffice().getId()}"
-								min="${branchOffices.size() == 0 ? 0 : branchOffices.get(0).getId()}"
-								max="${branchOffices.size() == 0 ? 0 : branchOffices.get(branchOffices.size()-1).getId()}"
-								${action.equals('post') && branchOffices.size() == 0 ? "data-bs-toggle='tooltip' data-bs-placement='bottom' title='There is no branch offices active'" : ''}
-								onkeydown="return false"
-								${action.equals('post') && branchOffices.size() != 0 ? '' : 'readonly'}>
+						<span class="d-inline-block w-25"
+							${action.equals('post') && branchOffices.size() == 0 ? 'tabindex="0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="There is no branch offices active"' : ''}>
+							<select name="branchOfficeId" class="NBR form-select ${branchOffices.size() == 0 ? 'is-invalid' : ''}"
+							  ${branchOffices.size() == 0 ? 'style="pointer-events: none;"' : ''}
+							  id="floatingSelect" ${action.equals('post') || action.equals('put') && branchOffices.size() != 0 ? '' : 'disabled'}>
+								<c:choose>
+									<c:when test="${action.equals('post') && branchOffices.size() == 0}">
+										<option value="${branchOffice.getId()}">
+											No B.Os
+										</option>
+									</c:when>
+									<c:otherwise>
+										<c:choose>
+											<c:when test="${(type.equals('worker') && !action.equals('put') && !action.equals('post')) || type.equals('administrator') && action.equals('get')}">
+												<option value="${employee.getBranchOffice().getId()}">
+													${employee.getBranchOffice().getId()}
+												</option>
+											</c:when>
+											<c:otherwise>
+												<c:forEach items="${branchOffices}" var="branchOffice">
+													<option value="${branchOffice.getId()}">
+														${branchOffice.getId()}
+													</option>
+												 </c:forEach>
+											</c:otherwise>
+										</c:choose>
+									</c:otherwise>
+								</c:choose>
+							</select>
+						</span>
 						</c:if>
 						<span class="input-group-text text-muted">Basic salary</span>
 						<span class="input-group-text text-muted">$</span>
 						<input type="text" name="basicSalary" class="NBR form-control w-25"
-							min="0" value="${employee.getBasicSalary()}" ${locker}>
+							value="${employee.getBasicSalary()}" ${locker}>
 						<span class="input-group-text text-muted">Date of hire</span>
 						<input name="hDay" class="DTD form-control" type="text" maxlength="2" placeholder="DD"
 							  value="${hDate[2]}" ${locker}>

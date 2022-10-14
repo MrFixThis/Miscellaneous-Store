@@ -51,9 +51,7 @@ public class Transaction {
 
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "branch_office_id", referencedColumnName = "id",
-		nullable = false
-	)
+	@JoinColumn(name = "branch_office_id", nullable = false)
 	private BranchOffice branchOffice;
 
 	public enum ProductType {

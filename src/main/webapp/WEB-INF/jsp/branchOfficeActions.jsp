@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="manageOp" value="${action.equals('put') ? branchOffice.getId() : ''}"/>
+<c:set var="tableMod" value="${!action.equals('put') ? 'style=&quot;display: none;&quot;' : ''}"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -23,9 +24,6 @@
 							<c:when test="${action.equals('put')}">
 								Update
 							</c:when>
-							<c:otherwise>
-								Delete
-							</c:otherwise>
 						</c:choose>
 						Branch Office
 					</span>
@@ -50,7 +48,7 @@
 				</h3>
 				<div class="container justify-content-md-center">
 					<c:choose>
-					<c:when test="${action.equals('post') && administrators.size() != 0 || action.equals('put') && administrators.size() != 0 || action.equals('put') && branchOffice.getAdministrator() != null || action.equals('get')}">
+						<c:when test="${action.equals('post') && administrators.size() != 0 || action.equals('put') && administrators.size() != 0 || action.equals('put') && branchOffice.getAdministrator() != null || action.equals('get')}">
 							<div class="form-floating mt-3" >
 								<select name="administratorId" class="form-select" id="floatingSelect"
 									${!(action.equals('post') || action.equals('put') && branchOffice.getAdministrator() == null) ? 'disabled' : ''}>
@@ -122,13 +120,14 @@
 							</div>
 						</div>
 					<c:if test="${!action.equals('post')}">
+						<form></form>
 						<hr class="w-50 mx-auto">
 						<h5 class="h5 text-muted text-center mt-4">
 							<strong>Product List</strong>
 						</h5>
 						<div class="text-success"><hr class="w-25 mx-auto"></div>
 						<h5 class="h5 text-muted text-center mt-4">
-							Magazines Lots
+							Magazine Lots
 						</h5>
 						<div class="container justify-content-md-center">
 							<c:set var="magazineLots" value="${branchOffice.getInventory().getInventoryMagazineLots()}"/>
@@ -141,7 +140,7 @@
 										  <th scope="col" class="col col-sm-5">Name</th>
 										  <th scope="col">Available Units</th>
 										  <th scope="col" class="col col-sm-3">Price P/U</th>
-										  <th scope="col">Action</th>
+										  <th scope="col" ${tableMod}>Action</th>
 										</tr>
 									  </thead>
 									  <tbody>
@@ -151,7 +150,7 @@
 											  <td>${magazineLot.getName()}</td>
 											  <td>${magazineLot.getAvailableUnits()}</td>
 											  <td>${magazineLot.getPricePerUnit()}</td>
-											  <td class="text-center">
+											  <td class="text-center" ${tableMod}>
 												<form action="/magazine_lots/${magazineLot.getIsbn()}">
 													<input type="submit" value="See more"
 														class="btn btn-primary btn-sm">
@@ -172,7 +171,7 @@
 							</c:choose>
 							<c:if test="${action.equals('put')}">
 								<div class="container mt-4 mb-4 text-center">
-									<form action="/magazine_lots/create">
+									<form action="/magazine_lots/create/${branchOffice.getInventory().getId()}">
 										<input type="submit" value="Add New Lot"
 											class="btn btn-outline-primary">
 									</form>
@@ -194,7 +193,7 @@
 										  <th scope="col" class="col col-sm-5">Name</th>
 										  <th scope="col">Available Units</th>
 										  <th scope="col" class="col col-sm-3">Price P/U</th>
-										  <th scope="col">Action</th>
+										  <th scope="col" ${tableMod}>Action</th>
 										</tr>
 									  </thead>
 									  <tbody>
@@ -204,7 +203,7 @@
 											  <td>${bookLot.getName()}</td>
 											  <td>${bookLot.getAvailableUnits()}</td>
 											  <td>${bookLot.getPricePerUnit()}</td>
-											  <td class="text-center">
+											  <td class="text-center" ${tableMod}>
 												<form action="/book_loots/${bookLot.getIsbn()}">
 													<input type="submit" value="See more"
 														class="btn btn-primary btn-sm">
@@ -225,7 +224,7 @@
 							</c:choose>
 							<c:if test="${action.equals('put')}">
 								<div class="container mt-4 mb-4 text-center">
-									<form action="/book_lots/create">
+									<form action="/book_lots/create/${branchOffice.getInventory().getId()}">
 										<input type="submit" value="Add New Lot"
 											class="btn btn-outline-primary">
 									</form>
@@ -247,7 +246,7 @@
 										  <th scope="col" class="col col-sm-5">Name</th>
 										  <th scope="col">Available Units</th>
 										  <th scope="col" class="col col-sm-3">Price P/U</th>
-										  <th scope="col">Action</th>
+										  <th scope="col" ${tableMod}>Action</th>
 										</tr>
 									  </thead>
 									  <tbody>
@@ -257,7 +256,7 @@
 											  <td>${discLot.getName()}</td>
 											  <td>${discLot.getAvailableUnits()}</td>
 											  <td>${discLot.getPricePerUnit()}</td>
-											  <td class="text-center">
+											  <td class="text-center" ${tableMod}>
 												<form action="/disc_loots/${discLot.getId()}">
 													<input type="submit" value="See more"
 														class="btn btn-primary btn-sm">
@@ -278,7 +277,7 @@
 							</c:choose>
 							<c:if test="${action.equals('put')}">
 								<div class="container mt-4 mb-4 text-center">
-									<form action="/disc_lots/create">
+									<form action="/disc_lots/create/${branchOffice.getInventory().getId()}">
 										<input type="submit" value="Add New Lot"
 											class="btn btn-outline-primary">
 									</form>
@@ -300,7 +299,7 @@
 										  <th scope="col" class="col col-sm-5">Production Name</th>
 										  <th scope="col">Available Units</th>
 										  <th scope="col" class="col col-sm-3">Price P/U</th>
-										  <th scope="col">Action</th>
+										  <th scope="col" ${tableMod}>Action</th>
 										</tr>
 									  </thead>
 									  <tbody>
@@ -310,7 +309,7 @@
 											  <td>${vinylRecordLot.getRecordProductionName()}</td>
 											  <td>${vinylRecordLot.getAvailableUnits()}</td>
 											  <td>${vinylRecordLot.getPricePerUnit()}</td>
-											  <td class="text-center">
+											  <td class="text-center" ${tableMod}>
 												<form action="/vinyl_record_loots/${vinylRecordLot.getId()}">
 													<input type="submit" value="See more"
 														class="btn btn-primary btn-sm">
@@ -331,7 +330,7 @@
 							</c:choose>
 							<c:if test="${action.equals('put')}">
 								<div class="container mt-4 mb-4 text-center">
-									<form action="/vinyl_record_loots/create">
+									<form action="/vinyl_record_loots/create/${branchOffice.getInventory().getId()}">
 										<input type="submit" value="Add New Lot"
 											class="btn btn-outline-primary">
 									</form>
@@ -348,7 +347,7 @@
 							<c:when test="${action.equals('post') || action.equals('put')}">
 								<input id="sbtn" type="submit" value="Complete ${action.equals('post') ? 'Registration' : 'Update'}"
 									class="btn btn-outline-primary btn-lg mb-4"
-									${action.equals('put') && branchOffice.getAdministrator() == null && !allBusy ? '' : 'disabled'}>
+									${action.equals('put') && branchOffice.getAdministrator() == null && (!allBusy && administrators.size() != 0) ? '' : 'disabled'}>
 							</c:when>
 							<c:otherwise>
 								<div class="btn-group me-4" role="group">

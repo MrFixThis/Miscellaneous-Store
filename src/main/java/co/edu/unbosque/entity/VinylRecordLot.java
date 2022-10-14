@@ -33,7 +33,7 @@ public class VinylRecordLot {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "record_production_name", unique = true, nullable = false)
+	@Column(name = "record_production_name", nullable = false)
 	private String recordProductionName;
 	
 	@Column(name = "artist_group_name", length = 180, nullable = false)
@@ -52,8 +52,7 @@ public class VinylRecordLot {
 	private Integer availableUnits;
 
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "inventory_id", nullable = false, insertable = false,
-		updatable = false)
+	@ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+	@JoinColumn(name = "inventory_id")
 	private Inventory vinylRecordInventory;
 }

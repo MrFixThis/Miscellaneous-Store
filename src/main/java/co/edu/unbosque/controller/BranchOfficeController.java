@@ -30,7 +30,7 @@ public class BranchOfficeController {
 	private InventoryServiceImpl inventoryServiceImpl;
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/branch_offices/create")
 	public String registerNewBranchOffice(Model model) {
@@ -53,7 +53,7 @@ public class BranchOfficeController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/branch_offices/manage/create")
 	public String createBranchOffice(Inventory newInventory,
@@ -71,7 +71,7 @@ public class BranchOfficeController {
 
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping({"/", "/branch_offices"})
 	public String showBranchOffices(Model model) {
@@ -83,7 +83,7 @@ public class BranchOfficeController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/branch_offices/{id}")
 	public String showBranchOffice(@PathVariable(name = "id") Long id,
@@ -98,15 +98,15 @@ public class BranchOfficeController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/branch_offices/update/{id}")
 	public String updateBranchOffice(@PathVariable(name = "id") Long id,
 			Model model) {
-		BranchOffice branchOffice =
-			branchOfficeServiceImpl.getBranchOfficeById(id).getBody();
 		List<Administrator> administrators =
 			administratorServiceImpl.getAdministrators().getBody();
+		BranchOffice branchOffice =
+			branchOfficeServiceImpl.getBranchOfficeById(id).getBody();
 		Iterator<Administrator> aIterator = administrators.iterator();
 		boolean allBusy = false;
 
@@ -125,7 +125,7 @@ public class BranchOfficeController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/branch_offices/manage/update/{id}")
 	public String updateBranchOffice(Inventory updatedInventory,
@@ -153,7 +153,7 @@ public class BranchOfficeController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@PostMapping("/branch_offices/manage/delete/{id}")
 	public String deleteBranchOffice(@PathVariable(name = "id") Long id) {

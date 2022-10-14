@@ -1,6 +1,7 @@
 package co.edu.unbosque.repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -9,7 +10,7 @@ import co.edu.unbosque.entity.MagazineLot;
 /**
  * @author Bryan Baron
  */
-public interface MagazineLotRepository extends JpaRepository<MagazineLot, String> {
+public interface MagazineLotRepository extends JpaRepository<MagazineLot, UUID> {
 
 	/**
 	 * Retrieves a MagazineLot instance by its name.

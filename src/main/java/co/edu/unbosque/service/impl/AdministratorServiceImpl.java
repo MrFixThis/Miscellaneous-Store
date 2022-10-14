@@ -81,6 +81,8 @@ public class AdministratorServiceImpl implements AdministratorService {
 
 		administrator.setFirstName(updatedAdministrator.getFirstName());
 		administrator.setMiddleName(updatedAdministrator.getMiddleName());
+		administrator.setPaternalLastName(updatedAdministrator.getPaternalLastName());
+		administrator.setMaternalLastName(updatedAdministrator.getMaternalLastName());
 		administrator.setIdentificationNumber(updatedAdministrator
 				.getIdentificationNumber());
 		administrator.setIdentificationType(updatedAdministrator

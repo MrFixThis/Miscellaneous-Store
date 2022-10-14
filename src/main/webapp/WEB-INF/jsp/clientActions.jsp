@@ -25,9 +25,6 @@
 							<c:when test="${action.equals('put')}">
 								Update
 							</c:when>
-							<c:otherwise>
-								Delete
-							</c:otherwise>
 						</c:choose>
 						Client
 					</span>

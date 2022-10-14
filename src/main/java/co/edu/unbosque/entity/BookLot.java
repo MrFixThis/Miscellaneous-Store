@@ -1,16 +1,20 @@
 package co.edu.unbosque.entity;
 
 import java.sql.Date;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,10 +31,15 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 public class BookLot {
 	@Id
-	@Column(name = "ibsn", length = 13)
-	private String isbn;
+	@Column(name = "isbn")
+	@GeneratedValue(generator = "UUID")
+	@GenericGenerator(
+		name = "UUID",
+		strategy = "org.hibernate.id.UUIDGenerator"
+	)
+	private UUID isbn;
 
-	@Column(name = "name", unique = true, nullable = false)
+	@Column(name = "name", nullable = false)
 	private String name;
 
 	@Column(name = "author_name", nullable = false)
@@ -52,8 +61,7 @@ public class BookLot {
 	private Integer availableUnits;
 
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "inventory_id", nullable = false, insertable = false,
-		updatable = false)
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "inventory_id")
 	private Inventory bookInventory;
 }

@@ -28,7 +28,7 @@ public class WorkerController {
 	private BranchOfficeServiceImpl branchOfficeServiceImpl;
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/workers/create")
 	public String createWorker(Model model) {
@@ -44,7 +44,7 @@ public class WorkerController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/workers/manage/create")
 	public String createWorker(Worker newWorker,
@@ -71,7 +71,7 @@ public class WorkerController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/workers/{id}")
 	public String showWorker(@PathVariable(name = "id") Long id, Model model) {
@@ -91,7 +91,7 @@ public class WorkerController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/workers")
 	public String showWorkers(Model model) {
@@ -103,11 +103,13 @@ public class WorkerController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/workers/update/{id}")
 	public String updateWorker(@PathVariable(name = "id") Long id,
 			Model model) {
+		List<BranchOffice> branchOffices = branchOfficeServiceImpl
+			.getBranchOffices().getBody();
 		Worker worker = workerServiceImpl.getWorkerById(id).getBody();
 		String[] bDate = DateManager.transformStringDate(worker.getDateOfBirth()
 				.toString());
@@ -119,12 +121,13 @@ public class WorkerController {
 		model.addAttribute("employee", worker);
 		model.addAttribute("bDate", bDate);
 		model.addAttribute("hDate", hDate);
+		model.addAttribute("branchOffices", branchOffices);
 
 		return "employeeActions";
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/workers/manage/update/{id}")
 	public String updateWorker(Worker updatedWorker,
@@ -151,7 +154,7 @@ public class WorkerController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@PostMapping("/workers/manage/delete/{id}")
 	public String deleteWorker(@PathVariable(name = "id") Long id) {

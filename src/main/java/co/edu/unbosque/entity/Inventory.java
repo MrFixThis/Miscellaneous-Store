@@ -1,5 +1,6 @@
 package co.edu.unbosque.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -37,22 +39,43 @@ public class Inventory {
 	private String description;
 
 	@JsonIgnore
-	@OneToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE},
-		fetch = FetchType.EAGER, mappedBy = "bookInventory")
+	@EqualsAndHashCode.Exclude
+	@OneToOne(cascade = CascadeType.REFRESH, mappedBy = "inventory",
+		fetch = FetchType.LAZY)
+	private BranchOffice branchOffice;
+
+	@JsonIgnore
+	@EqualsAndHashCode.Exclude
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
+		CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER,
+		mappedBy = "bookInventory")
 	private Set<BookLot> inventoryBookLots;
 
 	@JsonIgnore
-	@OneToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE},
-		fetch = FetchType.EAGER, mappedBy = "magazineInventory")
+	@EqualsAndHashCode.Exclude
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
+		CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER,
+		mappedBy = "magazineInventory")
 	private Set<MagazineLot> inventoryMagazineLots;
 
 	@JsonIgnore
-	@OneToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE},
-		fetch = FetchType.EAGER, mappedBy = "discInventory")
+	@EqualsAndHashCode.Exclude
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
+		CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER,
+		mappedBy = "discInventory")
 	private Set<DiscLot> inventoryDiscLots;
 
 	@JsonIgnore
-	@OneToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE},
-		fetch = FetchType.EAGER, mappedBy = "vinylRecordInventory")
+	@EqualsAndHashCode.Exclude
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
+		CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER,
+		mappedBy = "vinylRecordInventory")
 	private Set<VinylRecordLot> inventoryVinylRecordLots;
+
+	{
+		inventoryMagazineLots = new HashSet<>();
+		inventoryBookLots = new HashSet<>();
+		inventoryDiscLots = new HashSet<>();
+		inventoryVinylRecordLots = new HashSet<>();
+	}
 }

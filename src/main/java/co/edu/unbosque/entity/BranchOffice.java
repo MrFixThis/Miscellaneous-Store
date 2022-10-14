@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -61,7 +62,15 @@ public class BranchOffice {
 	)
 	private Set<Client> clients;
 
+	@JsonIgnore
+	@EqualsAndHashCode.Exclude
+	@OneToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH,
+		CascadeType.REMOVE},
+		fetch = FetchType.LAZY, mappedBy = "branchOffice")
+	private Set<Worker> workers;
+
 	{
 		clients = new HashSet<>();
+		workers = new HashSet<>();
 	}
 }
