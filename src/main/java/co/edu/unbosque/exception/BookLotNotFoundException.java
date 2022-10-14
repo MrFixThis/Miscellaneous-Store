@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author Bryan Baron
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class DiscNotFoundException extends RuntimeException {
+public class BookLotNotFoundException extends RuntimeException {
 
-	public DiscNotFoundException(String message) {
+	public BookLotNotFoundException(String message) {
 		super(message);
 	}
 }

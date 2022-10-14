@@ -16,14 +16,14 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * @athor Bryan Baron
+ * @author Bryan Baron
  */
 @Entity
-@Table(name = "book")
+@Table(name = "magazine_lot")
 @Data
 @NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Magazine {
+public class MagazineLot {
 	@Id
 	@Column(name = "ibsn", length = 13)
 	private String isbn;
@@ -34,8 +34,8 @@ public class Magazine {
 	@Column(name = "publisher_name", nullable = false)
 	private String publisherName;
 
-	@Column(name = "price", nullable = false)
-	private Long price;
+	@Column(name = "price_per_unit", nullable = false)
+	private Long pricePerUnit;
 
 	@Column(name = "available_units", nullable = false)
 	private Integer availableUnits;

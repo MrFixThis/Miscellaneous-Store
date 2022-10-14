@@ -25,7 +25,7 @@
 				<c:choose>
 					<c:when test="${clients.size() != 0}">
 						<table class="table mt-4 table-bordered border rounded">
-						  <thead class="table-light text-center">
+						  <thead class="table-secondary text-center">
 							<tr>
 							  <th scope="col">ID</th>
 							  <th scope="col">First Name</th>
@@ -51,27 +51,21 @@
 							  </c:forEach>
 						  </tbody>
 						</table>
-						<div class="container mt-4 mb-4 text-center">
-							<form action="/clients/create">
-								<input type="submit" value="Register New"
-									class="btn btn-outline-primary btn-lg">
-							</form>
-						</div>
 					</c:when>
 					<c:otherwise>
 						<div class="container mt-4">
-							<h2 class="h2 text-center text-muted">
+							<h3 class="h3 text-center text-muted">
 								<em>There is no clients registered</em>
-							</h2>
-							<div class="container mt-4 text-center">
-								<form action="/clients/create">
-									<input type="submit" value="Register New"
-										class="btn btn-outline-primary">
-								</form>
-							</div>
+							</h3>
 						</div>
 					</c:otherwise>
 				</c:choose>
+				<div class="container mt-4 text-center">
+					<form action="/clients/create">
+						<input type="submit" value="Register New"
+							class="btn btn-outline-primary">
+					</form>
+				</div>
 			</div>
 		</div>
 	</body>

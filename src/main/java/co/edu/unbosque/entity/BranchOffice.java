@@ -37,7 +37,7 @@ public class BranchOffice {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne(cascade = CascadeType.MERGE)
+	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "administrator_id")
 	private Administrator administrator;
 

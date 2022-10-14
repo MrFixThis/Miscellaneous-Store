@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author Bryan Baron
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class MagazineNotFoundException extends RuntimeException {
+public class MagazineLotNotFoundException extends RuntimeException {
 
-	public MagazineNotFoundException(String message) {
+	public MagazineLotNotFoundException(String message) {
 		super(message);
 	}
 }

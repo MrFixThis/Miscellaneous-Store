@@ -4,19 +4,19 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import co.edu.unbosque.entity.Magazine;
+import co.edu.unbosque.entity.BookLot;
 
 /**
  * @author Bryan Baron
  */
-public interface MagazineRepository extends JpaRepository<Magazine, String> {
+public interface BookLotRepository extends JpaRepository<BookLot, String> {
 
 	/**
-	 * Retrieves a magazine by its name.
+	 * Retrieves a BookLot instance by its name.
 	 *
 	 * @param name must not be {@literal null}.
 	 * @return the entity with the given id or {@literal Optional#empty()} if none is found.
 	 * @throws IllegalArgumentException if {@literal name} is {@literal null}.
 	 */
-	Optional<Magazine> findByName(String name);
+	Optional<BookLot> findByName(String name);
 }

@@ -37,22 +37,22 @@ public class Inventory {
 	private String description;
 
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
-		mappedBy = "bookInventory")
-	private Set<Book> inventoryBooks;
+	@OneToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE},
+		fetch = FetchType.EAGER, mappedBy = "bookInventory")
+	private Set<BookLot> inventoryBookLots;
 
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
-		mappedBy = "magazineInventory")
-	private Set<Magazine> inventoryMagazines;
+	@OneToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE},
+		fetch = FetchType.EAGER, mappedBy = "magazineInventory")
+	private Set<MagazineLot> inventoryMagazineLots;
 
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
-		mappedBy = "discInventory")
-	private Set<Disc> inventoryDiscs;
+	@OneToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE},
+		fetch = FetchType.EAGER, mappedBy = "discInventory")
+	private Set<DiscLot> inventoryDiscLots;
 
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
-		mappedBy = "vinylRecordInventory")
-	private Set<VinylRecord> inventoryVinylrecords;
+	@OneToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE},
+		fetch = FetchType.EAGER, mappedBy = "vinylRecordInventory")
+	private Set<VinylRecordLot> inventoryVinylRecordLots;
 }

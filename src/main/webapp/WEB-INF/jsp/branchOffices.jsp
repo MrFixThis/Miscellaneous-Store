@@ -22,6 +22,7 @@
 						<div class="row justify-content-md-center">
 							<c:forEach items="${branchOffices}" var="branchOffice">
 								<c:set var="isWithoutAdmin" value="${branchOffice.getAdministrator() == null ? true : false}"/>
+								<c:set var="path" value="${isWithoutAdmin ? 'update/' : ''}"/>
 								<div class="col-md-auto">
 									<div class="card text-center mb-4" style="width: 18rem; background-color: ${isWithoutAdmin ? '#FFEFD4' :'#FAEFFF'}">
 									  <div class="card-body">
@@ -36,7 +37,7 @@
 													.getPaternalLastName()}</p>
 											</c:otherwise>
 										</c:choose>
-										<a href="/branch_offices/${branchOffice.getId()}"
+										<a href="/branch_offices/${path}${branchOffice.getId()}"
 											class="btn btn-${isWithoutAdmin ? 'warning' : 'primary'}">
 											${isWithoutAdmin ? 'Assign administrator' : 'See more'}
 										</a>
@@ -49,9 +50,9 @@
 				</c:when>
 				<c:otherwise>
 					<div class="container mt-4">
-						<h2 class="h2 text-center text-muted">
+						<h3 class="h3 text-center text-muted">
 							<em>There is no branch offices active</em>
-						</h2>
+						</h3>
 						<div class="container mt-4 text-center">
 							<form action="/branch_offices/create">
 								<input type="submit" value="Register New"

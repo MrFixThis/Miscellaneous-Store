@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import co.edu.unbosque.entity.Disc;
-import co.edu.unbosque.exception.DiscNotFoundException;
-import co.edu.unbosque.repository.DiscRepository;
+import co.edu.unbosque.entity.DiscLot;
+import co.edu.unbosque.exception.DiscLotNotFoundException;
+import co.edu.unbosque.repository.DiscLotRepository;
 import co.edu.unbosque.service.DiscService;
 import lombok.AllArgsConstructor;
 
@@ -18,18 +18,18 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class DiscServiceImpl implements DiscService {
 
-	private DiscRepository discRepository;
+	private DiscLotRepository discLotRepository;
 
 	/**
 	 * Creates a new Disc
 	 *
-	 * @param disc the creating Disc instance
+	 * @param discLot the creating Disc instance
 	 * @return the result of the CRUD's create operation over Disc
-	 * @see co.edu.unbosque.repository.DiscRepository#save(Disc)
+	 * @see co.edu.unbosque.repository.DiscLotRepository#save(DiscLot)
 	 */
 	@Override
-	public ResponseEntity<Disc> createDisc(Disc disc) {
-		final Disc savedDisc = discRepository.save(disc);
+	public ResponseEntity<DiscLot> createDisc(DiscLot discLot) {
+		final DiscLot savedDisc = discLotRepository.save(discLot);
 		return ResponseEntity.ok(savedDisc);
 	}
 
@@ -38,16 +38,16 @@ public class DiscServiceImpl implements DiscService {
 	 *
 	 * @param id the id of the Disc entity to retrive
 	 * @return the result of the CRUD's retrive operation over Disc
-	 * @see co.edu.unbosque.repository.DiscRepository#findById(Long)
+	 * @see co.edu.unbosque.repository.DiscLotRepository#findById(Long)
 	 */
 	@Override
-	public ResponseEntity<Disc> getDiscById(Long id)
-		throws DiscNotFoundException {
-		final Disc disc = discRepository.findById(id)
-			.orElseThrow(() -> new DiscNotFoundException(
-							String.format("Disc with id %d not found", id)
+	public ResponseEntity<DiscLot> getDiscById(Long id)
+		throws DiscLotNotFoundException {
+		final DiscLot discLot = discLotRepository.findById(id)
+			.orElseThrow(() -> new DiscLotNotFoundException(
+							String.format("DiscLot with id %d not found", id)
 						));
-		return ResponseEntity.ok(disc);
+		return ResponseEntity.ok(discLot);
 	}
 
 	/**
@@ -55,57 +55,57 @@ public class DiscServiceImpl implements DiscService {
 	 *
 	 * @param name the name of the Disc entity to retrive
 	 * @return the result of the CRUD's retrive operation over Disc
-	 * @see co.edu.unbosque.repository.DiscRepository#findByName(String)
+	 * @see co.edu.unbosque.repository.DiscLotRepository#findByName(String)
 	 */
 	@Override
-	public ResponseEntity<Disc> getDiscByName(String name)
-		throws DiscNotFoundException {
-		final Disc disc = discRepository.findByName(name)
-			.orElseThrow(() -> new DiscNotFoundException(
-							String.format("disc with name %s not found", name)
+	public ResponseEntity<DiscLot> getDiscByName(String name)
+		throws DiscLotNotFoundException {
+		final DiscLot discLot = discLotRepository.findByName(name)
+			.orElseThrow(() -> new DiscLotNotFoundException(
+							String.format("DiscLot with name %s not found", name)
 						));
-		return ResponseEntity.ok(disc);
+		return ResponseEntity.ok(discLot);
 	}
 
 	/**
 	 * Retrives all the Disc entities
 	 *
 	 * @return the result of the CRUD's retrive operation over Disc
-	 * @see co.edu.unbosque.repository.DiscRepository#findAll()
+	 * @see co.edu.unbosque.repository.DiscLotRepository#findAll()
 	 */
 	@Override
-	public ResponseEntity<List<Disc>> getDiscs() {
-		final List<Disc> discs = discRepository.findAll();
-		return ResponseEntity.ok(discs);
+	public ResponseEntity<List<DiscLot>> getDiscs() {
+		final List<DiscLot> discLots = discLotRepository.findAll();
+		return ResponseEntity.ok(discLots);
 	}
 
 	/**
 	 * Updates an id-specified Disc entity
 	 *
 	 * @param id the id of the Disc entity to update
-	 * @param updatedDisc the Disc instance with the updating information
+	 * @param updatedDiscLot the Disc instance with the updating information
 	 * @return the result of the CRUD's update operation over Disc
-	 * @see co.edu.unbosque.repository.DiscRepository#save(Disc)
+	 * @see co.edu.unbosque.repository.DiscLotRepository#save(DiscLot)
 	 */
 	@Override
-	public ResponseEntity<Disc> updateDiscById(Long id, Disc updatedDisc)
-			throws DiscNotFoundException {
-		Disc disc = discRepository.findById(id)
-			.orElseThrow(() -> new DiscNotFoundException(
-							String.format("Disc with id %d not found", id)
+	public ResponseEntity<DiscLot> updateDiscById(Long id, DiscLot updatedDiscLot)
+			throws DiscLotNotFoundException {
+		DiscLot discLot = discLotRepository.findById(id)
+			.orElseThrow(() -> new DiscLotNotFoundException(
+							String.format("DiscLot with id %d not found", id)
 						));
 
-		disc.setName(updatedDisc.getName());
-		disc.setPublicationDate(updatedDisc.getPublicationDate());
-		disc.setDiscFormat(updatedDisc.getDiscFormat());
-		disc.setExecutionTimeInMinutes(updatedDisc.getExecutionTimeInMinutes());
-		disc.setContentLanguage(updatedDisc.getContentLanguage());
-		disc.setContentClassification(updatedDisc.getContentClassification());
-		disc.setPrice(updatedDisc.getPrice());
-		disc.setAvailableUnits(updatedDisc.getAvailableUnits());
+		discLot.setName(updatedDiscLot.getName());
+		discLot.setPublicationDate(updatedDiscLot.getPublicationDate());
+		discLot.setDiscFormat(updatedDiscLot.getDiscFormat());
+		discLot.setExecutionTimeInMinutes(updatedDiscLot.getExecutionTimeInMinutes());
+		discLot.setContentLanguage(updatedDiscLot.getContentLanguage());
+		discLot.setContentClassification(updatedDiscLot.getContentClassification());
+		discLot.setPricePerUnit(updatedDiscLot.getPricePerUnit());
+		discLot.setAvailableUnits(updatedDiscLot.getAvailableUnits());
 
-		disc = discRepository.save(disc);
-		return ResponseEntity.ok(disc);
+		discLot = discLotRepository.save(discLot);
+		return ResponseEntity.ok(discLot);
 	}
 
 	/**
@@ -113,16 +113,16 @@ public class DiscServiceImpl implements DiscService {
 	 *
 	 * @param id the id of the Disc entity to delete
 	 * @return the result of the CRUD's delete operation over Disc
-	 * @see co.edu.unbosque.repository.DiscRepository#deleteById(Long)
+	 * @see co.edu.unbosque.repository.DiscLotRepository#deleteById(Long)
 	 */
 	@Override
 	public ResponseEntity<?> deleteDiscById(Long id)
-		throws DiscNotFoundException {
-		Disc disc = discRepository.findById(id)
-			.orElseThrow(() -> new DiscNotFoundException(
-							String.format("Disc with id %d not found", id)
+		throws DiscLotNotFoundException {
+		DiscLot discLot = discLotRepository.findById(id)
+			.orElseThrow(() -> new DiscLotNotFoundException(
+							String.format("DiscLot with id %d not found", id)
 						));
-		discRepository.delete(disc);
+		discLotRepository.delete(discLot);
 
 		return ResponseEntity.noContent().build();
 	}

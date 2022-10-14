@@ -21,11 +21,11 @@ import lombok.NoArgsConstructor;
  * @author Bryan Baron
  */
 @Entity
-@Table(name = "book")
+@Table(name = "book_lot")
 @Data
 @NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Book {
+public class BookLot {
 	@Id
 	@Column(name = "ibsn", length = 13)
 	private String isbn;
@@ -45,8 +45,8 @@ public class Book {
 	@Column(name = "publication_date", nullable = false)
 	private Date publicationDate;
 
-	@Column(name = "price", nullable = false)
-	private Long price;
+	@Column(name = "price_per_unit", nullable = false)
+	private Long pricePerUnit;
 
 	@Column(name = "available_units", nullable = false)
 	private Integer availableUnits;

@@ -5,8 +5,6 @@ import java.sql.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,37 +23,30 @@ import lombok.NoArgsConstructor;
  * @author Bryan Baron
  */
 @Entity
-@Table(name = "disc")
+@Table(name = "vinyl_record_lot")
 @Data
 @NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Disc {
+public class VinylRecordLot {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "name", unique = true, nullable = false)
-	private String name;
+	@Column(name = "record_production_name", unique = true, nullable = false)
+	private String recordProductionName;
+	
+	@Column(name = "artist_group_name", length = 180, nullable = false)
+	private String artistGroupName;
 
 	@Column(name = "publication_date", nullable = false)
 	private Date publicationDate;
 
-	@Column(name = "disc_format", nullable = false)
-	@Enumerated(EnumType.STRING)
-	private DiscFormat discFormat;
+	@Column(name = "misical_genre", length = 180, nullable = false)
+	private String musicalGenre;
 
-	@Column(name = "execution_time_in_minutes", nullable = false)
-	private Integer executionTimeInMinutes;
-
-	@Column(name = "content_language", length = 120, nullable = false)
-	private String contentLanguage;
-
-	@Column(name = "content_classification", length = 120, nullable = false)
-	private String contentClassification;
-
-	@Column(name = "price", nullable = false)
-	private Long price;
+	@Column(name = "price_per_unit", nullable = false)
+	private Long pricePerUnit;
 
 	@Column(name = "available_units", nullable = false)
 	private Integer availableUnits;
@@ -64,10 +55,5 @@ public class Disc {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "inventory_id", nullable = false, insertable = false,
 		updatable = false)
-	private Inventory discInventory;
-
-	public enum DiscFormat {
-		DVD,
-		BLUE_RAY
-	}
+	private Inventory vinylRecordInventory;
 }

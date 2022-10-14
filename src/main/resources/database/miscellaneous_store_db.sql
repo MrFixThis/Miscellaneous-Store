@@ -25,63 +25,63 @@ CREATE TABLE IF NOT EXISTS miscellaneous_store_db.inventory (
   PRIMARY KEY(id)
 );
 
-CREATE TABLE IF NOT EXISTS miscellaneous_store_db.magazine (
+CREATE TABLE IF NOT EXISTS miscellaneous_store_db.magazine_lot (
   isbn VARCHAR(13),
   name VARCHAR(255) UNIQUE NOT NULL,
   publisher_name VARCHAR(255) NOT NULL,
-  price BIGINT NOT NULL,
+  price_per_unit BIGINT NOT NULL,
   available_units INT NOT NULL,
   inventory_id BIGINT NOT NULL,
   PRIMARY KEY(isbn),
-  CONSTRAINT fk_magazine_inventory FOREIGN KEY (inventory_id)
+  CONSTRAINT fk_magazine_lot_inventory FOREIGN KEY (inventory_id)
     REFERENCES miscellaneous_store_db.inventory(id)
     ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS miscellaneous_store_db.book (
+CREATE TABLE IF NOT EXISTS miscellaneous_store_db.book_lot (
   isbn VARCHAR(13),
   name VARCHAR(255) UNIQUE NOT NULL,
   author_name VARCHAR(255) NOT NULL,
   publisher_name VARCHAR(255) NOT NULL,
   pages_number INT NOT NULL,
   publication_date DATE NOT NULL,
-  price BIGINT NOT NULL,
+  price_per_unit BIGINT NOT NULL,
   available_units INT NOT NULL,
   inventory_id BIGINT NOT NULL,
   PRIMARY KEY(isbn),
-  CONSTRAINT fk_book_inventory FOREIGN KEY (inventory_id)
+  CONSTRAINT fk_book_lot_inventory FOREIGN KEY (inventory_id)
     REFERENCES miscellaneous_store_db.inventory(id)
     ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS miscellaneous_store_db.disc (
+CREATE TABLE IF NOT EXISTS miscellaneous_store_db.disc_lot (
   id BIGINT AUTO_INCREMENT,
   name VARCHAR(255) UNIQUE  NOT NULL,
   publication_date DATE NOT NULL,
-  disc_format ENUM('DVD', 'Blue-Ray') NOT NULL,
+  disc_lot_format ENUM('DVD', 'Blue-Ray') NOT NULL,
   execution_time_in_minutes INT NOT NULL,
   content_language VARCHAR(120) NOT NULL,
   content_classification VARCHAR(120) NOT NULL,
-  price BIGINT NOT NULL,
+  price_per_unit BIGINT NOT NULL,
   available_units INT NOT NULL,
   inventory_id BIGINT NOT NULL,
   PRIMARY KEY(id),
-  CONSTRAINT fk_disc_inventory FOREIGN KEY (inventory_id)
+  CONSTRAINT fk_disc_lot_inventory FOREIGN KEY (inventory_id)
     REFERENCES miscellaneous_store_db.inventory(id)
     ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS miscellaneous_store_db.vinyl_record (
+CREATE TABLE IF NOT EXISTS miscellaneous_store_db.vinyl_record_lot (
   id BIGINT AUTO_INCREMENT,
   record_production_name VARCHAR(255) UNIQUE NOT NULL,
   artist_group_name VARCHAR(180) NOT NULL,
   publication_date DATE NOT NULL,
   musical_genre VARCHAR(180) NOT NULL,
-  price BIGINT NOT NULL,
+  price_per_unit BIGINT NOT NULL,
   available_units INT NOT NULL,
   inventory_id BIGINT NOT NULL,
   PRIMARY KEY(id),
-  CONSTRAINT fk_vinyl_record_inventory FOREIGN KEY (inventory_id)
+  CONSTRAINT fk_vinyl_record_lot_inventory FOREIGN KEY (inventory_id)
     REFERENCES miscellaneous_store_db.inventory(id)
     ON UPDATE CASCADE ON DELETE CASCADE
 );
