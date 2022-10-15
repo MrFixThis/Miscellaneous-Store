@@ -18,7 +18,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
 
-	//TODO: impement the external (client) behavior [purchases number]
 	private TransactionRepository transactionRepository;
 
 	/**

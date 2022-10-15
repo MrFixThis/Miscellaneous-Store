@@ -54,7 +54,7 @@ public class Transaction {
 	@JoinColumn(name = "branch_office_id", nullable = false)
 	private BranchOffice branchOffice;
 
-	public enum ProductType {
+	public static enum ProductType {
 		MAGAZINE,
 		BOOK,
 		DISC,

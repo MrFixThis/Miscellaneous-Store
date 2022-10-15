@@ -57,7 +57,7 @@ public interface VinylRecordLotService {
 	 * @return the result of the CRUD's update operation over VinylRecordLot
 	 * @see co.edu.unbosque.repository.VinylRecordLotRepository#save(VinylRecordLot)
 	 */
-	ResponseEntity<VinylRecordLot> updateVinylRecordById(Long id,
+	ResponseEntity<VinylRecordLot> updateVinylRecordLotById(Long id,
 			VinylRecordLot updatedVinylRecordLot)
 			throws VinylRecordLotNotFoundException;
 

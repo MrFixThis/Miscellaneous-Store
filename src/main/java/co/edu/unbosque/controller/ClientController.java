@@ -28,7 +28,7 @@ public class ClientController {
 	private BranchOfficeServiceImpl branchOfficeServiceImpl;
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/clients/create")
 	public String createClient(Model model) {
@@ -39,7 +39,7 @@ public class ClientController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/clients/manage/create")
 	public String createClient(Client newClient,
@@ -55,7 +55,7 @@ public class ClientController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/clients/{id}")
 	public String showClient(@PathVariable(name = "id") Long id, Model model) {
@@ -74,7 +74,7 @@ public class ClientController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/clients")
 	public String showClients(Model model) {
@@ -85,7 +85,7 @@ public class ClientController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/clients/update/{id}")
 	public String updateClient(@PathVariable(name = "id") Long id,
@@ -102,7 +102,7 @@ public class ClientController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/clients/manage/update/{id}")
 	public String updateClient(Client updatedClient,
@@ -119,7 +119,7 @@ public class ClientController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@PostMapping("/clients/manage/delete/{id}")
 	public String deleteClient(@PathVariable(name = "id") Long id) {

@@ -92,7 +92,7 @@ public class VinylRecordLotServiceImpl implements VinylRecordLotService {
 	 * @see co.edu.unbosque.repository.VinylRecordLotRepository#save(VinylRecordLot)
 	 */
 	@Override
-	public ResponseEntity<VinylRecordLot> updateVinylRecordById(Long id,
+	public ResponseEntity<VinylRecordLot> updateVinylRecordLotById(Long id,
 			VinylRecordLot updatedVinylRecord)
 			throws VinylRecordLotNotFoundException {
 		VinylRecordLot vinylRecordLot = vinylRecordLotRepository.findById(id)

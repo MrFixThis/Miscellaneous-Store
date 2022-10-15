@@ -40,36 +40,36 @@ public class Inventory {
 
 	@JsonIgnore
 	@EqualsAndHashCode.Exclude
-	@OneToOne(cascade = CascadeType.REFRESH, mappedBy = "inventory",
-		fetch = FetchType.LAZY)
+	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH},
+		mappedBy = "inventory", fetch = FetchType.LAZY)
 	private BranchOffice branchOffice;
 
 	@JsonIgnore
 	@EqualsAndHashCode.Exclude
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
 		CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER,
-		mappedBy = "bookInventory")
-	private Set<BookLot> inventoryBookLots;
-
-	@JsonIgnore
-	@EqualsAndHashCode.Exclude
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
-		CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER,
-		mappedBy = "magazineInventory")
+		mappedBy = "magazineLotInventory")
 	private Set<MagazineLot> inventoryMagazineLots;
 
 	@JsonIgnore
 	@EqualsAndHashCode.Exclude
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
 		CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER,
-		mappedBy = "discInventory")
+		mappedBy = "bookLotInventory")
+	private Set<BookLot> inventoryBookLots;
+
+	@JsonIgnore
+	@EqualsAndHashCode.Exclude
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
+		CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER,
+		mappedBy = "discLotInventory")
 	private Set<DiscLot> inventoryDiscLots;
 
 	@JsonIgnore
 	@EqualsAndHashCode.Exclude
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
 		CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER,
-		mappedBy = "vinylRecordInventory")
+		mappedBy = "vinylRecordLotInventory")
 	private Set<VinylRecordLot> inventoryVinylRecordLots;
 
 	{

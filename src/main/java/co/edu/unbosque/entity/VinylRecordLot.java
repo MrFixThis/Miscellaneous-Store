@@ -10,10 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import co.edu.unbosque.util.TransactionManager;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,7 +29,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class VinylRecordLot {
+public class VinylRecordLot implements TransactionManager {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +44,7 @@ public class VinylRecordLot {
 	@Column(name = "publication_date", nullable = false)
 	private Date publicationDate;
 
-	@Column(name = "misical_genre", length = 180, nullable = false)
+	@Column(name = "musical_genre", length = 180, nullable = false)
 	private String musicalGenre;
 
 	@Column(name = "price_per_unit", nullable = false)
@@ -52,7 +54,17 @@ public class VinylRecordLot {
 	private Integer availableUnits;
 
 	@JsonIgnore
-	@ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "inventory_id")
-	private Inventory vinylRecordInventory;
+	private Inventory vinylRecordLotInventory;
+
+	/**
+	 * Truncates a possible post-delete re-persistence of the current entity.
+	 * @see co.edu.unbosque.util.TransactionManager#preRemove()
+	 */
+	@PreRemove
+	public void preRemove() {
+		this.vinylRecordLotInventory.getInventoryVinylRecordLots().remove(this);
+		this.vinylRecordLotInventory = null;
+	}
 }

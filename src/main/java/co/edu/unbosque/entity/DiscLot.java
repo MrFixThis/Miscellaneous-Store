@@ -12,10 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import co.edu.unbosque.util.TransactionManager;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,7 +31,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class DiscLot {
+public class DiscLot implements TransactionManager {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,12 +63,25 @@ public class DiscLot {
 	private Integer availableUnits;
 
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "inventory_id")
-	private Inventory discInventory;
+	private Inventory discLotInventory;
 
-	public enum DiscFormat {
+	/**
+	 * Enum for DiscLot's entities format
+	 */
+	public static enum DiscFormat {
 		DVD,
 		BLUE_RAY
+	}
+
+	/**
+	 * Truncates a possible post-delete re-persistence of the current entity.
+	 * @see co.edu.unbosque.util.TransactionManager#preRemove()
+	 */
+	@PreRemove
+	public void preRemove() {
+		this.discLotInventory.getInventoryDiscLots().remove(this);
+		this.discLotInventory = null;
 	}
 }

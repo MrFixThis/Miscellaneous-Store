@@ -10,12 +10,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import co.edu.unbosque.util.TransactionManager;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,7 +31,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class BookLot {
+public class BookLot implements TransactionManager {
 	@Id
 	@Column(name = "isbn")
 	@GeneratedValue(generator = "UUID")
@@ -49,7 +51,7 @@ public class BookLot {
 	private String publisherName;
 
 	@Column(name = "pages_number", nullable = false)
-	private Integer pagesNumber;
+	private String pagesNumber;
 
 	@Column(name = "publication_date", nullable = false)
 	private Date publicationDate;
@@ -61,7 +63,17 @@ public class BookLot {
 	private Integer availableUnits;
 
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "inventory_id")
-	private Inventory bookInventory;
+	private Inventory bookLotInventory;
+
+	/**
+	 * Truncates a possible post-delete re-persistence of the current entity.
+	 * @see co.edu.unbosque.util.TransactionManager#preRemove()
+	 */
+	@PreRemove
+	public void preRemove() {
+		this.bookLotInventory.getInventoryBookLots().remove(this);
+		this.bookLotInventory = null;
+	}
 }

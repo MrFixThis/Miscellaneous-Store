@@ -46,7 +46,7 @@ public class MagazineLotController {
 		Inventory magazineLotInventory =
 			inventoryServiceImpl.getInventoryById(inventoryId).getBody();
 		Long branchOfficeId = magazineLotInventory.getBranchOffice().getId();
-		newMagazineLot.setMagazineInventory(magazineLotInventory);
+		newMagazineLot.setMagazineLotInventory(magazineLotInventory);
 		magazineLotServiceImpl.createMagazineLot(newMagazineLot);
 
 		return String.format("redirect:/branch_offices/update/%d",
@@ -92,7 +92,7 @@ public class MagazineLotController {
 	public String updateMagazineLot(MagazineLot updatedMagazineLot,
 			@PathVariable(name = "isbn") UUID isbn) {
 		Long branchOfficeId = magazineLotServiceImpl.getMagazineLotByIsbn(isbn)
-			.getBody().getMagazineInventory().getBranchOffice().getId();
+			.getBody().getMagazineLotInventory().getBranchOffice().getId();
 		magazineLotServiceImpl.updateMagazineLotByIsbn(isbn, updatedMagazineLot);
 
 		return String.format("redirect:/branch_offices/update/%d",
@@ -107,7 +107,7 @@ public class MagazineLotController {
 	public String deleteMagazineLot(@PathVariable(name = "isbn") UUID isbn) {
 		Long branchOfficeId =
 			magazineLotServiceImpl.getMagazineLotByIsbn(isbn).getBody()
-				.getMagazineInventory().getBranchOffice().getId();
+				.getMagazineLotInventory().getBranchOffice().getId();
 		magazineLotServiceImpl.deleteMagazineLotByIsbn(isbn);
 
 		return String.format("redirect:/branch_offices/update/%d",

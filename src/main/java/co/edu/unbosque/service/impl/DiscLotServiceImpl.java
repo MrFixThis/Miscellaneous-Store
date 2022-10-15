@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import co.edu.unbosque.entity.DiscLot;
 import co.edu.unbosque.exception.DiscLotNotFoundException;
 import co.edu.unbosque.repository.DiscLotRepository;
-import co.edu.unbosque.service.DiscService;
+import co.edu.unbosque.service.DiscLotService;
 import lombok.AllArgsConstructor;
 
 /**
@@ -16,32 +16,32 @@ import lombok.AllArgsConstructor;
  */
 @Service
 @AllArgsConstructor
-public class DiscServiceImpl implements DiscService {
+public class DiscLotServiceImpl implements DiscLotService {
 
 	private DiscLotRepository discLotRepository;
 
 	/**
-	 * Creates a new Disc
+	 * Creates a new DiscLot
 	 *
-	 * @param discLot the creating Disc instance
-	 * @return the result of the CRUD's create operation over Disc
+	 * @param discLot the creating DiscLot instance
+	 * @return the result of the CRUD's create operation over DiscLot
 	 * @see co.edu.unbosque.repository.DiscLotRepository#save(DiscLot)
 	 */
 	@Override
-	public ResponseEntity<DiscLot> createDisc(DiscLot discLot) {
-		final DiscLot savedDisc = discLotRepository.save(discLot);
-		return ResponseEntity.ok(savedDisc);
+	public ResponseEntity<DiscLot> createDiscLot(DiscLot discLot) {
+		final DiscLot savedDiscLot = discLotRepository.save(discLot);
+		return ResponseEntity.ok(savedDiscLot);
 	}
 
 	/**
-	 * Retrives an id-specified Disc entity
+	 * Retrives an id-specified DiscLot entity
 	 *
-	 * @param id the id of the Disc entity to retrive
-	 * @return the result of the CRUD's retrive operation over Disc
+	 * @param id the id of the DiscLot entity to retrive
+	 * @return the result of the CRUD's retrive operation over DiscLot
 	 * @see co.edu.unbosque.repository.DiscLotRepository#findById(Long)
 	 */
 	@Override
-	public ResponseEntity<DiscLot> getDiscById(Long id)
+	public ResponseEntity<DiscLot> getDiscLotById(Long id)
 		throws DiscLotNotFoundException {
 		final DiscLot discLot = discLotRepository.findById(id)
 			.orElseThrow(() -> new DiscLotNotFoundException(
@@ -51,14 +51,14 @@ public class DiscServiceImpl implements DiscService {
 	}
 
 	/**
-	 * Retrives a name-specified Disc entity
+	 * Retrives a name-specified DiscLot entity
 	 *
-	 * @param name the name of the Disc entity to retrive
-	 * @return the result of the CRUD's retrive operation over Disc
+	 * @param name the name of the DiscLot entity to retrive
+	 * @return the result of the CRUD's retrive operation over DiscLot
 	 * @see co.edu.unbosque.repository.DiscLotRepository#findByName(String)
 	 */
 	@Override
-	public ResponseEntity<DiscLot> getDiscByName(String name)
+	public ResponseEntity<DiscLot> getDiscLotByName(String name)
 		throws DiscLotNotFoundException {
 		final DiscLot discLot = discLotRepository.findByName(name)
 			.orElseThrow(() -> new DiscLotNotFoundException(
@@ -68,27 +68,27 @@ public class DiscServiceImpl implements DiscService {
 	}
 
 	/**
-	 * Retrives all the Disc entities
+	 * Retrives all the DiscLot entities
 	 *
-	 * @return the result of the CRUD's retrive operation over Disc
+	 * @return the result of the CRUD's retrive operation over DiscLot
 	 * @see co.edu.unbosque.repository.DiscLotRepository#findAll()
 	 */
 	@Override
-	public ResponseEntity<List<DiscLot>> getDiscs() {
+	public ResponseEntity<List<DiscLot>> getDiscLots() {
 		final List<DiscLot> discLots = discLotRepository.findAll();
 		return ResponseEntity.ok(discLots);
 	}
 
 	/**
-	 * Updates an id-specified Disc entity
+	 * Updates an id-specified DiscLot entity
 	 *
-	 * @param id the id of the Disc entity to update
-	 * @param updatedDiscLot the Disc instance with the updating information
-	 * @return the result of the CRUD's update operation over Disc
+	 * @param id the id of the DiscLot entity to update
+	 * @param updatedDiscLot the DiscLot instance with the updating information
+	 * @return the result of the CRUD's update operation over DiscLot
 	 * @see co.edu.unbosque.repository.DiscLotRepository#save(DiscLot)
 	 */
 	@Override
-	public ResponseEntity<DiscLot> updateDiscById(Long id, DiscLot updatedDiscLot)
+	public ResponseEntity<DiscLot> updateDiscLotById(Long id, DiscLot updatedDiscLot)
 			throws DiscLotNotFoundException {
 		DiscLot discLot = discLotRepository.findById(id)
 			.orElseThrow(() -> new DiscLotNotFoundException(
@@ -109,14 +109,14 @@ public class DiscServiceImpl implements DiscService {
 	}
 
 	/**
-	 * Deletes an id-specified Disc entity
+	 * Deletes an id-specified DiscLot entity
 	 *
-	 * @param id the id of the Disc entity to delete
-	 * @return the result of the CRUD's delete operation over Disc
+	 * @param id the id of the DiscLot entity to delete
+	 * @return the result of the CRUD's delete operation over DiscLot
 	 * @see co.edu.unbosque.repository.DiscLotRepository#deleteById(Long)
 	 */
 	@Override
-	public ResponseEntity<?> deleteDiscById(Long id)
+	public ResponseEntity<?> deleteDiscLotById(Long id)
 		throws DiscLotNotFoundException {
 		DiscLot discLot = discLotRepository.findById(id)
 			.orElseThrow(() -> new DiscLotNotFoundException(

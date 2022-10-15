@@ -26,7 +26,9 @@ const fieldValidation = () => {
     for (const i in regexCmn) {
         for (const field of cmnFields[i]) {
             if(field.getAttribute("name") === "emailAddress" ||
-                field.getAttribute("name") === "residenceAddress") { continue }
+                field.getAttribute("name") === "residenceAddress"||
+                field.getAttribute("name") === "authorName" ||
+                field.getAttribute("name") === "discFormat") { continue }
 
             if(isBadFieldValue) { break }
             if(regexCmn[i].test(field.value)) { isBadFieldValue = true }

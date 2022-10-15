@@ -63,7 +63,7 @@ public class Client {
 	private String emailAddress;
 
 	@Column(name = "purchases_number", nullable = false)
-	private int purchasesNumber;
+	private Integer purchasesNumber;
 
 	@JsonIgnore
 	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST},
@@ -71,6 +71,7 @@ public class Client {
 	private Set<BranchOffice> branchOffices;
 
 	{
+		purchasesNumber = 0;
 		branchOffices = new HashSet<>();
 	}
 }
