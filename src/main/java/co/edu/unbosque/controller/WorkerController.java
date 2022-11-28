@@ -14,7 +14,6 @@ import co.edu.unbosque.entity.BranchOffice;
 import co.edu.unbosque.entity.Worker;
 import co.edu.unbosque.service.impl.BranchOfficeServiceImpl;
 import co.edu.unbosque.service.impl.WorkerServiceImpl;
-import co.edu.unbosque.util.DateManager;
 import lombok.AllArgsConstructor;
 
 /**
@@ -49,21 +48,14 @@ public class WorkerController {
 	@GetMapping("/workers/manage/create")
 	public String createWorker(Worker newWorker,
 			@RequestParam(name = "branchOfficeId") Long branchOfficeId,
-			@RequestParam(name = "bDay") String bDay,
-			@RequestParam(name = "bMonth") String bMonth,
-			@RequestParam(name = "bYear") String bYear,
-			@RequestParam(name = "hDay") String hDay,
-			@RequestParam(name = "hMonth") String hMonth,
-			@RequestParam(name = "hYear") String hYear) {
+			@RequestParam(name = "birthDate") String birthDate,
+			@RequestParam(name = "hireDate") String hireDate) {
 
 		BranchOffice workerBranchOffice =
-			branchOfficeServiceImpl.getBranchOfficeById(branchOfficeId)
-				.getBody();
+			branchOfficeServiceImpl.getBranchOfficeById(branchOfficeId).getBody();
 
-		newWorker.setDateOfBirth(Date.valueOf(
-					String.format("%s-%s-%s", bYear, bMonth, bDay)));
-		newWorker.setDateOfHire(Date.valueOf(
-					String.format("%s-%s-%s", hYear, hMonth, hDay)));
+		newWorker.setDateOfBirth(Date.valueOf(birthDate));
+		newWorker.setDateOfHire(Date.valueOf(hireDate));
 		newWorker.setBranchOffice(workerBranchOffice);
 		workerServiceImpl.createWorker(newWorker);
 
@@ -76,16 +68,10 @@ public class WorkerController {
 	@GetMapping("/workers/{id}")
 	public String showWorker(@PathVariable(name = "id") Long id, Model model) {
 		Worker worker = workerServiceImpl.getWorkerById(id).getBody();
-		String[] bDate = DateManager.transformStringDate(worker.getDateOfBirth()
-				.toString());
-		String[] hDate = DateManager.transformStringDate(worker.getDateOfHire()
-				.toString());
 
 		model.addAttribute("type", "worker");
 		model.addAttribute("action", "get");
 		model.addAttribute("employee", worker);
-		model.addAttribute("bDate", bDate);
-		model.addAttribute("hDate", hDate);
 
 		return "employeeActions";
 	}
@@ -111,16 +97,10 @@ public class WorkerController {
 		List<BranchOffice> branchOffices = branchOfficeServiceImpl
 			.getBranchOffices().getBody();
 		Worker worker = workerServiceImpl.getWorkerById(id).getBody();
-		String[] bDate = DateManager.transformStringDate(worker.getDateOfBirth()
-				.toString());
-		String[] hDate = DateManager.transformStringDate(worker.getDateOfHire()
-				.toString());
 
 		model.addAttribute("type", "worker");
 		model.addAttribute("action", "put");
 		model.addAttribute("employee", worker);
-		model.addAttribute("bDate", bDate);
-		model.addAttribute("hDate", hDate);
 		model.addAttribute("branchOffices", branchOffices);
 
 		return "employeeActions";
@@ -133,20 +113,14 @@ public class WorkerController {
 	public String updateWorker(Worker updatedWorker,
 			@PathVariable(name = "id") Long id,
 			@RequestParam(name = "branchOfficeId") Long branchOfficeId,
-			@RequestParam(name = "bDay") String bDay,
-			@RequestParam(name = "bMonth") String bMonth,
-			@RequestParam(name = "bYear") String bYear,
-			@RequestParam(name = "hDay") String hDay,
-			@RequestParam(name = "hMonth") String hMonth,
-			@RequestParam(name = "hYear") String hYear) {
+			@RequestParam(name = "birthDate") String birthDate,
+			@RequestParam(name = "hireDate") String hireDate) {
 
 		BranchOffice workerNewBranchOffice =
-			branchOfficeServiceImpl.getBranchOfficeById(branchOfficeId)
-				.getBody();
-		updatedWorker.setDateOfBirth(Date.valueOf(
-					String.format("%s-%s-%s", bYear, bMonth, bDay)));
-		updatedWorker.setDateOfHire(Date.valueOf(
-					String.format("%s-%s-%s", hYear, hMonth, hDay)));
+			branchOfficeServiceImpl.getBranchOfficeById(branchOfficeId).getBody();
+
+		updatedWorker.setDateOfBirth(Date.valueOf(birthDate));
+		updatedWorker.setDateOfHire(Date.valueOf(hireDate));
 		updatedWorker.setBranchOffice(workerNewBranchOffice);
 		workerServiceImpl.updateWorkerById(id, updatedWorker);
 

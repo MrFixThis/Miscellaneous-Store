@@ -1,11 +1,10 @@
-let cmnFields = [
+let docFields = [
     Array.from(document.getElementsByClassName("TXT")),
-    Array.from(document.getElementsByClassName("NBR"))
+    Array.from(document.getElementsByClassName("NBR")),
 ]
-let dateFields = [
-    Array.from(document.getElementsByClassName("DTD")),
-    Array.from(document.getElementsByClassName("DTM")),
-    Array.from(document.getElementsByClassName("DTY"))
+let exceptedFields = [
+    "emailAddress", "residenceAddress", "authorName", "discFormat",
+    "brithDate", "hireDate"
 ]
 let submitBtn = document.getElementById("sbtn")
 
@@ -13,34 +12,17 @@ let submitBtn = document.getElementById("sbtn")
     * Validates the information for all the form's fields
 */
 const fieldValidation = () => {
-    let regexCmn = [/[^A-Za-z0-9 \n]/, /\D/]
-    10
-    let regexDt = [
-        /\b((0|[1-2])?[1-9]|[1-3][0-1])\b/,
-        /\b(0?[1-9]|1[0-2])\b/,
-        /\b[1-2][0-9][0-9][0-9]\b/
-    ]
+    let regex = [/[^A-Za-z0-9 \n]/, /\D/]
     let isBadFieldValue = false
     let empty = 0
 
-    for (const i in regexCmn) {
-        for (const field of cmnFields[i]) {
-            if(field.getAttribute("name") === "emailAddress" ||
-                field.getAttribute("name") === "residenceAddress"||
-                field.getAttribute("name") === "authorName" ||
-                field.getAttribute("name") === "discFormat") { continue }
+    for(const i in regex) {
+        for(const field of docFields[i]) {
+            if(exceptedFields.includes(field.getAttribute("name"))) { continue }
 
             if(isBadFieldValue) { break }
-            if(regexCmn[i].test(field.value)) { isBadFieldValue = true }
+            if(regex[i].test(field.value)) { isBadFieldValue = true }
             if(field.value == 0 || field.value === "") { empty++ }
-        }
-    }
-
-    for (const i in regexDt) {
-        for (const field of dateFields[i]) {
-            if(isBadFieldValue) { break }
-            if(!regexDt[i].test(field.value)) { isBadFieldValue = true }
-            if(field.value === "" || /\D/.test(field.value)) { empty++ }
         }
     }
 
@@ -49,13 +31,7 @@ const fieldValidation = () => {
 }
 
 //Events setting
-Array.from(cmnFields).forEach((fields) => {
-    fields.forEach((field) => {
-        field.addEventListener("input", fieldValidation)
-    })
-})
-
-Array.from(dateFields).forEach((fields) => {
+Array.from(docFields).forEach((fields) => {
     fields.forEach((field) => {
         field.addEventListener("input", fieldValidation)
     })

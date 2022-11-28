@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import co.edu.unbosque.entity.Administrator;
 import co.edu.unbosque.service.impl.AdministratorServiceImpl;
-import co.edu.unbosque.util.DateManager;
 import lombok.AllArgsConstructor;
 
 /**
@@ -42,17 +41,11 @@ public class AdministratorController {
 	 */
 	@GetMapping("/administrators/manage/create")
 	public String createAdministrator(Administrator newAdministrator,
-			@RequestParam(name = "bDay") String bDay,
-			@RequestParam(name = "bMonth") String bMonth,
-			@RequestParam(name = "bYear") String bYear,
-			@RequestParam(name = "hDay") String hDay,
-			@RequestParam(name = "hMonth") String hMonth,
-			@RequestParam(name = "hYear") String hYear) {
+			@RequestParam(name = "birthDate") String birthDate,
+			@RequestParam(name = "hireDate") String hireDate) {
 
-		newAdministrator.setDateOfBirth(Date.valueOf(
-					String.format("%s-%s-%s", bYear, bMonth, bDay)));
-		newAdministrator.setDateOfHire(Date.valueOf(
-					String.format("%s-%s-%s", hYear, hMonth, hDay)));
+		newAdministrator.setDateOfBirth(Date.valueOf(birthDate));
+		newAdministrator.setDateOfHire(Date.valueOf(hireDate));
 		administratorServiceImpl.createAdministrator(newAdministrator);
 
 		return "redirect:/administrators";
@@ -66,16 +59,10 @@ public class AdministratorController {
 			Model model) {
 		Administrator administrator =
 			administratorServiceImpl.getAdministratorById(id).getBody();
-		String[] bDate = DateManager.transformStringDate(administrator
-				.getDateOfBirth().toString());
-		String[] hDate = DateManager.transformStringDate(administrator
-				.getDateOfHire().toString());
 
 		model.addAttribute("type", "administrator");
 		model.addAttribute("action", "get");
 		model.addAttribute("employee", administrator);
-		model.addAttribute("bDate", bDate);
-		model.addAttribute("hDate", hDate);
 
 		return "employeeActions";
 	}
@@ -101,16 +88,10 @@ public class AdministratorController {
 			Model model) {
 		Administrator administrator =
 			administratorServiceImpl.getAdministratorById(id).getBody();
-		String[] bDate = DateManager.transformStringDate(administrator
-				.getDateOfBirth().toString());
-		String[] hDate = DateManager.transformStringDate(administrator
-				.getDateOfHire().toString());
 
 		model.addAttribute("type", "administrator");
 		model.addAttribute("action", "put");
 		model.addAttribute("employee", administrator);
-		model.addAttribute("bDate", bDate);
-		model.addAttribute("hDate", hDate);
 
 		return "employeeActions";
 	}
@@ -121,17 +102,11 @@ public class AdministratorController {
 	@GetMapping("/administrators/manage/update/{id}")
 	public String updateAdministrator(Administrator updatedAdministrator,
 			@PathVariable(name = "id") Long id,
-			@RequestParam(name = "bDay") String bDay,
-			@RequestParam(name = "bMonth") String bMonth,
-			@RequestParam(name = "bYear") String bYear,
-			@RequestParam(name = "hDay") String hDay,
-			@RequestParam(name = "hMonth") String hMonth,
-			@RequestParam(name = "hYear") String hYear) {
+			@RequestParam(name = "birthDate") String birthDate,
+			@RequestParam(name = "hireDate") String hireDate) {
 
-		updatedAdministrator.setDateOfBirth(Date.valueOf(
-					String.format("%s-%s-%s", bYear, bMonth, bDay)));
-		updatedAdministrator.setDateOfHire(Date.valueOf(
-					String.format("%s-%s-%s", hYear, hMonth, hDay)));
+		updatedAdministrator.setDateOfBirth(Date.valueOf(birthDate));
+		updatedAdministrator.setDateOfHire(Date.valueOf(hireDate));
 		administratorServiceImpl.updateAdministratorById(id, updatedAdministrator);
 
 		return String.format("redirect:/administrators/%d",

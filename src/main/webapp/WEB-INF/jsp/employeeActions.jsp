@@ -88,18 +88,14 @@
 						</div>
 						<div class="input-group mb-3">
 							<span class="input-group-text text-muted">Phone number</span>
-							<input type="text" name="phoneNumber" class="NBR form-control w-25"
+							<input type="text" name="phoneNumber" class="NBR form-control"
 								value="${employee.getPhoneNumber()}" maxlength="15" ${locker}>
 							<span class="input-group-text text-muted">Email address</span>
 							<input type="text" name="emailAddress" class="TXT form-control w-25"
 								value="${employee.getEmailAddress()}" maxlength="255" ${locker}>
 							<span class="input-group-text text-muted">Date of birth</span>
-							<input name="bDay" class="DTD form-control" type="text" maxlength="2" placeholder="DD"
-								value="${bDate[2]}" ${locker}>
-							<input name="bMonth" class="DTM form-control" type="text" maxlength="2" placeholder="MM"
-								value="${bDate[1]}" ${locker}>
-							<input name="bYear" class="DTY form-control" type="text" maxlength="4" placeholder="YY"
-								value="${bDate[0]}" ${locker}>
+							<input class="TXT form-control" type="date" name="birthDate" placeholder="yyyy-mm-dd"
+							 value="${employee.getDateOfBirth().toString()}" min="1900-01-01" max="2030-12-31" ${locker}>
 						</div>
 					  </div>
 					</div>
@@ -117,7 +113,7 @@
 				<div class="input-group mb-3">
 					<c:if test="${type.equals('administrator') && employee.getBranchOffice() != null && action.equals('get') || type.equals('worker')}">
 							<span class="input-group-text text-muted">Working BO</span>
-						<span class="d-inline-block w-25"
+						<span class="d-inline-block" style="width: 180px"
 							${action.equals('post') && branchOffices.size() == 0 ? 'tabindex="0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="There is no branch offices active"' : ''}>
 							<select name="branchOfficeId" class="NBR form-select ${branchOffices.size() == 0 ? 'is-invalid' : ''}"
 							  ${branchOffices.size() == 0 ? 'style="pointer-events: none;"' : ''}
@@ -153,12 +149,8 @@
 						<input type="text" name="basicSalary" class="NBR form-control w-25"
 							value="${employee.getBasicSalary()}" ${locker}>
 						<span class="input-group-text text-muted">Date of hire</span>
-						<input name="hDay" class="DTD form-control" type="text" maxlength="2" placeholder="DD"
-							  value="${hDate[2]}" ${locker}>
-						<input name="hMonth" class="DTM form-control" type="text" maxlength="2" placeholder="MM"
-							value="${hDate[1]}" ${locker}>
-						<input name="hYear" class="DTY form-control" type="text" maxlength="4" placeholder="YY"
-							value="${hDate[0]}" ${locker}>
+						<input class="TXT form-control" type="date" name="hireDate" placeholder="yyyy-mm-dd"
+						value="${employee.getDateOfHire().toString()}" min="1900-01-01" max="2030-12-31" ${locker}>
 					</div>
 				</div>
 				<div class="text-success"><hr class="w-50 mx-auto"></div>
