@@ -12,7 +12,6 @@ import co.edu.unbosque.entity.DiscLot;
 import co.edu.unbosque.entity.Inventory;
 import co.edu.unbosque.service.impl.DiscLotServiceImpl;
 import co.edu.unbosque.service.impl.InventoryServiceImpl;
-import co.edu.unbosque.util.DateManager;
 import lombok.AllArgsConstructor;
 
 /**
@@ -44,15 +43,13 @@ public class DiscLotController {
 	@GetMapping("/disc_lots/manage/create/{inventoryId}")
 	public String createDiscLot(DiscLot newDiscLot,
 			@PathVariable(name = "inventoryId") Long inventoryId,
-			@RequestParam(name = "pDay") String pDay,
-			@RequestParam(name = "pMonth") String pMonth,
-			@RequestParam(name = "pYear") String pYear) {
+			@RequestParam(name = "publicationDate") String publicationDate) {
 
 		Inventory discLotInventory =
 			inventoryServiceImpl.getInventoryById(inventoryId).getBody();
 		Long branchOfficeId = discLotInventory.getBranchOffice().getId();
-		newDiscLot.setPublicationDate(Date.valueOf(
-					String.format("%s-%s-%s", pYear, pMonth, pDay)));
+
+		newDiscLot.setPublicationDate(Date.valueOf(publicationDate));
 		newDiscLot.setDiscLotInventory(discLotInventory);
 		discLotServiceImpl.createDiscLot(newDiscLot);
 
@@ -67,14 +64,10 @@ public class DiscLotController {
 	@GetMapping("/disc_lots/{Id}")
 	public String showDiscLot(@PathVariable(name = "Id") Long Id,
 			Model model) {
-		DiscLot discLot =
-			discLotServiceImpl.getDiscLotById(Id).getBody();
-		String[] pDate = DateManager.transformStringDate(
-				discLot.getPublicationDate().toString());
+		DiscLot discLot = discLotServiceImpl.getDiscLotById(Id).getBody();
 
 		model.addAttribute("action", "get");
 		model.addAttribute("discLot", discLot);
-		model.addAttribute("pDate", pDate);
 
 		return "discLotActions";
 	}
@@ -86,14 +79,10 @@ public class DiscLotController {
 	@GetMapping("/disc_lots/update/{Id}")
 	public String updateDiscLot(@PathVariable(name = "Id") Long Id,
 			Model model) {
-		DiscLot discLot =
-			discLotServiceImpl.getDiscLotById(Id).getBody();
-		String[] pDate = DateManager.transformStringDate(
-				discLot.getPublicationDate().toString());
+		DiscLot discLot = discLotServiceImpl.getDiscLotById(Id).getBody();
 
 		model.addAttribute("action", "put");
 		model.addAttribute("discLot", discLot);
-		model.addAttribute("pDate", pDate);
 
 		return "discLotActions";
 	}
@@ -104,14 +93,12 @@ public class DiscLotController {
 	@GetMapping("/disc_lots/manage/update/{Id}")
 	public String updateDiscLot(DiscLot updatedDiscLot,
 			@PathVariable(name = "Id") Long Id,
-			@RequestParam(name = "pDay") String pDay,
-			@RequestParam(name = "pMonth") String pMonth,
-			@RequestParam(name = "pYear") String pYear) {
+			@RequestParam(name = "publicationDate") String publicationDate) {
 
 		Long branchOfficeId = discLotServiceImpl.getDiscLotById(Id)
 			.getBody().getDiscLotInventory().getBranchOffice().getId();
-		updatedDiscLot.setPublicationDate(Date.valueOf(
-					String.format("%s-%s-%s", pYear, pMonth, pDay)));
+
+		updatedDiscLot.setPublicationDate(Date.valueOf(publicationDate));
 		discLotServiceImpl.updateDiscLotById(Id, updatedDiscLot);
 
 		return String.format("redirect:/branch_offices/update/%d",

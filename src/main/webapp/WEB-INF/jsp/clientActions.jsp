@@ -86,12 +86,8 @@
 							<input type="text" name="phoneNumber" class="NBR form-control w-25"
 								value="${client.getPhoneNumber()}" maxlength="15" ${locker}>
 							<span class="input-group-text text-muted">Date of birth</span>
-							<input name="bDay" class="DTD form-control" type="text" maxlength="2" placeholder="DD"
-								value="${bDate[2]}" ${locker}>
-							<input name="bMonth" class="DTM form-control" type="text" maxlength="2" placeholder="MM"
-								value="${bDate[1]}" ${locker}>
-							<input name="bYear" class="DTY form-control" type="text" maxlength="4" placeholder="YY"
-								value="${bDate[0]}" ${locker}>
+							<input class="TXT form-control" type="date" name="birthDate" placeholder="yyyy-mm-dd"
+							 value="${client.getDateOfBirth().toString()}" min="1900-01-01" max="2030-12-31" ${locker}>
 						</div>
 					  </div>
 					</div>

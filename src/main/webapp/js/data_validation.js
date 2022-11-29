@@ -1,38 +1,39 @@
+//DOM components
 let docFields = [
     Array.from(document.getElementsByClassName("TXT")),
     Array.from(document.getElementsByClassName("NBR")),
 ]
 let exceptedFields = [
     "emailAddress", "residenceAddress", "authorName", "discFormat",
-    "brithDate", "hireDate"
+    "birthDate", "hireDate", "publicationDate"
 ]
 let submitBtn = document.getElementById("sbtn")
 
+//Regex patterns
+const regex = [/[^A-Za-z0-9 \n]/, /\D/]
+
 /**
-    * Validates the information for all the form's fields
+    * Validates the information of all the form's fields
 */
-const fieldValidation = () => {
-    let regex = [/[^A-Za-z0-9 \n]/, /\D/]
-    let isBadFieldValue = false
-    let empty = 0
+const validateField = () => {
+    let isInvalidValue = false
+    let emptyField = 0
 
     for(const i in regex) {
         for(const field of docFields[i]) {
-            if(exceptedFields.includes(field.getAttribute("name"))) { continue }
-
-            if(isBadFieldValue) { break }
-            if(regex[i].test(field.value)) { isBadFieldValue = true }
-            if(field.value == 0 || field.value === "") { empty++ }
+            if(isInvalidValue) { break }
+            isInvalidValue = exceptedFields.includes(field.getAttribute("name"))
+                ? false : regex[i].test(field.value);
+            if(/^$/.test(field.value)) { ++emptyField }
         }
     }
 
-    submitBtn.disabled = false
-    if(isBadFieldValue || empty > 0) { submitBtn.disabled = true }
+    submitBtn.disabled = (isInvalidValue || emptyField > 0) ? true : false;
 }
 
-//Events setting
+//Event setting
 Array.from(docFields).forEach((fields) => {
     fields.forEach((field) => {
-        field.addEventListener("input", fieldValidation)
+        field.addEventListener("input", validateField)
     })
 })

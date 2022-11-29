@@ -12,7 +12,6 @@ import co.edu.unbosque.entity.VinylRecordLot;
 import co.edu.unbosque.entity.Inventory;
 import co.edu.unbosque.service.impl.VinylRecordLotServiceImpl;
 import co.edu.unbosque.service.impl.InventoryServiceImpl;
-import co.edu.unbosque.util.DateManager;
 import lombok.AllArgsConstructor;
 
 /**
@@ -44,15 +43,13 @@ public class VinylRecordLotController {
 	@GetMapping("/vinyl_record_lots/manage/create/{inventoryId}")
 	public String createVinylRecordLot(VinylRecordLot newVinylRecordLot,
 			@PathVariable(name = "inventoryId") Long inventoryId,
-			@RequestParam(name = "pDay") String pDay,
-			@RequestParam(name = "pMonth") String pMonth,
-			@RequestParam(name = "pYear") String pYear) {
+			@RequestParam(name = "publicationDate") String publicationDate) {
 
 		Inventory vinylRecordLotInventory =
 			inventoryServiceImpl.getInventoryById(inventoryId).getBody();
 		Long branchOfficeId = vinylRecordLotInventory.getBranchOffice().getId();
-		newVinylRecordLot.setPublicationDate(Date.valueOf(
-					String.format("%s-%s-%s", pYear, pMonth, pDay)));
+
+		newVinylRecordLot.setPublicationDate(Date.valueOf(publicationDate));
 		newVinylRecordLot.setVinylRecordLotInventory(vinylRecordLotInventory);
 		vinylRecordLotServiceImpl.createVinylRecordLot(newVinylRecordLot);
 
@@ -69,12 +66,9 @@ public class VinylRecordLotController {
 			Model model) {
 		VinylRecordLot vinylRecordLot =
 			vinylRecordLotServiceImpl.getVinylRecordLotById(Id).getBody();
-		String[] pDate = DateManager.transformStringDate(
-				vinylRecordLot.getPublicationDate().toString());
 
 		model.addAttribute("action", "get");
 		model.addAttribute("vinylRecordLot", vinylRecordLot);
-		model.addAttribute("pDate", pDate);
 
 		return "vinylRecordLotActions";
 	}
@@ -88,12 +82,9 @@ public class VinylRecordLotController {
 			Model model) {
 		VinylRecordLot vinylRecordLot =
 			vinylRecordLotServiceImpl.getVinylRecordLotById(Id).getBody();
-		String[] pDate = DateManager.transformStringDate(
-				vinylRecordLot.getPublicationDate().toString());
 
 		model.addAttribute("action", "put");
 		model.addAttribute("vinylRecordLot", vinylRecordLot);
-		model.addAttribute("pDate", pDate);
 
 		return "vinylRecordLotActions";
 	}
@@ -104,14 +95,12 @@ public class VinylRecordLotController {
 	@GetMapping("/vinyl_record_lots/manage/update/{Id}")
 	public String updateVinylRecordLot(VinylRecordLot updatedVinylRecordLot,
 			@PathVariable(name = "Id") Long id,
-			@RequestParam(name = "pDay") String pDay,
-			@RequestParam(name = "pMonth") String pMonth,
-			@RequestParam(name = "pYear") String pYear) {
+			@RequestParam(name = "publicationDate") String publicationDate) {
 
 		Long branchOfficeId = vinylRecordLotServiceImpl.getVinylRecordLotById(id)
 			.getBody().getVinylRecordLotInventory().getBranchOffice().getId();
-		updatedVinylRecordLot.setPublicationDate(Date.valueOf(
-					String.format("%s-%s-%s", pYear, pMonth, pDay)));
+
+		updatedVinylRecordLot.setPublicationDate(Date.valueOf(publicationDate));
 		vinylRecordLotServiceImpl.updateVinylRecordLotById(id, updatedVinylRecordLot);
 
 		return String.format("redirect:/branch_offices/update/%d",

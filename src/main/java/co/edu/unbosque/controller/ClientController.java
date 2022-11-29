@@ -14,7 +14,6 @@ import co.edu.unbosque.entity.BranchOffice;
 import co.edu.unbosque.entity.Client;
 import co.edu.unbosque.service.impl.BranchOfficeServiceImpl;
 import co.edu.unbosque.service.impl.ClientServiceImpl;
-import co.edu.unbosque.util.DateManager;
 import lombok.AllArgsConstructor;
 
 /**
@@ -43,12 +42,9 @@ public class ClientController {
 	 */
 	@GetMapping("/clients/manage/create")
 	public String createClient(Client newClient,
-			@RequestParam(name = "bDay") String bDay,
-			@RequestParam(name = "bMonth") String bMonth,
-			@RequestParam(name = "bYear") String bYear) {
+			@RequestParam(name = "birthDate") String birthDate) {
 
-		newClient.setDateOfBirth(Date.valueOf(
-					String.format("%s-%s-%s", bYear, bMonth, bDay)));
+		newClient.setDateOfBirth(Date.valueOf(birthDate));
 		clientServiceImpl.createClient(newClient);
 
 		return "redirect:/clients";
@@ -60,14 +56,11 @@ public class ClientController {
 	@GetMapping("/clients/{id}")
 	public String showClient(@PathVariable(name = "id") Long id, Model model) {
 		Client client = clientServiceImpl.getClientById(id).getBody();
-		String[] bDate = DateManager.transformStringDate(client.getDateOfBirth()
-				.toString());
 		List<BranchOffice> cBranchOffices =
 			branchOfficeServiceImpl.getBranchOfficesByClientsId(id).getBody();
 
 		model.addAttribute("action", "get");
 		model.addAttribute("client", client);
-		model.addAttribute("bDate", bDate);
 		model.addAttribute("cBranchOffices", cBranchOffices);
 
 		return "clientActions";
@@ -91,12 +84,9 @@ public class ClientController {
 	public String updateClient(@PathVariable(name = "id") Long id,
 			Model model) {
 		Client client = clientServiceImpl.getClientById(id).getBody();
-		String[] bDate = DateManager.transformStringDate(client.getDateOfBirth()
-				.toString());
 
 		model.addAttribute("action", "put");
 		model.addAttribute("client", client);
-		model.addAttribute("bDate", bDate);
 
 		return "clientActions";
 	}
@@ -107,12 +97,9 @@ public class ClientController {
 	@GetMapping("/clients/manage/update/{id}")
 	public String updateClient(Client updatedClient,
 			@PathVariable(name = "id") Long id,
-			@RequestParam(name = "bDay") String bDay,
-			@RequestParam(name = "bMonth") String bMonth,
-			@RequestParam(name = "bYear") String bYear) {
+			@RequestParam(name = "birthDate") String birthDate) {
 
-		updatedClient.setDateOfBirth(Date.valueOf(
-					String.format("%s-%s-%s", bYear, bMonth, bDay)));
+		updatedClient.setDateOfBirth(Date.valueOf(birthDate));
 		clientServiceImpl.updateClientById(id, updatedClient);
 
 		return String.format("redirect:/clients/%d", updatedClient.getId());

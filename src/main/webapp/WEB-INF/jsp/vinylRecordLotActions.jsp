@@ -7,7 +7,6 @@
     <head>
 		<%@include file="./headContent.jsp"%>
 		<script src="../../js/data_validation.js" defer></script>
-		<script src="../../js/tooltip.js" defer></script>
     </head>
     <body class="pt-5">
 		<%@include file="./navbar.jsp"%>
@@ -65,12 +64,8 @@
 							<input type="text" name="availableUnits" class="NBR form-control"
 								value="${vinylRecordLot.getAvailableUnits()}" ${locker}>
 							<span class="input-group-text text-muted">Publication date</span>
-							<input name="pDay" class="DTD form-control" type="text" maxlength="2" placeholder="DD"
-								value="${pDate[2]}" ${locker}>
-							<input name="pMonth" class="DTM form-control" type="text" maxlength="2" placeholder="MM"
-								value="${pDate[1]}" ${locker}>
-							<input name="pYear" class="DTY form-control" type="text" maxlength="4" placeholder="YY"
-								value="${pDate[0]}" ${locker}>
+							<input class="TXT form-control" type="date" name="publicationDate" placeholder="yyyy-mm-dd"
+							 value="${vinylRecordLot.getPublicationDate().toString()}" min="1900-01-01" max="2030-12-31" ${locker}>
 						</div>
 					  </div>
 					</div>
