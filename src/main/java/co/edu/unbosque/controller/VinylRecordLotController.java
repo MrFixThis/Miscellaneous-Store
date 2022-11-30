@@ -27,7 +27,7 @@ public class VinylRecordLotController {
 	/**
 	 *
 	 */
-	@GetMapping("/vinyl_record_lots/create/{inventoryId}")
+	@GetMapping("/vinyl_record_lots/create/inventory={inventoryId}")
 	public String createVinylRecordLot(@PathVariable(name = "inventoryId")
 			Long inventoryId, Model model) {
 		model.addAttribute("action", "post");

@@ -24,8 +24,8 @@ public class AdministratorController {
 	private AdministratorServiceImpl administratorServiceImpl;
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 */
 	@GetMapping("/administrators/create")
 	public String createAdministrator(Model model) {
@@ -37,7 +37,7 @@ public class AdministratorController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/administrators/manage/create")
 	public String createAdministrator(Administrator newAdministrator,
@@ -52,7 +52,7 @@ public class AdministratorController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/administrators/{id}")
 	public String showAdministrator(@PathVariable(name = "id") Long id,
@@ -68,20 +68,22 @@ public class AdministratorController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/administrators")
 	public String showAdministrators(Model model) {
 		List<Administrator> administrators =
 			administratorServiceImpl.getAdministrators().getBody();
+
 		model.addAttribute("type", "administrator");
+		model.addAttribute("action", "get");
 		model.addAttribute("employees", administrators);
 
 		return "employees";
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/administrators/update/{id}")
 	public String updateAdministrator(@PathVariable(name = "id") Long id,
@@ -97,7 +99,7 @@ public class AdministratorController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@GetMapping("/administrators/manage/update/{id}")
 	public String updateAdministrator(Administrator updatedAdministrator,
@@ -109,12 +111,11 @@ public class AdministratorController {
 		updatedAdministrator.setDateOfHire(Date.valueOf(hireDate));
 		administratorServiceImpl.updateAdministratorById(id, updatedAdministrator);
 
-		return String.format("redirect:/administrators/%d",
-				updatedAdministrator.getId());
+		return String.format("redirect:/administrators/%d", id);
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@PostMapping("/administrators/manage/delete/{id}")
 	public String deleteAdministrator(@PathVariable(name = "id") Long id) {

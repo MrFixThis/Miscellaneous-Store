@@ -51,7 +51,7 @@ public class VinylRecordLot implements TransactionManager {
 	private Long pricePerUnit;
 
 	@Column(name = "available_units", nullable = false)
-	private Integer availableUnits;
+	private Long availableUnits;
 
 	@JsonIgnore
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})

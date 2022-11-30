@@ -150,14 +150,17 @@ CREATE TABLE IF NOT EXISTS miscellaneous_store_db.worker (
 
 CREATE TABLE IF NOT EXISTS miscellaneous_store_db.transaction (
   id BIGINT AUTO_INCREMENT,
+  client_name VARCHAR(255) NOT NULL,
   client_identification_number VARCHAR(25) NOT NULL,
   client_identification_type VARCHAR(80) NOT NULL,
   product_name VARCHAR(255) NOT NULL,
   product_type ENUM('Magazine', 'Book', 'Disc', 'Vinyl Record') NOT NULL,
   product_price BIGINT NOT NULL,
+  product_quantity BIGINT NOT NULL,
+  transaction_cost BIGINT NOT NULL,
   branch_office_id BIGINT NOT NULL,
   PRIMARY KEY(id),
-  CONSTRAINT fk_trasaction_branch_office FOREIGN KEY (branch_office_id)
+  CONSTRAINT fk_transaction_branch_office FOREIGN KEY (branch_office_id)
     REFERENCES miscellaneous_store_db.branch_office(id)
     ON UPDATE CASCADE ON DELETE CASCADE
 );

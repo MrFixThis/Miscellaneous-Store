@@ -27,7 +27,7 @@ public class MagazineLotController {
 	 *
 	 *
 	 */
-	@GetMapping("/magazine_lots/create/{inventoryId}")
+	@GetMapping("/magazine_lots/create/inventory={inventoryId}")
 	public String createMagazineLot(@PathVariable(name = "inventoryId")
 			Long inventoryId, Model model) {
 		model.addAttribute("action", "post");

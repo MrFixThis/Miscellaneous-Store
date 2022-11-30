@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,6 +34,9 @@ public class Transaction {
 	@Column(name = "id")
 	private Long id;
 
+	@Column(name = "client_name", nullable = false)
+	private String clientName;
+
 	@Column(name = "client_identification_number", length = 25, nullable = false)
 	private String clientIdentificationNumber;
 
@@ -49,11 +53,20 @@ public class Transaction {
 	@Column(name = "product_price", nullable = false)
 	private Long productPrice;
 
+	@Column(name = "product_quantity", nullable = false)
+	private Long productQuantity;
+
+	@Column(name = "transaction_cost", nullable = false)
+	private Long transactionCost;
+
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "branch_office_id", nullable = false)
 	private BranchOffice branchOffice;
 
+	/**
+	 * Enum for Transaction entities' products types
+	 */
 	public static enum ProductType {
 		MAGAZINE,
 		BOOK,

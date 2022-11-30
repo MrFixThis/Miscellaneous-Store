@@ -72,6 +72,8 @@ public class ClientController {
 	@GetMapping("/clients")
 	public String showClients(Model model) {
 		List<Client> clients = clientServiceImpl.getClients().getBody();
+
+		model.addAttribute("action", "get");
 		model.addAttribute("clients", clients);
 
 		return "clients";
@@ -102,7 +104,7 @@ public class ClientController {
 		updatedClient.setDateOfBirth(Date.valueOf(birthDate));
 		clientServiceImpl.updateClientById(id, updatedClient);
 
-		return String.format("redirect:/clients/%d", updatedClient.getId());
+		return String.format("redirect:/clients/%d", id);
 	}
 
 	/**

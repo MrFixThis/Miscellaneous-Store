@@ -27,7 +27,7 @@ public class DiscLotController {
 	/**
 	 *
 	 */
-	@GetMapping("/disc_lots/create/{inventoryId}")
+	@GetMapping("/disc_lots/create/inventory={inventoryId}")
 	public String createDiscLot(@PathVariable(name = "inventoryId")
 			Long inventoryId, Model model) {
 		model.addAttribute("action", "post");

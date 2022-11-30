@@ -82,7 +82,9 @@ public class WorkerController {
 	@GetMapping("/workers")
 	public String showWorkers(Model model) {
 		List<Worker> workers = workerServiceImpl.getWorkers().getBody();
+
 		model.addAttribute("type", "worker");
+		model.addAttribute("action", "get");
 		model.addAttribute("employees", workers);
 
 		return "employees";
@@ -124,7 +126,7 @@ public class WorkerController {
 		updatedWorker.setBranchOffice(workerNewBranchOffice);
 		workerServiceImpl.updateWorkerById(id, updatedWorker);
 
-		return String.format("redirect:/workers/%d", updatedWorker.getId());
+		return String.format("redirect:/workers/%d", id);
 	}
 
 	/**

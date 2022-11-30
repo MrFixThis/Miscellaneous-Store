@@ -73,7 +73,7 @@
 										</c:otherwise>
 									</c:choose>
 								</select>
-								<label for="floatingSelect" class"text-center">Select one of them</label>
+								<label for="floatingSelect" class"text-center">${action.equals('post') || (action.equals('put') && branchOffice.getAdministrator() == null) ? "Select one of them" : "Current administrator"}</label>
 							</div>
 						</c:when>
 						<c:otherwise>
@@ -149,7 +149,7 @@
 											<th scope="row" class="text-center">${magazineLot.getIsbn()}</th>
 											  <td>${magazineLot.getName()}</td>
 											  <td>${magazineLot.getAvailableUnits()}</td>
-											  <td>${magazineLot.getPricePerUnit()}</td>
+											  <td>$${magazineLot.getPricePerUnit()}</td>
 											  <td class="text-center" ${tableMod}>
 												<form action="/magazine_lots/${magazineLot.getIsbn()}">
 													<input type="submit" value="See more"
@@ -171,7 +171,7 @@
 							</c:choose>
 							<c:if test="${action.equals('put')}">
 								<div class="container mt-4 mb-4 text-center">
-									<form action="/magazine_lots/create/${branchOffice.getInventory().getId()}">
+									<form action="/magazine_lots/create/inventory=${branchOffice.getInventory().getId()}">
 										<input type="submit" value="Add New Lot"
 											class="btn btn-outline-primary">
 									</form>
@@ -202,7 +202,7 @@
 											<th scope="row" class="text-center">${bookLot.getIsbn()}</th>
 											  <td>${bookLot.getName()}</td>
 											  <td>${bookLot.getAvailableUnits()}</td>
-											  <td>${bookLot.getPricePerUnit()}</td>
+											  <td>$${bookLot.getPricePerUnit()}</td>
 											  <td class="text-center" ${tableMod}>
 												<form action="/book_lots/${bookLot.getIsbn()}">
 													<input type="submit" value="See more"
@@ -224,7 +224,7 @@
 							</c:choose>
 							<c:if test="${action.equals('put')}">
 								<div class="container mt-4 mb-4 text-center">
-									<form action="/book_lots/create/${branchOffice.getInventory().getId()}">
+									<form action="/book_lots/create/inventory=${branchOffice.getInventory().getId()}">
 										<input type="submit" value="Add New Lot"
 											class="btn btn-outline-primary">
 									</form>
@@ -255,7 +255,7 @@
 											<th scope="row" class="text-center">${discLot.getId()}</th>
 											  <td>${discLot.getName()}</td>
 											  <td>${discLot.getAvailableUnits()}</td>
-											  <td>${discLot.getPricePerUnit()}</td>
+											  <td>$${discLot.getPricePerUnit()}</td>
 											  <td class="text-center" ${tableMod}>
 												<form action="/disc_lots/${discLot.getId()}">
 													<input type="submit" value="See more"
@@ -277,7 +277,7 @@
 							</c:choose>
 							<c:if test="${action.equals('put')}">
 								<div class="container mt-4 mb-4 text-center">
-									<form action="/disc_lots/create/${branchOffice.getInventory().getId()}">
+									<form action="/disc_lots/create/inventory=${branchOffice.getInventory().getId()}">
 										<input type="submit" value="Add New Lot"
 											class="btn btn-outline-primary">
 									</form>
@@ -308,7 +308,7 @@
 											<th scope="row" class="text-center">${vinylRecordLot.getId()}</th>
 											  <td>${vinylRecordLot.getRecordProductionName()}</td>
 											  <td>${vinylRecordLot.getAvailableUnits()}</td>
-											  <td>${vinylRecordLot.getPricePerUnit()}</td>
+											  <td>$${vinylRecordLot.getPricePerUnit()}</td>
 											  <td class="text-center" ${tableMod}>
 												<form action="/vinyl_record_lots/${vinylRecordLot.getId()}">
 													<input type="submit" value="See more"
@@ -330,7 +330,7 @@
 							</c:choose>
 							<c:if test="${action.equals('put')}">
 								<div class="container mt-4 mb-4 text-center">
-									<form action="/vinyl_record_lots/create/${branchOffice.getInventory().getId()}">
+									<form action="/vinyl_record_lots/create/inventory=${branchOffice.getInventory().getId()}">
 										<input type="submit" value="Add New Lot"
 											class="btn btn-outline-primary">
 									</form>
@@ -350,7 +350,7 @@
 							</c:when>
 							<c:otherwise>
 								<div class="btn-group me-4" role="group">
-									<form action="/transactions/${branchOffice.getId()}">
+									<form action="/branch_offices/${branchOffice.getId()}/transactions">
 										<input type="submit" value="Transactions"
 											class="btn btn-outline-warning btn-lg mb-4">
 									</form>

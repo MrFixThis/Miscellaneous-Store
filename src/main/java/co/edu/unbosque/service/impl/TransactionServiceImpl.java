@@ -29,9 +29,9 @@ public class TransactionServiceImpl implements TransactionService {
 	 */
 	@Override
 	public ResponseEntity<Transaction> createTransaction(Transaction transaction) {
-		final Transaction savedTrasaction =
+		final Transaction savedTransaction =
 			transactionRepository.save(transaction);
-		return ResponseEntity.ok(savedTrasaction);
+		return ResponseEntity.ok(savedTransaction);
 	}
 
 	/**

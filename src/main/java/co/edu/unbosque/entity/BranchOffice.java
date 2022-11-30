@@ -53,20 +53,23 @@ public class BranchOffice {
 	@JoinTable(
 		name = "branch_office_clients",
 		joinColumns = @JoinColumn(
-					name = "branch_office_id", nullable = false
-				),
+					name = "branch_office_id", nullable = false),
 		inverseJoinColumns = @JoinColumn(
-					name = "client_id", nullable = false
-				)
+					name = "client_id", nullable = false)
 	)
 	private Set<Client> clients;
 
 	@JsonIgnore
 	@EqualsAndHashCode.Exclude
 	@OneToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH,
-		CascadeType.REMOVE},
-		fetch = FetchType.LAZY, mappedBy = "branchOffice")
+		CascadeType.REMOVE}, fetch = FetchType.LAZY, mappedBy = "branchOffice")
 	private Set<Worker> workers;
+
+	@JsonIgnore
+	@EqualsAndHashCode.Exclude
+	@OneToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH,
+		CascadeType.REMOVE}, fetch = FetchType.EAGER, mappedBy = "branchOffice")
+	private Set<Transaction> transactions;
 
 	{
 		clients = new HashSet<>();

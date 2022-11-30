@@ -77,6 +77,8 @@ public class BranchOfficeController {
 	public String showBranchOffices(Model model) {
 		List<BranchOffice> branchOffices =
 			branchOfficeServiceImpl.getBranchOffices().getBody();
+
+		model.addAttribute("action", "get");
 		model.addAttribute("branchOffices", branchOffices);
 
 		return "branchOffices";
@@ -150,6 +152,22 @@ public class BranchOfficeController {
 		}
 
 		return String.format("redirect:/branch_offices/%d", id);
+	}
+
+	/*
+	 *
+	 */
+	@GetMapping("/branch_offices/{id}/transactions")
+	public String showTransactions(Model model,
+			@PathVariable(name = "id") Long id) {
+
+		BranchOffice branchOffice =
+			branchOfficeServiceImpl.getBranchOfficeById(id).getBody();
+
+		model.addAttribute("action", "post");
+		model.addAttribute("branchOffice", branchOffice);
+
+		return "transactionProducts";
 	}
 
 	/**

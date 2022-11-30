@@ -28,7 +28,7 @@ public class BookLotController {
 	/**
 	 *
 	 */
-	@GetMapping("/book_lots/create/{inventoryId}")
+	@GetMapping("/book_lots/create/inventory={inventoryId}")
 	public String createBookLot(@PathVariable(name = "inventoryId")
 			Long inventoryId, Model model) {
 		model.addAttribute("action", "post");
