@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class VinylRecordLotNotFoundException extends RuntimeException {
 
+	/**
+	 * Constructs a new VinylRecordLotNotFoundException with the specified detail message.
+	 *
+	 * @param message the detail message. The detail message is saved for
+	 * later retrieval by the {@link #getMessage()} method.
+	 */
 	public VinylRecordLotNotFoundException(String message) {
 		super(message);
 	}

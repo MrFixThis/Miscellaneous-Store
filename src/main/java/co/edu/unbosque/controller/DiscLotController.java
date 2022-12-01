@@ -25,7 +25,12 @@ public class DiscLotController {
 	private InventoryServiceImpl inventoryServiceImpl;
 
 	/**
+	 * Creates a new disc lot entity
 	 *
+	 * @param inventoryId id of the inventory where the disc lot that is beeing
+	 * created will be placed
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view.
 	 */
 	@GetMapping("/disc_lots/create/inventory={inventoryId}")
 	public String createDiscLot(@PathVariable(name = "inventoryId")
@@ -38,7 +43,15 @@ public class DiscLotController {
 	}
 
 	/**
+	 * Creates a new disc lot entity
 	 *
+	 * @param newDiscLot POJO with the information of the disc lot
+	 * entity that is beeing created.
+	 * @param inventoryId id of the inventory where the disc lot that is beeing
+	 * created will be placed
+	 * @param publicationDate date of publication of the units from the disc
+	 * lot entity that is beeing created
+	 * @return the specified template view.
 	 */
 	@GetMapping("/disc_lots/manage/create/{inventoryId}")
 	public String createDiscLot(DiscLot newDiscLot,
@@ -59,12 +72,16 @@ public class DiscLotController {
 	}
 
 	/**
+	 * Retrieves a disc lot entity specified by id
 	 *
+	 * @param id id of the disc lot entity that is beeing searched
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view
 	 */
 	@GetMapping("/disc_lots/{Id}")
-	public String showDiscLot(@PathVariable(name = "Id") Long Id,
+	public String showDiscLot(@PathVariable(name = "id") Long id,
 			Model model) {
-		DiscLot discLot = discLotServiceImpl.getDiscLotById(Id).getBody();
+		DiscLot discLot = discLotServiceImpl.getDiscLotById(id).getBody();
 
 		model.addAttribute("action", "get");
 		model.addAttribute("discLot", discLot);
@@ -74,12 +91,16 @@ public class DiscLotController {
 
 
 	/**
+	 * Updates a disc lot entity specified by id
 	 *
+	 * @param id id of the disc lot entity that is beeing updated
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view
 	 */
 	@GetMapping("/disc_lots/update/{Id}")
-	public String updateDiscLot(@PathVariable(name = "Id") Long Id,
+	public String updateDiscLot(@PathVariable(name = "id") Long id,
 			Model model) {
-		DiscLot discLot = discLotServiceImpl.getDiscLotById(Id).getBody();
+		DiscLot discLot = discLotServiceImpl.getDiscLotById(id).getBody();
 
 		model.addAttribute("action", "put");
 		model.addAttribute("discLot", discLot);
@@ -88,18 +109,25 @@ public class DiscLotController {
 	}
 
 	/**
+	 * Updates a new disc lot entity specified by id
 	 *
+	 * @param updatedDiscLot POJO with the information of the disc lot
+	 * entity that is beeing udpated.
+	 * @param id id of the disc lot entity that is beeing updated
+	 * @param publicationDate date of publication of the units from the disc
+	 * lot entity that is beeing updated
+	 * @return the specified template view.
 	 */
-	@GetMapping("/disc_lots/manage/update/{Id}")
+	@GetMapping("/disc_lots/manage/update/{id}")
 	public String updateDiscLot(DiscLot updatedDiscLot,
-			@PathVariable(name = "Id") Long Id,
+			@PathVariable(name = "id") Long id,
 			@RequestParam(name = "publicationDate") String publicationDate) {
 
-		Long branchOfficeId = discLotServiceImpl.getDiscLotById(Id)
+		Long branchOfficeId = discLotServiceImpl.getDiscLotById(id)
 			.getBody().getDiscLotInventory().getBranchOffice().getId();
 
 		updatedDiscLot.setPublicationDate(Date.valueOf(publicationDate));
-		discLotServiceImpl.updateDiscLotById(Id, updatedDiscLot);
+		discLotServiceImpl.updateDiscLotById(id, updatedDiscLot);
 
 		return String.format("redirect:/branch_offices/update/%d",
 				branchOfficeId);
@@ -107,14 +135,17 @@ public class DiscLotController {
 	}
 
 	/**
+	 * Deletes a disc lot entity specified by id
 	 *
+	 * @param id id of the disc lot entity that is beeing deleted
+	 * @return the specified template view
 	 */
-	@GetMapping("/disc_lots/manage/delete/{Id}")
-	public String deleteDiscLot(@PathVariable(name = "Id") Long Id) {
+	@GetMapping("/disc_lots/manage/delete/{id}")
+	public String deleteDiscLot(@PathVariable(name = "id") Long id) {
 		Long branchOfficeId =
-			discLotServiceImpl.getDiscLotById(Id).getBody()
+			discLotServiceImpl.getDiscLotById(id).getBody()
 				.getDiscLotInventory().getBranchOffice().getId();
-		discLotServiceImpl.deleteDiscLotById(Id);
+		discLotServiceImpl.deleteDiscLotById(id);
 
 		return String.format("redirect:/branch_offices/update/%d",
 				branchOfficeId);

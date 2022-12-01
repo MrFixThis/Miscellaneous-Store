@@ -26,7 +26,12 @@ public class BookLotController {
 	private InventoryServiceImpl inventoryServiceImpl;
 
 	/**
+	 * Creates a new book lot entity
 	 *
+	 * @param inventoryId id of the inventory where the book lot that is beeing
+	 * created will be placed
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view.
 	 */
 	@GetMapping("/book_lots/create/inventory={inventoryId}")
 	public String createBookLot(@PathVariable(name = "inventoryId")
@@ -39,7 +44,15 @@ public class BookLotController {
 	}
 
 	/**
+	 * Creates a new book lot entity
 	 *
+	 * @param newBookLot POJO with the information of the book lot
+	 * entity that is beeing created.
+	 * @param inventoryId id of the inventory where the book lot that is beeing
+	 * created will be placed
+	 * @param publicationDate date of publication of the units from the disc
+	 * lot entity that is beeing created
+	 * @return the specified template view.
 	 */
 	@GetMapping("/book_lots/manage/create/{inventoryId}")
 	public String createBookLot(BookLot newBookLot,
@@ -60,7 +73,11 @@ public class BookLotController {
 	}
 
 	/**
+	 * Retrieves a book lot entity specified by isbn
 	 *
+	 * @param isbn isbn of the book lot entity that is beeing searched
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view
 	 */
 	@GetMapping("/book_lots/{isbn}")
 	public String showBookLot(@PathVariable(name = "isbn") UUID isbn,
@@ -73,9 +90,12 @@ public class BookLotController {
 		return "bookLotActions";
 	}
 
-
 	/**
+	 * Updates an book lot entity specified by isbn
 	 *
+	 * @param isbn isbn of the book lot entity that is beeing updated
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view
 	 */
 	@GetMapping("/book_lots/update/{isbn}")
 	public String updateBookLot(@PathVariable(name = "isbn") UUID isbn,
@@ -89,7 +109,14 @@ public class BookLotController {
 	}
 
 	/**
+	 * Updates a new book lot entity specified by isbn
 	 *
+	 * @param updatedBookLot POJO with the information of the book lot
+	 * entity that is beeing udpated.
+	 * @param isbn isbn of the book lot entity that is beeing updated
+	 * @param publicationDate date of publication of the units from the disc
+	 * lot entity that is beeing updated
+	 * @return the specified template view.
 	 */
 	@GetMapping("/book_lots/manage/update/{isbn}")
 	public String updateBookLot(BookLot updatedBookLot,
@@ -107,7 +134,10 @@ public class BookLotController {
 	}
 
 	/**
+	 * Deletes a book lot entity specified by isbn
 	 *
+	 * @param isbn isbn of the book lot entity that is beeing deleted
+	 * @return the specified template view
 	 */
 	@GetMapping("/book_lots/manage/delete/{isbn}")
 	public String deleteBookLot(@PathVariable(name = "isbn") UUID isbn) {

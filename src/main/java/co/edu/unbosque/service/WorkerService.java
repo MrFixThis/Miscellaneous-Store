@@ -17,7 +17,6 @@ public interface WorkerService {
 	 *
 	 * @param worker the creating Worker instance
 	 * @return the result of the CRUD's create operation over Worker
-	 * @see co.edu.unbosque.repository.WorkerRepository#save(Worker)
 	 */
 	ResponseEntity<Worker> createWorker(
 			Worker worker);
@@ -27,7 +26,6 @@ public interface WorkerService {
 	 *
 	 * @param id the id of the Worker entity to retrive
 	 * @return the result of the CRUD's retrive operation over Worker
-	 * @see co.edu.unbosque.repository.WorkerRepository#findById(Long)
 	 */
 	ResponseEntity<Worker> getWorkerById(Long id)
 			throws EmployeeNotFoundException;
@@ -36,7 +34,6 @@ public interface WorkerService {
 	 * Retrives all the Worker entities
 	 *
 	 * @return the result of the CRUD's retrive operation over Worker
-	 * @see co.edu.unbosque.repository.WorkerRepository#findAll()
 	 */
 	ResponseEntity<List<Worker>> getWorkers();
 
@@ -46,7 +43,6 @@ public interface WorkerService {
 	 * @param id the id of the Worker entity to update
 	 * @param updatedWorker the Worker instance with the updating information
 	 * @return the result of the CRUD's update operation over Worker
-	 * @see co.edu.unbosque.repository.WorkerRepository#save(Worker)
 	 */
 	ResponseEntity<Worker> updateWorkerById(Long id,
 			Worker updatedWorker)
@@ -57,7 +53,6 @@ public interface WorkerService {
 	 *
 	 * @param id the id of the Worker entity to delete
 	 * @return the result of the CRUD's delete operation over Worker
-	 * @see co.edu.unbosque.repository.WorkerRepository#deleteById(Long)
 	 */
 	ResponseEntity<?> deleteWorkerById(Long id)
 			throws EmployeeNotFoundException;

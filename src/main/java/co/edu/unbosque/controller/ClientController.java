@@ -27,7 +27,10 @@ public class ClientController {
 	private BranchOfficeServiceImpl branchOfficeServiceImpl;
 
 	/**
+	 * Creates a new client
 	 *
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view.
 	 */
 	@GetMapping("/clients/create")
 	public String createClient(Model model) {
@@ -38,7 +41,12 @@ public class ClientController {
 	}
 
 	/**
+	 * Creates a new client entity
 	 *
+	 * @param newClient POJO with the information of the client entity that is
+	 * beeing created.
+	 * @param birthDate date of brith of the client entity beeing created
+	 * @return the specified template view
 	 */
 	@GetMapping("/clients/manage/create")
 	public String createClient(Client newClient,
@@ -53,7 +61,11 @@ public class ClientController {
 	}
 
 	/**
+	 * Retrieves a client entity specified by id
 	 *
+	 * @param id id of the client entity that is beeing searched
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view
 	 */
 	@GetMapping("/clients/{id}")
 	public String showClient(@PathVariable(name = "id") Long id, Model model) {
@@ -69,7 +81,10 @@ public class ClientController {
 	}
 
 	/**
+	 * Retrieves all the existent client entities
 	 *
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view
 	 */
 	@GetMapping("/clients")
 	public String showClients(Model model) {
@@ -82,7 +97,11 @@ public class ClientController {
 	}
 
 	/**
+	 * Updates a client entity specified by id
 	 *
+	 * @param id id of the client entity that is beeing updated
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view
 	 */
 	@GetMapping("/clients/update/{id}")
 	public String updateClient(@PathVariable(name = "id") Long id,
@@ -96,7 +115,13 @@ public class ClientController {
 	}
 
 	/**
+	 * Updates a client entity specified by id
 	 *
+	 * @param updatedClient POJO with the information of the client entity
+	 * that is beeing updated.
+	 * @param id id of the client entity that is beeing updated
+	 * @param birthDate date of brith of the client entity beeing updated
+	 * @return the specified template view
 	 */
 	@GetMapping("/clients/manage/update/{id}")
 	public String updateClient(Client updatedClient,
@@ -110,7 +135,10 @@ public class ClientController {
 	}
 
 	/**
+	 * Deletes a client entity specified by id
 	 *
+	 * @param id id of the client entity that is beeing deleted
+	 * @return the specified template view
 	 */
 	@PostMapping("/clients/manage/delete/{id}")
 	public String deleteClient(@PathVariable(name = "id") Long id) {

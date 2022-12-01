@@ -2,11 +2,11 @@ package co.edu.unbosque.service.impl;
 
 import java.util.List;
 
+import static org.apache.commons.codec.digest.DigestUtils.sha256Hex;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import co.edu.unbosque.entity.Supervisor;
-import co.edu.unbosque.exception.BranchOfficeNotFoundException;
 import co.edu.unbosque.exception.SupervisorNotFoundException;
 import co.edu.unbosque.repository.SupervisorRepository;
 import co.edu.unbosque.service.SupervisorService;
@@ -26,11 +26,14 @@ public class SupervisorServiceImpl implements SupervisorService {
 	 *
 	 * @param supervisor the creating Supervisor instance
 	 * @return the result of the CRUD's create operation over Supervisor
-	 * @see co.edu.unbosque.repository.SupervisorRepository#save(Supervisor)
 	 */
 	@Override
 	public ResponseEntity<Supervisor> createSupervisor(Supervisor supervisor) {
-		final Supervisor savedSupervisor = supervisorRepository.save(supervisor);
+		Supervisor savedSupervisor = null;
+
+		supervisor.setPassword(sha256Hex(supervisor.getPassword()));
+		savedSupervisor = supervisorRepository.save(supervisor);
+
 		return ResponseEntity.ok(savedSupervisor);
 	}
 
@@ -39,7 +42,6 @@ public class SupervisorServiceImpl implements SupervisorService {
 	 *
 	 * @param id the id of the Supervisor entity to retrive
 	 * @return the result of the CRUD's retrive operation over Supervisor
-	 * @see co.edu.unbosque.repository.SupervisorRepository#findById(Long)
 	 */
 	@Override
 	public ResponseEntity<Supervisor> getSupervisorById(Long id)
@@ -54,7 +56,6 @@ public class SupervisorServiceImpl implements SupervisorService {
 	 * Retrives all the Supervisor entities
 	 *
 	 * @return the result of the CRUD's retrive operation over Supervisor
-	 * @see co.edu.unbosque.repository.SupervisorRepository#findAll()
 	 */
 	@Override
 	public ResponseEntity<List<Supervisor>> getSupervisors() {
@@ -68,14 +69,14 @@ public class SupervisorServiceImpl implements SupervisorService {
 	 * @param username the username of the Supervisor entity to retrive
 	 * @param password the password of the Supervisor entity to retrive
 	 * @return the result of the CRUD's retrive operation over Supervisor
-	 * @see co.edu.unbosque.repository.SupervisorRepository#findByUsernameAndPassword(String, String)
 	 */
 	@Override
 	public ResponseEntity<Supervisor> getSupervisorByUsernameAndPassword(
 			String username, String password) throws SupervisorNotFoundException {
 		final Supervisor supervisor =
-			supervisorRepository.findSupervisorByUsernameAndPassword(username, password)
-				.orElseThrow(() -> new BranchOfficeNotFoundException(
+			supervisorRepository.findSupervisorByUsernameAndPassword(username,
+					sha256Hex(password))
+						.orElseThrow(() -> new SupervisorNotFoundException(
 							"Supervisor with credentials specified not found"));
 		return ResponseEntity.ok(supervisor);
 	}
@@ -86,7 +87,6 @@ public class SupervisorServiceImpl implements SupervisorService {
 	 * @param id the id of the Supervisor entity to update
 	 * @param updatedSupervisor the Supervisor instance with the updating information
 	 * @return the result of the CRUD's update operation over Supervisor
-	 * @see co.edu.unbosque.repository.SupervisorRepository#save(Supervisor)
 	 */
 	@Override
 	public ResponseEntity<Supervisor> updateSupervisorById(Long id,
@@ -98,7 +98,7 @@ public class SupervisorServiceImpl implements SupervisorService {
 		supervisor.setName(updatedSupervisor.getName());
 		supervisor.setSurname(updatedSupervisor.getSurname());
 		supervisor.setUsername(updatedSupervisor.getUsername());
-		supervisor.setPassword(updatedSupervisor.getPassword());
+		supervisor.setPassword(sha256Hex(updatedSupervisor.getPassword()));
 
 		supervisor = supervisorRepository.save(supervisor);
 		return ResponseEntity.ok(supervisor);
@@ -109,7 +109,6 @@ public class SupervisorServiceImpl implements SupervisorService {
 	 *
 	 * @param id the id of the Supervisor entity to delete
 	 * @return the result of the CRUD's delete operation over Supervisor
-	 * @see co.edu.unbosque.repository.SupervisorRepository#deleteById(Long)
 	 */
 	@Override
 	public ResponseEntity<?> deleteSupervisorById(Long id)

@@ -25,7 +25,6 @@ public class TransactionServiceImpl implements TransactionService {
 	 *
 	 * @param transaction the creating Transaction instance
 	 * @return the result of the CRUD's create operation over Transaction
-	 * @see co.edu.unbosque.repository.TransactionRepository#save(Transaction)
 	 */
 	@Override
 	public ResponseEntity<Transaction> createTransaction(Transaction transaction) {
@@ -39,7 +38,6 @@ public class TransactionServiceImpl implements TransactionService {
 	 *
 	 * @param id the id of the Transaction entity to retrive
 	 * @return the result of the CRUD's retrive operation over Transaction
-	 * @see co.edu.unbosque.repository.TransactionRepository#findById(Long)
 	 */
 	@Override
 	public ResponseEntity<Transaction> getTransactionById(Long id)
@@ -56,7 +54,6 @@ public class TransactionServiceImpl implements TransactionService {
 	 * Retrives all the Transaction entities
 	 *
 	 * @return the result of the CRUD's retrive operation over Transaction
-	 * @see co.edu.unbosque.repository.TransactionRepository#findAll()
 	 */
 	@Override
 	public ResponseEntity<List<Transaction>> getTransactions() {
@@ -70,7 +67,6 @@ public class TransactionServiceImpl implements TransactionService {
 	 * @param id the id of the Transaction entity to update
 	 * @param updatedTransaction the Transaction instance with the updating information
 	 * @return the result of the CRUD's update operation over Transaction
-	 * @see co.edu.unbosque.repository.TransactionRepository#save(Transaction)
 	 */
 	@Override
 	public ResponseEntity<Transaction> updateTransactionById(Long id,
@@ -99,7 +95,6 @@ public class TransactionServiceImpl implements TransactionService {
 	 *
 	 * @param id the id of the Transaction entity to delete
 	 * @return the result of the CRUD's delete operation over Transaction
-	 * @see co.edu.unbosque.repository.TransactionRepository#deleteById(Long)
 	 */
 	@Override
 	public ResponseEntity<?> deleteTransactionById(Long id)

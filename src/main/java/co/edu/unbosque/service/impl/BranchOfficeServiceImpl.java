@@ -29,7 +29,6 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 	 *
 	 * @param branchOffice the creating BranchOffice instance
 	 * @return the result of the CRUD's create operation over BranchOffice
-	 * @see co.edu.unbosque.repository.BranchOfficeRepository#save(BranchOffice)
 	 */
 	@Override
 	public ResponseEntity<BranchOffice> createBranchOffice(
@@ -44,7 +43,6 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 	 *
 	 * @param id the id of the BranchOffice entity to retrive
 	 * @return the result of the CRUD's retrive operation over BranchOffice
-	 * @see co.edu.unbosque.repository.BranchOfficeRepository#findById(Long)
 	 */
 	@Override
 	public ResponseEntity<BranchOffice> getBranchOfficeById(Long id)
@@ -61,7 +59,6 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 	 * Retrives all the BranchOffice entities
 	 *
 	 * @return the result of the CRUD's retrive operation over BranchOffice
-	 * @see co.edu.unbosque.repository.BranchOfficeRepository#findAll()
 	 */
 	@Override
 	public ResponseEntity<List<BranchOffice>> getBranchOffices() {
@@ -74,7 +71,6 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 	 *
 	 * @param clientId the id of the Client's entity related to BranchOffice's entities
 	 * @return the result of the CRUD's retrive operation over BranchOffice
-	 * @see co.edu.unbosque.repository.BranchOfficeRepository#findBranchOfficesByClientsId(Long)
 	 */
 	@Override
 	public ResponseEntity<List<BranchOffice>> getBranchOfficesByClientsId(
@@ -95,7 +91,6 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 	 * @param id the id of the BranchOffice entity to update
 	 * @param updatedBranchOffice the BranchOffice instance with the updating information
 	 * @return the result of the CRUD's update operation over BranchOffice
-	 * @see co.edu.unbosque.repository.BranchOfficeRepository#save(BranchOffice)
 	 */
 	@Override
 	public ResponseEntity<BranchOffice> updateBranchOfficeById(Long id,
@@ -128,7 +123,6 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 	 *
 	 * @param id the id of the BranchOffice entity to delete
 	 * @return the result of the CRUD's delete operation over BranchOffice
-	 * @see co.edu.unbosque.repository.BranchOfficeRepository#deleteById(Long)
 	 */
 	@Override
 	public ResponseEntity<?> deleteBranchOfficeById(Long id)

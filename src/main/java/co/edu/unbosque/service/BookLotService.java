@@ -18,7 +18,6 @@ public interface BookLotService {
 	 *
 	 * @param book the creating BookLot lot instance
 	 * @return the result of the CRUD's create operation over BookLot
-	 * @see co.edu.unbosque.repository.BookLotRepository#save(BookLot)
 	 */
 	ResponseEntity<BookLot> createBookLot(BookLot book);
 
@@ -27,7 +26,6 @@ public interface BookLotService {
 	 *
 	 * @param isbn the isbn of the BookLot entity to retrive
 	 * @return the result of the CRUD's retrive operation over BookLot
-	 * @see co.edu.unbosque.repository.BookLotRepository#findById(UUID)
 	 */
 	ResponseEntity<BookLot> getBookLotByIsbn(UUID isbn)
 			throws BookLotNotFoundException;
@@ -37,7 +35,6 @@ public interface BookLotService {
 	 *
 	 * @param name the name of the BookLot entity to retrive
 	 * @return the result of the CRUD's retrive operation over BookLot
-	 * @see co.edu.unbosque.repository.BookLotRepository#findByName(String)
 	 */
 	ResponseEntity<BookLot> getBookLotByName(String name)
 		throws BookLotNotFoundException;
@@ -46,7 +43,6 @@ public interface BookLotService {
 	 * Retrives all the BookLot entities
 	 *
 	 * @return the result of the CRUD's retrive operation over BookLot
-	 * @see co.edu.unbosque.repository.BookLotRepository#findAll()
 	 */
 	ResponseEntity<List<BookLot>> getBookLots();
 
@@ -56,7 +52,6 @@ public interface BookLotService {
 	 * @param isbn the isbn of the BookLot entity to update
 	 * @param updatedBookLot the BookLot instance with the updating information
 	 * @return the result of the CRUD's update operation over BookLot
-	 * @see co.edu.unbosque.repository.BookLotRepository#save(BookLot)
 	 */
 	ResponseEntity<BookLot> updateBookLotByIsbn(UUID isbn, BookLot updatedBookLot)
 			throws BookLotNotFoundException;
@@ -66,7 +61,6 @@ public interface BookLotService {
 	 *
 	 * @param isbn the isbn of the BookLot entity to delete
 	 * @return the result of the CRUD's delete operation over BookLot
-	 * @see co.edu.unbosque.repository.BookLotRepository#deleteById(UUID)
 	 */
 	ResponseEntity<?> deleteBookLotByIsbn(UUID isbn)
 			throws BookLotNotFoundException;

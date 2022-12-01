@@ -24,8 +24,10 @@ public class AdministratorController {
 	private AdministratorServiceImpl administratorServiceImpl;
 
 	/**
+	 * Creates a new administrator
 	 *
-	 *
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view.
 	 */
 	@GetMapping("/administrators/create")
 	public String createAdministrator(Model model) {
@@ -37,7 +39,13 @@ public class AdministratorController {
 	}
 
 	/**
+	 * Creates a new administrator entity
 	 *
+	 * @param newAdministrator POJO with the information of the administrator
+	 * entity that is beeing created.
+	 * @param birthDate date of brith of the administrator entity beeing created
+	 * @param hireDate date of hire of the administrator entity beeing created
+	 * @return the specified template view
 	 */
 	@GetMapping("/administrators/manage/create")
 	public String createAdministrator(Administrator newAdministrator,
@@ -52,7 +60,11 @@ public class AdministratorController {
 	}
 
 	/**
+	 * Retrieves an administrator entity specified by id
 	 *
+	 * @param id id of the administrator entity that is beeing searched
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view
 	 */
 	@GetMapping("/administrators/{id}")
 	public String showAdministrator(@PathVariable(name = "id") Long id,
@@ -68,7 +80,10 @@ public class AdministratorController {
 	}
 
 	/**
+	 * Retrieves all the existent administrator entities
 	 *
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view
 	 */
 	@GetMapping("/administrators")
 	public String showAdministrators(Model model) {
@@ -83,7 +98,11 @@ public class AdministratorController {
 	}
 
 	/**
+	 * Updates an administrator entity specified by id
 	 *
+	 * @param id id of the administrator entity that is beeing updated
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view
 	 */
 	@GetMapping("/administrators/update/{id}")
 	public String updateAdministrator(@PathVariable(name = "id") Long id,
@@ -99,7 +118,14 @@ public class AdministratorController {
 	}
 
 	/**
+	 * Updates an administrator entity specified by id
 	 *
+	 * @param updatedAdministrator POJO with the information of the
+	 * administrator entity that is beeing updated.
+	 * @param id id of the administrator entity that is beeing updated
+	 * @param birthDate date of brith of the administrator entity beeing updated
+	 * @param hireDate date of hire of the administrator entity beeing updated
+	 * @return the specified template view
 	 */
 	@GetMapping("/administrators/manage/update/{id}")
 	public String updateAdministrator(Administrator updatedAdministrator,
@@ -115,7 +141,10 @@ public class AdministratorController {
 	}
 
 	/**
+	 * Deletes an administrator entity specified by id
 	 *
+	 * @param id id of the administrator entity that is beeing deleted
+	 * @return the specified template view
 	 */
 	@PostMapping("/administrators/manage/delete/{id}")
 	public String deleteAdministrator(@PathVariable(name = "id") Long id) {

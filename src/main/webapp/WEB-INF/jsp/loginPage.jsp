@@ -4,6 +4,7 @@
 <html lang="en">
     <head>
 		<%@include file="./headContent.jsp"%>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/data_validation.js" defer></script>
     </head>
     <body class="pt-5">
 		<%@include file="./header.jsp"%>
@@ -23,27 +24,30 @@
 					Access Information
 				</strong>
 			</h3>
-			<form action="#">
+			<form action="/supervisor/manage/authenticate">
 				<div class="d-flex justify-content-center flex-nowrap mt-5">
 					<div class="input-group flex-nowrap w-25">
 						<span class="input-group-text" id="addon-wrapping">@</span>
-						<input name="username" type="text" class="form-control" placeholder="Username"
+						<input name="username" type="text" class="TXT form-control" placeholder="Username"
 						aria-label="Username" aria-describedby="addon-wrapping">
 					</div>
 				</div>
 				<div class="d-flex justify-content-center flex-nowrap mt-4">
 					<div class="input-group flex-nowrap w-25">
 						<span class="input-group-text" id="addon-wrapping">#</span>
-						<input name="password" type="password" class="form-control" placeholder="Password"
+						<input name="password" type="password" class="TXT form-control" placeholder="Password"
 						aria-label="Password" aria-describedby="addon-wrapping">
 					</div>
 				</div>
-				<label class="text-success text-right mt-2">Not signed in?
-					<a href="#">Register</a></label>
+				<label class="text-success text-right mt-2">Not signed up?
+					<a href="/supervisor/create">Sign Up</a></label>
 				<div class="container mt-4 text-center">
-					<input type="submit" value="Access"
+					<input id="sbtn" type="submit" value="Sign in"
 						class="btn btn-lg btn-outline-primary" disabled>
 				</div>
+				<c:if test="${!isLoged}">
+					<label class="text-danger text-right mt-2">Incorrect username or password</label>
+				</c:if>
 			</form>
 		</div>
 	</body>

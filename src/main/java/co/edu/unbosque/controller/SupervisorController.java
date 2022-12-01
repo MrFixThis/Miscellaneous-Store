@@ -1,17 +1,13 @@
 package co.edu.unbosque.controller;
 
-import java.sql.Date;
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-import co.edu.unbosque.entity.BranchOffice;
-import co.edu.unbosque.entity.Client;
+import co.edu.unbosque.entity.Supervisor;
+import co.edu.unbosque.exception.SupervisorNotFoundException;
 import co.edu.unbosque.service.impl.SupervisorServiceImpl;
 import lombok.AllArgsConstructor;
 
@@ -25,91 +21,67 @@ public class SupervisorController {
 	private SupervisorServiceImpl supervisorServiceImpl;
 
 	/**
+	 * Shows the login page
 	 *
+	 * @param modelMap holder model for context model's attributes.
+	 * @return the login page template view.
 	 */
 	@GetMapping("/")
-	public String createClient(Model model) {
+	public String showLoginPage(ModelMap modelMap) {
+
+		if(modelMap.getAttribute("isLoged") != null)
+			modelMap.addAttribute("isLoged", false);
+		else
+			modelMap.addAttribute("isLoged", true);
+
 		return "loginPage";
 	}
 
 	/**
+	 * Shows the sign up page
 	 *
+	 * @return the sign up page template view.
 	 */
-	@GetMapping("/clients/manage/create")
-	public String createClient(Client newClient,
-			@RequestParam(name = "birthDate") String birthDate) {
-
-		Integer newClientPN = newClient.getPurchasesNumber();
-		newClient.setDateOfBirth(Date.valueOf(birthDate));
-		newClient.setPurchasesNumber(newClientPN == null ? 0 : newClientPN);
-		clientServiceImpl.createClient(newClient);
-
-		return "redirect:/clients";
+	@GetMapping("/supervisor/create")
+	public String showSignUpPage() {
+		return "signUpPage";
 	}
 
 	/**
+	 * Creates a new supervisor entity
 	 *
+	 * @param newSupervisor POJO with the information of the supervisor entity
+	 * that is beeing created
+	 * @return the specified template view.
 	 */
-	@GetMapping("/clients/{id}")
-	public String showClient(@PathVariable(name = "id") Long id, Model model) {
-		Client client = clientServiceImpl.getClientById(id).getBody();
-		List<BranchOffice> cBranchOffices =
-			branchOfficeServiceImpl.getBranchOfficesByClientsId(id).getBody();
+	@GetMapping("/supervisor/manage/create")
+	public String createSupervisor(Supervisor newSupervisor) {
+		supervisorServiceImpl.createSupervisor(newSupervisor);
 
-		model.addAttribute("action", "get");
-		model.addAttribute("client", client);
-		model.addAttribute("cBranchOffices", cBranchOffices);
-
-		return "clientActions";
+		return "redirect:/";
 	}
 
 	/**
+	 * Authenticates a supervisor by its username and password
 	 *
+	 * @param modelMap holder model for context model's attributes.
+	 * @param username username of the supervisor that is beeing authenticated
+	 * @param password password of the supervisor that is beeing authenticated
+	 * @return the login page template view.
 	 */
-	@GetMapping("/clients")
-	public String showClients(Model model) {
-		List<Client> clients = clientServiceImpl.getClients().getBody();
+	@GetMapping("/supervisor/manage/authenticate")
+	public ModelAndView authenticateSupervisor(ModelMap modelMap,
+			@RequestParam(name = "username") String username,
+			@RequestParam(name = "password") String password) {
 
-		model.addAttribute("action", "get");
-		model.addAttribute("clients", clients);
+			try {
+				supervisorServiceImpl
+					.getSupervisorByUsernameAndPassword(username, password);
+			} catch(SupervisorNotFoundException e) {
+				modelMap.addAttribute("isLoged", false);
+				return new ModelAndView("loginPage", modelMap);
+			}
 
-		return "clients";
-	}
-
-	/**
-	 *
-	 */
-	@GetMapping("/clients/update/{id}")
-	public String updateClient(@PathVariable(name = "id") Long id,
-			Model model) {
-		Client client = clientServiceImpl.getClientById(id).getBody();
-
-		model.addAttribute("action", "put");
-		model.addAttribute("client", client);
-
-		return "clientActions";
-	}
-
-	/**
-	 *
-	 */
-	@GetMapping("/clients/manage/update/{id}")
-	public String updateClient(Client updatedClient,
-			@PathVariable(name = "id") Long id,
-			@RequestParam(name = "birthDate") String birthDate) {
-
-		updatedClient.setDateOfBirth(Date.valueOf(birthDate));
-		clientServiceImpl.updateClientById(id, updatedClient);
-
-		return String.format("redirect:/clients/%d", id);
-	}
-
-	/**
-	 *
-	 */
-	@PostMapping("/clients/manage/delete/{id}")
-	public String deleteClient(@PathVariable(name = "id") Long id) {
-		clientServiceImpl.deleteClientById(id);
-		return "redirect:/clients";
+		return new ModelAndView("redirect:/branch_offices");
 	}
 }

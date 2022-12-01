@@ -1,6 +1,6 @@
 <nav class="navbar fixed-top navbar-expand-lg border-bottom rounded-bottom" style="background-color: #E3F2FD">
   <div class="container">
-	<a class="navbar-brand" href="/">
+	<a class="navbar-brand" href="/branch_offices/">
 		<img src="${pageContext.request.contextPath}/static/ms_ico.svg" alt="Miscellaneous Store" width="40" height="40"
 			class="d-inline-block align-text-center"><strong>Miscellaneous Store</strong>
 	</a>
@@ -34,6 +34,12 @@
 		  <a class="nav-link" href="/clients" role="button">Clients</a>
 		</li>
 	  </ul>
+	  <form class="d-flex" role="logout">
+		  <a href="/">
+			<input class="form-control me-2 btn btn-outline-danger" type="button"
+					 value="Log out" aria-label="Log out">
+		  </a>
+      </form>
 	</div>
   </div>
 </nav>

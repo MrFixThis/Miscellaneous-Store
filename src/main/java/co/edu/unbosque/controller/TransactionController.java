@@ -43,7 +43,12 @@ public class TransactionController {
 	private VinylRecordLotServiceImpl vinylRecordLotServiceImpl;
 
 	/**
+	 * Creates a new transaction entity
 	 *
+	 * @param model holder model for context model's attributes.
+	 * @param branchOfficeId id of the branch office where the transaction is beeing
+	 * registered
+	 * @return the specified template view.
 	 */
 	@GetMapping("/transactions/create/branch_office={branchOfficeId}")
 	public String createTransaction(Model model,
@@ -59,7 +64,14 @@ public class TransactionController {
 	}
 
 	/**
+	 * Creates a new transaction entity
 	 *
+	 * @param model holder model for context model's attributes.
+	 * @param branchOfficeId id of the branch office where the transaction is beeing
+	 * registered
+	 * @param productType type of the selected product to register the transaction
+	 * @param productId id of the selected product to register the transaction
+	 * @return the specified template view.
 	 */
 	@GetMapping("/transactions/create/branch_office={branchOfficeId}/product_type={productType}&product_id={productId}")
 	public String createTransaction(Model model,
@@ -124,7 +136,16 @@ public class TransactionController {
 	}
 
 	/**
+	 * Creates a new transaction entity
 	 *
+	 * @param newTransaction POJO with the information of the transaction
+	 * entity that is beeing created.
+	 * @param branchOfficeId id of the branch office where the transaction is beeing
+	 * registered
+	 * @param productId id of the selected product to register the transaction
+	 * @param clientId id of the client that is the owner of the transaction
+	 * that is beeing created
+	 * @return the specified template view.
 	 */
 	@GetMapping("/transactions/manage/create/{branchOfficeId}/{productId}")
 	public String createTransaction(Transaction newTransaction,
@@ -209,7 +230,11 @@ public class TransactionController {
 	} // TODO: Improve this implementation
 
 	/**
+	 * Retrieves a transaction entity specified by id
 	 *
+	 * @param id id of the transaction entity that is beeing searched
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view
 	 */
 	@GetMapping("/transactions/{id}")
 	public String showTransaction(@PathVariable(name = "id") Long id,
@@ -224,7 +249,12 @@ public class TransactionController {
 	}
 
 	/**
+	 * Retrieves all transaction entities related with a branch office
 	 *
+	 * @param model holder model for context model's attributes.
+	 * @param branchOfficeId id of the branch office that owns the transactions
+	 * to retrieve
+	 * @return the specified template view
 	 */
 	@GetMapping("/transactions/branch_office={branchOfficeId}")
 	public String showTransactions(Model model,
@@ -239,7 +269,10 @@ public class TransactionController {
 	}
 
 	/**
+	 * Deletes a transaction entity specified by id
 	 *
+	 * @param id id of the transaction entity that is beeing deleted
+	 * @return the specified template view
 	 */
 	@PostMapping("/transactions/manage/delete/{id}")
 	public String deleteTransaction(@PathVariable(name = "id") Long id) {

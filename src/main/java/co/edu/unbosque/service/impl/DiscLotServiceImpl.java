@@ -25,7 +25,6 @@ public class DiscLotServiceImpl implements DiscLotService {
 	 *
 	 * @param discLot the creating DiscLot instance
 	 * @return the result of the CRUD's create operation over DiscLot
-	 * @see co.edu.unbosque.repository.DiscLotRepository#save(DiscLot)
 	 */
 	@Override
 	public ResponseEntity<DiscLot> createDiscLot(DiscLot discLot) {
@@ -38,7 +37,6 @@ public class DiscLotServiceImpl implements DiscLotService {
 	 *
 	 * @param id the id of the DiscLot entity to retrive
 	 * @return the result of the CRUD's retrive operation over DiscLot
-	 * @see co.edu.unbosque.repository.DiscLotRepository#findById(Long)
 	 */
 	@Override
 	public ResponseEntity<DiscLot> getDiscLotById(Long id)
@@ -55,7 +53,6 @@ public class DiscLotServiceImpl implements DiscLotService {
 	 *
 	 * @param name the name of the DiscLot entity to retrive
 	 * @return the result of the CRUD's retrive operation over DiscLot
-	 * @see co.edu.unbosque.repository.DiscLotRepository#findByName(String)
 	 */
 	@Override
 	public ResponseEntity<DiscLot> getDiscLotByName(String name)
@@ -71,7 +68,6 @@ public class DiscLotServiceImpl implements DiscLotService {
 	 * Retrives all the DiscLot entities
 	 *
 	 * @return the result of the CRUD's retrive operation over DiscLot
-	 * @see co.edu.unbosque.repository.DiscLotRepository#findAll()
 	 */
 	@Override
 	public ResponseEntity<List<DiscLot>> getDiscLots() {
@@ -85,7 +81,6 @@ public class DiscLotServiceImpl implements DiscLotService {
 	 * @param id the id of the DiscLot entity to update
 	 * @param updatedDiscLot the DiscLot instance with the updating information
 	 * @return the result of the CRUD's update operation over DiscLot
-	 * @see co.edu.unbosque.repository.DiscLotRepository#save(DiscLot)
 	 */
 	@Override
 	public ResponseEntity<DiscLot> updateDiscLotById(Long id, DiscLot updatedDiscLot)
@@ -113,7 +108,6 @@ public class DiscLotServiceImpl implements DiscLotService {
 	 *
 	 * @param id the id of the DiscLot entity to delete
 	 * @return the result of the CRUD's delete operation over DiscLot
-	 * @see co.edu.unbosque.repository.DiscLotRepository#deleteById(Long)
 	 */
 	@Override
 	public ResponseEntity<?> deleteDiscLotById(Long id)

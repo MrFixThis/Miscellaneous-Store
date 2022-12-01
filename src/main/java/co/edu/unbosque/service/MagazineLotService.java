@@ -18,7 +18,6 @@ public interface MagazineLotService {
 	 *
 	 * @param magazineLot the creating MagazineLot instance
 	 * @return the result of the CRUD's create operation over MagazineLot
-	 * @see co.edu.unbosque.repository.MagazineLotRepository#save(MagazineLot)
 	 */
 	ResponseEntity<MagazineLot> createMagazineLot(MagazineLot magazineLot);
 
@@ -27,7 +26,6 @@ public interface MagazineLotService {
 	 *
 	 * @param isbn the isbn of the MagazineLot entity to retrive
 	 * @return the result of the CRUD's retrive operation over MagazineLot
-	 * @see co.edu.unbosque.repository.MagazineLotRepository#findById(UUID)
 	 */
 	ResponseEntity<MagazineLot> getMagazineLotByIsbn(UUID isbn)
 			throws MagazineLotNotFoundException;
@@ -37,7 +35,6 @@ public interface MagazineLotService {
 	 *
 	 * @param name the name of the MagazineLot entity to retrive
 	 * @return the result of the CRUD's retrive operation over MagazineLot
-	 * @see co.edu.unbosque.repository.MagazineLotRepository#findByName(String)
 	 */
 	ResponseEntity<MagazineLot> getMagazineLotByName(String name)
 		throws MagazineLotNotFoundException;
@@ -46,7 +43,6 @@ public interface MagazineLotService {
 	 * Retrives all the MagazineLot entities
 	 *
 	 * @return the result of the CRUD's retrive operation over MagazineLot
-	 * @see co.edu.unbosque.repository.MagazineLotRepository#findAll()
 	 */
 	ResponseEntity<List<MagazineLot>> getMagazineLots();
 
@@ -56,7 +52,6 @@ public interface MagazineLotService {
 	 * @param isbn the isbn of the MagazineLot entity to update
 	 * @param updatedMagazineLot the MagazineLot instance with the updating information
 	 * @return the result of the CRUD's update operation over MagazineLot
-	 * @see co.edu.unbosque.repository.MagazineLotRepository#save(MagazineLot)
 	 */
 	ResponseEntity<MagazineLot> updateMagazineLotByIsbn(UUID isbn,
 			MagazineLot updatedMagazineLot)
@@ -67,7 +62,6 @@ public interface MagazineLotService {
 	 *
 	 * @param isbn the isbn of the MagazineLot entity to delete
 	 * @return the result of the CRUD's delete operation over MagazineLot
-	 * @see co.edu.unbosque.repository.MagazineLotRepository#deleteById(UUID)
 	 */
 	ResponseEntity<?> deleteMagazineLotByIsbn(UUID isbn)
 			throws MagazineLotNotFoundException;

@@ -24,8 +24,12 @@ public class MagazineLotController {
 	private InventoryServiceImpl inventoryServiceImpl;
 
 	/**
+	 * Creates a new magazine lot entity
 	 *
-	 *
+	 * @param inventoryId id of the inventory where the magazine lot that is beeing
+	 * created will be placed
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view.
 	 */
 	@GetMapping("/magazine_lots/create/inventory={inventoryId}")
 	public String createMagazineLot(@PathVariable(name = "inventoryId")
@@ -38,7 +42,13 @@ public class MagazineLotController {
 	}
 
 	/**
+	 * Creates a new magazine lot entity
 	 *
+	 * @param newMagazineLot POJO with the information of the magazine lot
+	 * entity that is beeing created.
+	 * @param inventoryId id of the inventory where the magazine lot that is beeing
+	 * created will be placed
+	 * @return the specified template view.
 	 */
 	@GetMapping("/magazine_lots/manage/create/{inventoryId}")
 	public String createMagazineLot(MagazineLot newMagazineLot,
@@ -55,7 +65,11 @@ public class MagazineLotController {
 	}
 
 	/**
+	 * Retrieves a magazine lot entity specified by isbn
 	 *
+	 * @param isbn isbn of the magazine lot entity that is beeing searched
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view
 	 */
 	@GetMapping("/magazine_lots/{isbn}")
 	public String showMagazineLot(@PathVariable(name = "isbn") UUID isbn,
@@ -69,9 +83,12 @@ public class MagazineLotController {
 		return "magazineLotActions";
 	}
 
-
 	/**
+	 * Updates a magazine lot entity specified by isbn
 	 *
+	 * @param isbn isbn of the magazine lot entity that is beeing updated
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view
 	 */
 	@GetMapping("/magazine_lots/update/{isbn}")
 	public String updateMagazineLot(@PathVariable(name = "isbn") UUID isbn,
@@ -86,7 +103,12 @@ public class MagazineLotController {
 	}
 
 	/**
+	 * Updates a new magazine lot entity specified by isbn
 	 *
+	 * @param updatedMagazineLot POJO with the information of the magazine lot
+	 * entity that is beeing udpated.
+	 * @param isbn isbn of the magazine lot entity that is beeing updated
+	 * @return the specified template view.
 	 */
 	@GetMapping("/magazine_lots/manage/update/{isbn}")
 	public String updateMagazineLot(MagazineLot updatedMagazineLot,
@@ -101,7 +123,10 @@ public class MagazineLotController {
 	}
 
 	/**
+	 * Deletes a magazine lot entity specified by isbn
 	 *
+	 * @param isbn isbn of the magazine lot entity that is beeing deleted
+	 * @return the specified template view
 	 */
 	@GetMapping("/magazine_lots/manage/delete/{isbn}")
 	public String deleteMagazineLot(@PathVariable(name = "isbn") UUID isbn) {

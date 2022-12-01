@@ -17,7 +17,6 @@ public interface BranchOfficeService {
 	 *
 	 * @param branchOffice the creating BranchOffice instance
 	 * @return the result of the CRUD's create operation over BranchOffice
-	 * @see co.edu.unbosque.repository.BranchOfficeRepository#save(BranchOffice)
 	 */
 	ResponseEntity<BranchOffice> createBranchOffice(
 			BranchOffice branchOffice);
@@ -27,7 +26,6 @@ public interface BranchOfficeService {
 	 *
 	 * @param id the id of the BranchOffice entity to retrive
 	 * @return the result of the CRUD's retrive operation over BranchOffice
-	 * @see co.edu.unbosque.repository.BranchOfficeRepository#findById(Long)
 	 */
 	ResponseEntity<BranchOffice> getBranchOfficeById(Long id)
 			throws BranchOfficeNotFoundException;
@@ -36,7 +34,6 @@ public interface BranchOfficeService {
 	 * Retrives all the BranchOffice entities
 	 *
 	 * @return the result of the CRUD's retrive operation over BranchOffice
-	 * @see co.edu.unbosque.repository.BranchOfficeRepository#findAll()
 	 */
 	ResponseEntity<List<BranchOffice>> getBranchOffices();
 
@@ -45,7 +42,6 @@ public interface BranchOfficeService {
 	 *
 	 * @param clientId the id of the Client's entity related to BranchOffice's entities
 	 * @return the result of the CRUD's retrive operation over BranchOffice
-	 * @see co.edu.unbosque.repository.BranchOfficeRepository#findBranchOfficesByClientsId(Long)
 	 */
 	ResponseEntity<List<BranchOffice>> getBranchOfficesByClientsId(Long clientId);
 
@@ -55,7 +51,6 @@ public interface BranchOfficeService {
 	 * @param id the id of the BranchOffice entity to update
 	 * @param updatedBranchOffice the BranchOffice instance with the updating information
 	 * @return the result of the CRUD's update operation over BranchOffice
-	 * @see co.edu.unbosque.repository.BranchOfficeRepository#save(BranchOffice)
 	 */
 	ResponseEntity<BranchOffice> updateBranchOfficeById(Long id,
 			BranchOffice updatedBranchOffice)
@@ -66,7 +61,6 @@ public interface BranchOfficeService {
 	 *
 	 * @param id the id of the BranchOffice entity to delete
 	 * @return the result of the CRUD's delete operation over BranchOffice
-	 * @see co.edu.unbosque.repository.BranchOfficeRepository#deleteById(Long)
 	 */
 	ResponseEntity<?> deleteBranchOfficeById(Long id)
 			throws BranchOfficeNotFoundException;

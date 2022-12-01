@@ -26,7 +26,6 @@ public class BookLotServiceImpl implements BookLotService {
 	 *
 	 * @param bookLot the creating BookLot lot instance
 	 * @return the result of the CRUD's create operation over BookLot
-	 * @see co.edu.unbosque.repository.BookLotRepository#save(BookLot)
 	 */
 	@Override
 	public ResponseEntity<BookLot> createBookLot(BookLot bookLot) {
@@ -39,7 +38,6 @@ public class BookLotServiceImpl implements BookLotService {
 	 *
 	 * @param isbn the isbn of the BookLot entity to retrive
 	 * @return the result of the CRUD's retrive operation over BookLot
-	 * @see co.edu.unbosque.repository.BookLotRepository#findById(UUID)
 	 */
 	@Override
 	public ResponseEntity<BookLot> getBookLotByIsbn(UUID isbn)
@@ -56,7 +54,6 @@ public class BookLotServiceImpl implements BookLotService {
 	 *
 	 * @param name the name of the BookLot entity to retrive
 	 * @return the result of the CRUD's retrive operation over BookLot
-	 * @see co.edu.unbosque.repository.BookLotRepository#findByName(String)
 	 */
 	@Override
 	public ResponseEntity<BookLot> getBookLotByName(String name)
@@ -72,7 +69,6 @@ public class BookLotServiceImpl implements BookLotService {
 	 * Retrives all the BookLot entities
 	 *
 	 * @return the result of the CRUD's retrive operation over BookLot
-	 * @see co.edu.unbosque.repository.BookLotRepository#findAll()
 	 */
 	@Override
 	public ResponseEntity<List<BookLot>> getBookLots() {
@@ -86,7 +82,6 @@ public class BookLotServiceImpl implements BookLotService {
 	 * @param isbn the isbn of the BookLot entity to update
 	 * @param updatedBookLot the BookLot instance with the updating information
 	 * @return the result of the CRUD's update operation over BookLot
-	 * @see co.edu.unbosque.repository.BookLotRepository#save(BookLot)
 	 */
 	@Override
 	public ResponseEntity<BookLot> updateBookLotByIsbn(UUID isbn, BookLot updatedBookLot)
@@ -113,7 +108,6 @@ public class BookLotServiceImpl implements BookLotService {
 	 *
 	 * @param isbn the isbn of the BookLot entity to delete
 	 * @return the result of the CRUD's delete operation over BookLot
-	 * @see co.edu.unbosque.repository.BookLotRepository#deleteById(UUID)
 	 */
 	@Override
 	public ResponseEntity<?> deleteBookLotByIsbn(UUID isbn)

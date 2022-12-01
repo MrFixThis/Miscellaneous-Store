@@ -5,7 +5,8 @@ let docFields = [
 ]
 let exceptedFields = [
     "emailAddress", "residenceAddress", "authorName", "discFormat",
-    "birthDate", "hireDate", "publicationDate", "description"
+    "birthDate", "hireDate", "publicationDate", "description",
+    "username", "password"
 ]
 let submitBtn = document.getElementById("sbtn")
 

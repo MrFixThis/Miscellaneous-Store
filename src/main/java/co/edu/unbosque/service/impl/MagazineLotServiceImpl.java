@@ -26,7 +26,6 @@ public class MagazineLotServiceImpl implements MagazineLotService {
 	 *
 	 * @param magazineLot the creating MagazineLot instance
 	 * @return the result of the CRUD's create operation over MagazineLot
-	 * @see co.edu.unbosque.repository.MagazineLotRepository#save(MagazineLot)
 	 */
 	@Override
 	public ResponseEntity<MagazineLot> createMagazineLot(MagazineLot magazineLot) {
@@ -39,7 +38,6 @@ public class MagazineLotServiceImpl implements MagazineLotService {
 	 *
 	 * @param isbn the isbn of the MagazineLot entity to retrive
 	 * @return the result of the CRUD's retrive operation over MagazineLot
-	 * @see co.edu.unbosque.repository.MagazineLotRepository#findById(UUID)
 	 */
 	@Override
 	public ResponseEntity<MagazineLot> getMagazineLotByIsbn(UUID isbn)
@@ -56,7 +54,6 @@ public class MagazineLotServiceImpl implements MagazineLotService {
 	 *
 	 * @param name the name of the MagazineLot entity to retrive
 	 * @return the result of the CRUD's retrive operation over MagazineLot
-	 * @see co.edu.unbosque.repository.MagazineLotRepository#findByName(String)
 	 */
 	@Override
 	public ResponseEntity<MagazineLot> getMagazineLotByName(String name)
@@ -73,7 +70,6 @@ public class MagazineLotServiceImpl implements MagazineLotService {
 	 * Retrives all the MagazineLot entities
 	 *
 	 * @return the result of the CRUD's retrive operation over MagazineLot
-	 * @see co.edu.unbosque.repository.MagazineLotRepository#findAll()
 	 */
 	@Override
 	public ResponseEntity<List<MagazineLot>> getMagazineLots() {
@@ -87,7 +83,6 @@ public class MagazineLotServiceImpl implements MagazineLotService {
 	 * @param isbn the isbn of the MagazineLot entity to update
 	 * @param updatedMagazineLot the MagazineLot instance with the updating information
 	 * @return the result of the CRUD's update operation over MagazineLot
-	 * @see co.edu.unbosque.repository.MagazineLotRepository#save(MagazineLot)
 	 */
 	@Override
 	public ResponseEntity<MagazineLot> updateMagazineLotByIsbn(UUID isbn,
@@ -113,7 +108,6 @@ public class MagazineLotServiceImpl implements MagazineLotService {
 	 *
 	 * @param isbn the isbn of the MagazineLot entity to delete
 	 * @return the result of the CRUD's delete operation over MagazineLot
-	 * @see co.edu.unbosque.repository.MagazineLotRepository#deleteById(UUID)
 	 */
 	@Override
 	public ResponseEntity<?> deleteMagazineLotByIsbn(UUID isbn)

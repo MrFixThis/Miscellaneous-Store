@@ -25,7 +25,6 @@ public class AdministratorServiceImpl implements AdministratorService {
 	 *
 	 * @param administrator the creating administrator instance
 	 * @return the result of the CRUD's create operation over Administrator
-	 * @see co.edu.unbosque.repository.AdministratorRepository#save(Administrator)
 	 */
 	@Override
 	public ResponseEntity<Administrator> createAdministrator(
@@ -40,7 +39,6 @@ public class AdministratorServiceImpl implements AdministratorService {
 	 *
 	 * @param id the id of the Administrator entity to retrive
 	 * @return the result of the CRUD's retrive operation over Administrator
-	 * @see co.edu.unbosque.repository.AdministratorRepository#findById(Long)
 	 */
 	@Override
 	public ResponseEntity<Administrator> getAdministratorById(Long id)
@@ -55,7 +53,6 @@ public class AdministratorServiceImpl implements AdministratorService {
 	 * Retrives all the Administrator entities
 	 *
 	 * @return the result of the CRUD's retrive operation over Administrator
-	 * @see co.edu.unbosque.repository.AdministratorRepository#findAll()
 	 */
 	@Override
 	public ResponseEntity<List<Administrator>> getAdministrators() {
@@ -69,7 +66,6 @@ public class AdministratorServiceImpl implements AdministratorService {
 	 * @param id the id of the Administrator entity to update
 	 * @param updatedAdministrator the Administrator instance with the updating information
 	 * @return the result of the CRUD's update operation over Administrator
-	 * @see co.edu.unbosque.repository.AdministratorRepository#save(Administrator)
 	 */
 	@Override
 	public ResponseEntity<Administrator> updateAdministratorById(
@@ -104,7 +100,6 @@ public class AdministratorServiceImpl implements AdministratorService {
 	 *
 	 * @param id the id of the Administrator entity to delete
 	 * @return the result of the CRUD's delete operation over Administrator
-	 * @see co.edu.unbosque.repository.AdministratorRepository#deleteById(Long)
 	 */
 	@Override
 	public ResponseEntity<?> deleteAdministratorById(Long id)

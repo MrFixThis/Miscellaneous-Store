@@ -17,7 +17,6 @@ public interface SupervisorService {
 	 *
 	 * @param supervisor the creating Supervisor instance
 	 * @return the result of the CRUD's create operation over Supervisor
-	 * @see co.edu.unbosque.repository.SupervisorRepository#save(Supervisor)
 	 */
 	ResponseEntity<Supervisor> createSupervisor(
 			Supervisor supervisor);
@@ -27,7 +26,6 @@ public interface SupervisorService {
 	 *
 	 * @param id the id of the Supervisor entity to retrive
 	 * @return the result of the CRUD's retrive operation over Supervisor
-	 * @see co.edu.unbosque.repository.SupervisorRepository#findById(Long)
 	 */
 	ResponseEntity<Supervisor> getSupervisorById(Long id)
 			throws SupervisorNotFoundException;
@@ -38,7 +36,6 @@ public interface SupervisorService {
 	 * @param username the username of the Supervisor entity to retrive
 	 * @param password the password of the Supervisor entity to retrive
 	 * @return the result of the CRUD's retrive operation over Supervisor
-	 * @see co.edu.unbosque.repository.SupervisorRepository#findByUsernameAndPassword(String, String)
 	 */
 	ResponseEntity<Supervisor> getSupervisorByUsernameAndPassword(String username,
 			String password) throws SupervisorNotFoundException;
@@ -47,7 +44,6 @@ public interface SupervisorService {
 	 * Retrives all the Supervisor entities
 	 *
 	 * @return the result of the CRUD's retrive operation over Supervisor
-	 * @see co.edu.unbosque.repository.SupervisorRepository#findAll()
 	 */
 	ResponseEntity<List<Supervisor>> getSupervisors();
 
@@ -57,7 +53,6 @@ public interface SupervisorService {
 	 * @param id the id of the Supervisor entity to update
 	 * @param updatedSupervisor the Supervisor instance with the updating information
 	 * @return the result of the CRUD's update operation over Supervisor
-	 * @see co.edu.unbosque.repository.SupervisorRepository#save(Supervisor)
 	 */
 	ResponseEntity<Supervisor> updateSupervisorById(Long id,
 			Supervisor updatedSupervisor)
@@ -68,7 +63,6 @@ public interface SupervisorService {
 	 *
 	 * @param id the id of the Supervisor entity to delete
 	 * @return the result of the CRUD's delete operation over Supervisor
-	 * @see co.edu.unbosque.repository.SupervisorRepository#deleteById(Long)
 	 */
 	ResponseEntity<?> deleteSupervisorById(Long id)
 			throws SupervisorNotFoundException;

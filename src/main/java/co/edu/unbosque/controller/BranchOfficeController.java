@@ -30,7 +30,10 @@ public class BranchOfficeController {
 	private InventoryServiceImpl inventoryServiceImpl;
 
 	/**
+	 * Creates a new branch office entity
 	 *
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view.
 	 */
 	@GetMapping("/branch_offices/create")
 	public String registerNewBranchOffice(Model model) {
@@ -53,7 +56,13 @@ public class BranchOfficeController {
 	}
 
 	/**
+	 * Creates a new branch office entity
 	 *
+	 * @param newInventory POJO with the information of the inventory
+	 * entity created to be part of the branch office entity that is beeing created.
+	 * @param administratorId id of the administrator who is going to be
+	 * the manager of the branch office beeing created
+	 * @return the specified template view
 	 */
 	@GetMapping("/branch_offices/manage/create")
 	public String createBranchOffice(Inventory newInventory,
@@ -69,23 +78,12 @@ public class BranchOfficeController {
 		return "redirect:/branch_offices";
 	}
 
-
 	/**
+	 * Retrieves a branch office entity specified by id
 	 *
-	 */
-	@GetMapping("/branch_offices")
-	public String showBranchOffices(Model model) {
-		List<BranchOffice> branchOffices =
-			branchOfficeServiceImpl.getBranchOffices().getBody();
-
-		model.addAttribute("action", "get");
-		model.addAttribute("branchOffices", branchOffices);
-
-		return "branchOffices";
-	}
-
-	/**
-	 *
+	 * @param id id of the branch office entity that is beeing searched
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view
 	 */
 	@GetMapping("/branch_offices/{id}")
 	public String showBranchOffice(@PathVariable(name = "id") Long id,
@@ -100,7 +98,28 @@ public class BranchOfficeController {
 	}
 
 	/**
+	 * Retrieves all the existent branch office entities
 	 *
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view
+	 */
+	@GetMapping("/branch_offices")
+	public String showBranchOffices(Model model) {
+		List<BranchOffice> branchOffices =
+			branchOfficeServiceImpl.getBranchOffices().getBody();
+
+		model.addAttribute("action", "get");
+		model.addAttribute("branchOffices", branchOffices);
+
+		return "branchOffices";
+	}
+
+	/**
+	 * Updates a branch office entity specified by id
+	 *
+	 * @param id id of the branch office entity that is beeing updated
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view
 	 */
 	@GetMapping("/branch_offices/update/{id}")
 	public String updateBranchOffice(@PathVariable(name = "id") Long id,
@@ -127,7 +146,14 @@ public class BranchOfficeController {
 	}
 
 	/**
+	 * Updates a branch office entity specified by id
 	 *
+	 * @param updatedInventory POJO with the information of the inventory
+	 * entity created to be part of the branch office entity that is beeing updated.
+	 * @param id id of the branch office entity that is beeing updated
+	 * @param administratorId id of the administrator who is going to be
+	 * the manager of the branch office beeing updated
+	 * @return the specified template view
 	 */
 	@GetMapping("/branch_offices/manage/update/{id}")
 	public String updateBranchOffice(Inventory updatedInventory,
@@ -155,7 +181,10 @@ public class BranchOfficeController {
 	}
 
 	/**
+	 * Deletes a branch office entity specified by id
 	 *
+	 * @param id id of the branch office entity that is beeing deleted
+	 * @return the specified template view
 	 */
 	@PostMapping("/branch_offices/manage/delete/{id}")
 	public String deleteBranchOffice(@PathVariable(name = "id") Long id) {

@@ -26,7 +26,6 @@ public class ClientServiceImpl implements ClientService {
 	 *
 	 * @param client the creating Client instance
 	 * @return the result of the CRUD's create operation over Client
-	 * @see co.edu.unbosque.repository.ClientRepository#save(Client)
 	 */
 	@Override
 	public ResponseEntity<Client> createClient(Client client) {
@@ -39,7 +38,6 @@ public class ClientServiceImpl implements ClientService {
 	 *
 	 * @param id the id of the Client entity to retrive
 	 * @return the result of the CRUD's retrive operation over Client
-	 * @see co.edu.unbosque.repository.ClientRepository#findById(Long)
 	 */
 	@Override
 	public ResponseEntity<Client> getClientById(Long id)
@@ -54,7 +52,6 @@ public class ClientServiceImpl implements ClientService {
 	 * Retrives all the Client entities
 	 *
 	 * @return the result of the CRUD's retrive operation over Client
-	 * @see co.edu.unbosque.repository.ClientRepository#findAll()
 	 */
 	@Override
 	public ResponseEntity<List<Client>> getClients() {
@@ -67,7 +64,6 @@ public class ClientServiceImpl implements ClientService {
 	 *
 	 * @param branchOfficeId the id of the BranchOffice's entity related to Client's entities
 	 * @return the result of the CRUD's retrive operation over Client
-	 * @see co.edu.unbosque.repository.ClientRepository#findClientsByBranchOfficesId(Long)
 	 */
 	@Override
 	public ResponseEntity<List<Client>> getClientsByBranchOfficesId(
@@ -87,7 +83,6 @@ public class ClientServiceImpl implements ClientService {
 	 * @param id the id of the Client entity to update
 	 * @param updatedClient the Client instance with the updating information
 	 * @return the result of the CRUD's update operation over Client
-	 * @see co.edu.unbosque.repository.ClientRepository#save(Client)
 	 */
 	@Override
 	public ResponseEntity<Client> updateClientById(Long id,
@@ -116,7 +111,6 @@ public class ClientServiceImpl implements ClientService {
 	 *
 	 * @param id the id of the Client entity to delete
 	 * @return the result of the CRUD's delete operation over Client
-	 * @see co.edu.unbosque.repository.ClientRepository#deleteById(Long)
 	 */
 	@Override
 	public ResponseEntity<?> deleteClientById(Long id)

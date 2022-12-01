@@ -25,7 +25,12 @@ public class VinylRecordLotController {
 	private InventoryServiceImpl inventoryServiceImpl;
 
 	/**
+	 * Creates a new vinyl record lot entity
 	 *
+	 * @param inventoryId id of the inventory where the vinyl record lot that
+	 * is beeing created will be placed
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view.
 	 */
 	@GetMapping("/vinyl_record_lots/create/inventory={inventoryId}")
 	public String createVinylRecordLot(@PathVariable(name = "inventoryId")
@@ -38,7 +43,15 @@ public class VinylRecordLotController {
 	}
 
 	/**
+	 * Creates a new vinyl record lot entity
 	 *
+	 * @param newVinylRecordLot POJO with the information of the vinyl record lot
+	 * entity that is beeing created.
+	 * @param inventoryId id of the inventory where the vinyl record lot that is beeing
+	 * created will be placed
+	 * @param publicationDate date of publication of the units from the disc
+	 * lot entity that is beeing created
+	 * @return the specified template view.
 	 */
 	@GetMapping("/vinyl_record_lots/manage/create/{inventoryId}")
 	public String createVinylRecordLot(VinylRecordLot newVinylRecordLot,
@@ -59,13 +72,17 @@ public class VinylRecordLotController {
 	}
 
 	/**
+	 * Retrieves a vinyl record lot entity specified by id
 	 *
+	 * @param id id of the vinyl record lot entity that is beeing searched
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view
 	 */
 	@GetMapping("/vinyl_record_lots/{Id}")
-	public String showVinylRecordLot(@PathVariable(name = "Id") Long Id,
+	public String showVinylRecordLot(@PathVariable(name = "Id") Long id,
 			Model model) {
 		VinylRecordLot vinylRecordLot =
-			vinylRecordLotServiceImpl.getVinylRecordLotById(Id).getBody();
+			vinylRecordLotServiceImpl.getVinylRecordLotById(id).getBody();
 
 		model.addAttribute("action", "get");
 		model.addAttribute("vinylRecordLot", vinylRecordLot);
@@ -75,13 +92,17 @@ public class VinylRecordLotController {
 
 
 	/**
+	 * Updates a vinyl record lot entity specified by id
 	 *
+	 * @param id id of the vinyl record lot entity that is beeing updated
+	 * @param model holder model for context model's attributes.
+	 * @return the specified template view
 	 */
 	@GetMapping("/vinyl_record_lots/update/{Id}")
-	public String updateVinylRecordLot(@PathVariable(name = "Id") Long Id,
+	public String updateVinylRecordLot(@PathVariable(name = "Id") Long id,
 			Model model) {
 		VinylRecordLot vinylRecordLot =
-			vinylRecordLotServiceImpl.getVinylRecordLotById(Id).getBody();
+			vinylRecordLotServiceImpl.getVinylRecordLotById(id).getBody();
 
 		model.addAttribute("action", "put");
 		model.addAttribute("vinylRecordLot", vinylRecordLot);
@@ -90,7 +111,14 @@ public class VinylRecordLotController {
 	}
 
 	/**
+	 * Updates a new vinyl record lot entity specified by id
 	 *
+	 * @param updatedVinylRecordLot POJO with the information of the vinyl record lot
+	 * entity that is beeing udpated.
+	 * @param id id of the vinyl record lot entity that is beeing updated
+	 * @param publicationDate date of publication of the units from the disc
+	 * lot entity that is beeing updated
+	 * @return the specified template view.
 	 */
 	@GetMapping("/vinyl_record_lots/manage/update/{Id}")
 	public String updateVinylRecordLot(VinylRecordLot updatedVinylRecordLot,
@@ -109,14 +137,17 @@ public class VinylRecordLotController {
 	}
 
 	/**
+	 * Deletes a vinyl record lot entity specified by id
 	 *
+	 * @param id id of the vinyl record lot entity that is beeing deleted
+	 * @return the specified template view
 	 */
 	@GetMapping("/vinyl_record_lots/manage/delete/{Id}")
-	public String deleteVinylRecordLot(@PathVariable(name = "Id") Long Id) {
+	public String deleteVinylRecordLot(@PathVariable(name = "Id") Long id) {
 		Long branchOfficeId =
-			vinylRecordLotServiceImpl.getVinylRecordLotById(Id).getBody()
+			vinylRecordLotServiceImpl.getVinylRecordLotById(id).getBody()
 				.getVinylRecordLotInventory().getBranchOffice().getId();
-		vinylRecordLotServiceImpl.deleteVinylRecordLotById(Id);
+		vinylRecordLotServiceImpl.deleteVinylRecordLotById(id);
 
 		return String.format("redirect:/branch_offices/update/%d",
 				branchOfficeId);

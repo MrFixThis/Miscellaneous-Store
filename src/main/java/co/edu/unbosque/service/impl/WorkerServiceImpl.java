@@ -25,7 +25,6 @@ public class WorkerServiceImpl implements WorkerService {
 	 *
 	 * @param worker the creating worker instance
 	 * @return the result of the CRUD's create operation over Worker
-	 * @see co.edu.unbosque.repository.WorkerRepository#save(Worker)
 	 */
 	@Override
 	public ResponseEntity<Worker> createWorker(
@@ -39,7 +38,6 @@ public class WorkerServiceImpl implements WorkerService {
 	 *
 	 * @param id the id of the Worker entity to retrive
 	 * @return the result of the CRUD's retrive operation over Worker
-	 * @see co.edu.unbosque.repository.WorkerRepository#findById(Long)
 	 */
 	@Override
 	public ResponseEntity<Worker> getWorkerById(Long id)
@@ -54,7 +52,6 @@ public class WorkerServiceImpl implements WorkerService {
 	 * Retrives all the Worker entities
 	 *
 	 * @return the result of the CRUD's retrive operation over Worker
-	 * @see co.edu.unbosque.repository.WorkerRepository#findAll()
 	 */
 	@Override
 	public ResponseEntity<List<Worker>> getWorkers() {
@@ -68,7 +65,6 @@ public class WorkerServiceImpl implements WorkerService {
 	 * @param id the id of the Worker entity to update
 	 * @param updatedWorker the Worker instance with the updating information
 	 * @return the result of the CRUD's update operation over Worker
-	 * @see co.edu.unbosque.repository.WorkerRepository#save(Worker)
 	 */
 	@Override
 	public ResponseEntity<Worker> updateWorkerById(
@@ -104,7 +100,6 @@ public class WorkerServiceImpl implements WorkerService {
 	 *
 	 * @param id the id of the Worker entity to delete
 	 * @return the result of the CRUD's delete operation over Worker
-	 * @see co.edu.unbosque.repository.WorkerRepository#deleteById(Long)
 	 */
 	@Override
 	public ResponseEntity<?> deleteWorkerById(Long id)

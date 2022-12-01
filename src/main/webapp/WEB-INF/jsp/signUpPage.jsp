@@ -4,6 +4,7 @@
 <html lang="en">
     <head>
 		<%@include file="./headContent.jsp"%>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/data_validation.js" defer></script>
     </head>
     <body class="pt-5">
 		<%@include file="./header.jsp"%>
@@ -20,40 +21,40 @@
 		<div class="continer mt-4 text-center">
 			<h3 class="h3 text-muted text-center">
 				<strong>
-					Access Information
+					User Information
 				</strong>
 			</h3>
-			<form action="#">
+			<form action="/supervisor/manage/create">
 				<div class="d-flex justify-content-center flex-nowrap mt-5">
 					<div class="input-group flex-nowrap w-25">
 						<span class="input-group-text" id="addon-wrapping">&</span>
-						<input name="name" type="text" class="form-control" placeholder="Name"
+						<input name="name" type="text" class="TXT form-control" placeholder="Name"
 						aria-label="Name" aria-describedby="addon-wrapping">
 					</div>
 				</div>
 				<div class="d-flex justify-content-center flex-nowrap mt-4">
 					<div class="input-group flex-nowrap w-25">
 						<span class="input-group-text" id="addon-wrapping">&</span>
-						<input name="surname" type="text" class="form-control" placeholder="Surname"
+						<input name="surname" type="text" class="TXT form-control" placeholder="Surname"
 						aria-label="Surname" aria-describedby="addon-wrapping">
 					</div>
 				</div>
 				<div class="d-flex justify-content-center flex-nowrap mt-4">
 					<div class="input-group flex-nowrap w-25">
 						<span class="input-group-text" id="addon-wrapping">@</span>
-						<input name="username" type="text" class="form-control" placeholder="Username"
+						<input name="username" type="text" class="TXT form-control" placeholder="Username"
 						aria-label="Username" aria-describedby="addon-wrapping">
 					</div>
 				</div>
 				<div class="d-flex justify-content-center flex-nowrap mt-4">
 					<div class="input-group flex-nowrap w-25">
 						<span class="input-group-text" id="addon-wrapping">#</span>
-						<input name="password" type="password" class="form-control" placeholder="Password"
+						<input name="password" type="password" class="TXT form-control" placeholder="Password"
 						aria-label="Password" aria-describedby="addon-wrapping">
 					</div>
 				</div>
 				<div class="container mt-4 text-center">
-					<input type="submit" value="Register"
+					<input id="sbtn" type="submit" value="Sign Up"
 						class="btn btn-lg btn-outline-success" disabled>
 				</div>
 			</form>

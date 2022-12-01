@@ -25,7 +25,6 @@ public class VinylRecordLotServiceImpl implements VinylRecordLotService {
 	 *
 	 * @param vinylRecordLot the creating VinylRecordLot instance
 	 * @return the result of the CRUD's create operation over VinylRecordLot
-	 * @see co.edu.unbosque.repository.VinylRecordLotRepository#save(VinylRecordLot)
 	 */
 	@Override
 	public ResponseEntity<VinylRecordLot> createVinylRecordLot(VinylRecordLot vinylRecordLot) {
@@ -39,7 +38,6 @@ public class VinylRecordLotServiceImpl implements VinylRecordLotService {
 	 *
 	 * @param id the id of the VinylRecordLot entity to retrive
 	 * @return the result of the CRUD's retrive operation over VinylRecordLot
-	 * @see co.edu.unbosque.repository.VinylRecordLotRepository#findById(Long)
 	 */
 	@Override
 	public ResponseEntity<VinylRecordLot> getVinylRecordLotById(Long id)
@@ -55,9 +53,8 @@ public class VinylRecordLotServiceImpl implements VinylRecordLotService {
 	/**
 	 * Retrives a record production name-specified VinylRecordLot entity
 	 *
-	 * @param name the name of the VinylRecordLot entity to retrive
+	 * @param recordProductionName the production name of the VinylRecordLot entity to retrive
 	 * @return the result of the CRUD's retrive operation over VinylRecordLot
-	 * @see co.edu.unbosque.repository.VinylRecordLotRepository#findByRecordProductionName(String)
 	 */
 	@Override
 	public ResponseEntity<VinylRecordLot> getVinylRecordLotByRecordProductionName(
@@ -75,7 +72,6 @@ public class VinylRecordLotServiceImpl implements VinylRecordLotService {
 	 * Retrives all the VinylRecordLot entities
 	 *
 	 * @return the result of the CRUD's retrive operation over VinylRecordLot
-	 * @see co.edu.unbosque.repository.VinylRecordLotRepository#findAll()
 	 */
 	@Override
 	public ResponseEntity<List<VinylRecordLot>> getVinylRecordLots() {
@@ -87,9 +83,8 @@ public class VinylRecordLotServiceImpl implements VinylRecordLotService {
 	 * Updates an id-specified VinylRecordLot entity
 	 *
 	 * @param id the id of the VinylRecordLot entity to update
-	 * @param updatedVinylRecordLot the VinylRecordLot instance with the updating information
+	 * @param updatedVinylRecord the VinylRecordLot instance with the updating information
 	 * @return the result of the CRUD's update operation over VinylRecordLot
-	 * @see co.edu.unbosque.repository.VinylRecordLotRepository#save(VinylRecordLot)
 	 */
 	@Override
 	public ResponseEntity<VinylRecordLot> updateVinylRecordLotById(Long id,
@@ -118,7 +113,6 @@ public class VinylRecordLotServiceImpl implements VinylRecordLotService {
 	 *
 	 * @param id the id of the VinylRecordLot entity to delete
 	 * @return the result of the CRUD's delete operation over VinylRecordLot
-	 * @see co.edu.unbosque.repository.VinylRecordLotRepository#deleteById(Long)
 	 */
 	@Override
 	public ResponseEntity<?> deleteVinylRecordLotById(Long id)

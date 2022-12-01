@@ -21,7 +21,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * @athor Bryan Baron
+ * @author Bryan Baron
  */
 @Entity
 @Table(name = "worker")

@@ -25,7 +25,6 @@ public class InventoryServiceImpl implements InventoryService {
 	 *
 	 * @param inventory the creating Inventory instance
 	 * @return the result of the CRUD's create operation over Inventory
-	 * @see co.edu.unbosque.repository.InventoryRepository#save(Inventory)
 	 */
 	@Override
 	public ResponseEntity<Inventory> createInventory(Inventory inventory) {
@@ -38,7 +37,6 @@ public class InventoryServiceImpl implements InventoryService {
 	 *
 	 * @param id the id of the Inventory entity to retrive
 	 * @return the result of the CRUD's retrive operation over Inventory
-	 * @see co.edu.unbosque.repository.InventoryRepository#findById(Long)
 	 */
 	@Override
 	public ResponseEntity<Inventory> getInventoryById(Long id)
@@ -54,7 +52,6 @@ public class InventoryServiceImpl implements InventoryService {
 	 * Retrives all the Inventory entities
 	 *
 	 * @return the result of the CRUD's retrive operation over Inventory
-	 * @see co.edu.unbosque.repository.InventoryRepository#findAll()
 	 */
 	@Override
 	public ResponseEntity<List<Inventory>> getInventories() {
@@ -68,7 +65,6 @@ public class InventoryServiceImpl implements InventoryService {
 	 * @param id the id of the Inventory entity to update
 	 * @param updatedInventory the Inventory instance with the updating information
 	 * @return the result of the CRUD's update operation over Inventory
-	 * @see co.edu.unbosque.repository.InventoryRepository#save(Inventory)
 	 */
 	@Override
 	public ResponseEntity<Inventory> updateInventoryById(Long id,
@@ -90,7 +86,6 @@ public class InventoryServiceImpl implements InventoryService {
 	 *
 	 * @param id the id of the Inventory entity to delete
 	 * @return the result of the CRUD's delete operation over Inventory
-	 * @see co.edu.unbosque.repository.InventoryRepository#deleteById(Long)
 	 */
 	@Override
 	public ResponseEntity<?> deleteInventoryById(Long id)

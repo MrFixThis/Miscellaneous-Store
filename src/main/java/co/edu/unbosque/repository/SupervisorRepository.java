@@ -20,7 +20,6 @@ public interface SupervisorRepository extends JpaRepository<Supervisor, Long> {
 	 * or {@literal Optional#empty()} if none is found.
 	 * @throws IllegalArgumentException if {@literal clientId} is {@literal null}.
 	 */
-	// @Query("SELECT s FROM Supervisor AS s WHERE s.username = ?1 AND s.password = ?2")
 	Optional<Supervisor> findSupervisorByUsernameAndPassword(String username,
 			String password);
 }
