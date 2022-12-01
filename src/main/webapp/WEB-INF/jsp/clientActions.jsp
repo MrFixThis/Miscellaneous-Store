@@ -6,8 +6,8 @@
 <html lang="en">
     <head>
 		<%@include file="./headContent.jsp"%>
-		<script src="../../js/data_validation.js" defer></script>
-		<script src="../../js/tooltip.js" defer></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/data_validation.js" defer></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/tooltip.js" defer></script>
     </head>
     <body class="pt-5">
 		<%@include file="./navbar.jsp"%>
@@ -92,27 +92,25 @@
 					  </div>
 					</div>
 				</div>
-					<c:if test="${action.equals('get')}">
-						<div class="text-success"><hr class="w-50 mx-auto"></div>
-						<h5 class="h5 text-muted text-center mt-4">
-							<strong>Shopping Information</strong>
-						</h5>
-						<div class="container mt-4">
-							<div class="input-group mb-3">
-								<span class="input-group-text text-muted">Purchases Number</span>
-								<input type="text" name="numberOfPurchases" class="TXT form-control"
-									value="${client.getPurchasesNumber()}" ${locker}>
-								<span class="input-group-text text-muted">Client of branch office</span>
-								<select class="NBR form-select" id="floatingSelect">
-									<c:forEach items="${cBranchOffices}" var="branchOffice">
-										<option value="${branchOffice.getId()}">
-											${branchOffice.getId()}
-										</option>
-									 </c:forEach>
-								</select>
-							</div>
-						</div>
-					</c:if>
+				<div class="text-success"><hr class="w-50 mx-auto"></div>
+				<h5 class="h5 text-muted text-center mt-4">
+					<strong>Shopping Information</strong>
+				</h5>
+				<div class="container mt-4">
+					<div class="input-group mb-3">
+						<span class="input-group-text text-muted">Purchases Number</span>
+						<input type="text" class="form-control" name="purchasesNumber"
+							value="${client.getPurchasesNumber()}" readonly>
+						<span class="input-group-text text-muted">Client of branch office</span>
+						<select class="form-select" id="floatingSelect" ${action.equals('put') ? 'disabled' : ''}>
+							<c:forEach items="${cBranchOffices}" var="branchOffice">
+								<option value="${branchOffice.getId()}">
+									${branchOffice.getId()}
+								</option>
+							 </c:forEach>
+						</select>
+					</div>
+				</div>
 				<div class="text-success"><hr class="w-50 mx-auto"></div>
 				<div class="container mt-4 text-center">
 					<c:choose>

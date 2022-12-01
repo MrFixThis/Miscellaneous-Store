@@ -40,7 +40,7 @@
 								<th scope="row" class="text-center">${transaction.getId()}</th>
 								  <td>${transaction.getClientName()}</td>
 								  <td>${transaction.getClientIdentificationNumber()}</td>
-								  <td>${transaction.getTrasactionCost()}</td>
+								  <td>$${transaction.getTransactionCost()}</td>
 								  <td class="text-center">
 									<form action="/transactions/${transaction.getId()}">
 										<input type="submit" value="See more"
@@ -63,7 +63,7 @@
 				<div class="container mt-4 text-center">
 					<form action="/transactions/create/branch_office=${branchOffice.getId()}">
 						<input type="submit" value="Register New"
-							class="btn btn-outline-primary">
+							class="btn btn-outline-primary mb-4">
 					</form>
 				</div>
 			</div>

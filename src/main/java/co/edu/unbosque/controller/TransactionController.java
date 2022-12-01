@@ -33,6 +33,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class TransactionController {
 
+	@FunctionalInterface private interface Procedure<T> { T apply(); };
 	private TransactionServiceImpl transactionServiceImpl;
 	private BranchOfficeServiceImpl branchOfficeServiceImpl;
 	private ClientServiceImpl clientServiceImpl;
@@ -67,41 +68,50 @@ public class TransactionController {
 			@PathVariable(name = "productType") String productType,
 			@PathVariable(name = "productId") String productId) {
 
+
 		List<Client> clients = clientServiceImpl.getClients().getBody();
 		String productName = null;
 		Long productPrice = null;
 		Long maxQuantity = null;
+		Procedure<String> productNameGet = null;
+		Procedure<Long> productPriceGet = null;
+		Procedure<Long> maxQuantityGet = null;
 
+		// getting the selected product's information
 		if(productId.contains("-")) {
 			final UUID isbn = UUID.fromString(productId);
-			if(productType.equals("Magazine")) {
+			if(productType.equalsIgnoreCase("MAGAZINE")) {
 				MagazineLot magazineLot =
 					magazineLotServiceImpl.getMagazineLotByIsbn(isbn).getBody();
-				productName = magazineLot.getName();
-				productPrice = magazineLot.getPricePerUnit();
-				maxQuantity = magazineLot.getAvailableUnits();
+				productNameGet = magazineLot::getName;
+				productPriceGet = magazineLot::getPricePerUnit;
+				maxQuantityGet = magazineLot::getAvailableUnits;
 			} else {
 				BookLot bookLot =
 					bookLotServiceImpl.getBookLotByIsbn(isbn).getBody();
-				productName = bookLot.getName();
-				productPrice = bookLot.getPricePerUnit();
-				maxQuantity = bookLot.getAvailableUnits();
+				productNameGet = bookLot::getName;
+				productPriceGet = bookLot::getPricePerUnit;
+				maxQuantityGet = bookLot::getAvailableUnits;
 			}
 		} else {
 			final Long id = Long.valueOf(productId);
-			if(productType.equals("Disc")) {
+			if(productType.equalsIgnoreCase("DISC")) {
 				DiscLot discLot = discLotServiceImpl.getDiscLotById(id).getBody();
-				productName = discLot.getName();
-				productPrice = discLot.getPricePerUnit();
-				maxQuantity = discLot.getAvailableUnits();
+				productNameGet = discLot::getName;
+				productPriceGet = discLot::getPricePerUnit;
+				maxQuantityGet = discLot::getAvailableUnits;
 			} else {
 				VinylRecordLot vinylRecordLot =
 					vinylRecordLotServiceImpl.getVinylRecordLotById(id).getBody();
-				productName = vinylRecordLot.getRecordProductionName();
-				productPrice = vinylRecordLot.getPricePerUnit();
-				maxQuantity = vinylRecordLot.getAvailableUnits();
+				productNameGet = vinylRecordLot::getRecordProductionName;
+				productPriceGet = vinylRecordLot::getPricePerUnit;
+				maxQuantityGet = vinylRecordLot::getAvailableUnits;
 			}
 		}
+
+		productName = productNameGet.apply();
+		productPrice = productPriceGet.apply();
+		maxQuantity = maxQuantityGet.apply();
 
 		model.addAttribute("action", "post");
 		model.addAttribute("branchOfficeId", branchOfficeId);
@@ -118,42 +128,42 @@ public class TransactionController {
 	 *
 	 */
 	@GetMapping("/transactions/manage/create/{branchOfficeId}/{productId}")
-	public String createTransaction(
+	public String createTransaction(Transaction newTransaction,
 			@PathVariable(name = "branchOfficeId") Long branchOfficeId,
 			@PathVariable(name = "productId") String productId,
-			@RequestParam(name = "clientId") Long clientId,
-			@RequestParam(name = "productName") String productName,
-			@RequestParam(name = "productType") String productType,
-			@RequestParam(name = "productPrice") Long productPrice,
-			@RequestParam(name = "productQuantity") Long productQuantity) {
+			@RequestParam(name = "clientId") Long clientId) {
 
 		BranchOffice branchOffice =
 			branchOfficeServiceImpl.getBranchOfficeById(branchOfficeId).getBody();
-		Client client =
-			clientServiceImpl.getClientById(clientId).getBody();
+		Client client = clientServiceImpl.getClientById(clientId).getBody();
 
 		// increasing the current client's number of purchases
 		client.setPurchasesNumber(client.getPurchasesNumber() + 1);
-		clientServiceImpl.updateClientById(clientId, client);
-
-		// adding the new client in the join table
-		branchOffice.getClients().add(client);
-		branchOfficeServiceImpl.updateBranchOfficeById(branchOfficeId, branchOffice);
 
 		// creation of the new transaction
-		final long transactionCost = productQuantity * productPrice;
-		Transaction newTransaction = new Transaction(null,
-				String.format("%s %s", client.getFirstName(), client.getMiddleName()),
-				client.getIdentificationNumber(), client.getIdentificationType(),
-				productName, Transaction.ProductType.valueOf(productType.toUpperCase()),
-				productPrice, productQuantity, transactionCost, branchOffice);
+		newTransaction.setClientName(String.format("%s %s", client.getFirstName(),
+					client.getPaternalLastName()));
+		newTransaction.setClientIdentificationNumber(client.getIdentificationNumber());
+		newTransaction.setClientIdentificationType(client.getIdentificationNumber());
+		newTransaction.setTransactionCost(newTransaction.getProductQuantity() *
+				newTransaction.getProductPrice());
+		newTransaction.setBranchOffice(branchOffice);
 		transactionServiceImpl.createTransaction(newTransaction);
+
+
+		// creating the new branch_office_clients' entry
+		client.getBranchOffices().add(branchOffice);
+		clientServiceImpl.updateClientById(clientId, client);
+		// branchOffice.getClients().add(client);
+		// branchOfficeServiceImpl.updateBranchOfficeById(branchOfficeId, branchOffice);
 
 		// decrementing the available units of the product purchased
 		long finalUnits = 0L;
+		final String productType = newTransaction.getProductType().toString();
+		final long productQuantity = newTransaction.getProductQuantity();
 		if(productId.contains("-")) {
 			final UUID isbn = UUID.fromString(productId);
-			if(productType.equals("Magazine")) {
+			if(productType.equalsIgnoreCase("Magazine")) {
 				MagazineLot magazineLot =
 					magazineLotServiceImpl.getMagazineLotByIsbn(isbn).getBody();
 
@@ -176,7 +186,7 @@ public class TransactionController {
 			}
 		} else {
 			final Long id = Long.valueOf(productId);
-			if(productType.equals("Disc")) {
+			if(productType.equalsIgnoreCase("Disc")) {
 				DiscLot discLot = discLotServiceImpl.getDiscLotById(id).getBody();
 
 				finalUnits = discLot.getAvailableUnits() - productQuantity;
@@ -198,7 +208,7 @@ public class TransactionController {
 			}
 		}
 
-		return "redirect:/transactions";
+		return String.format("redirect:/transactions/%d", newTransaction.getId());
 	} // TODO: Improve this implementation
 
 	/**
@@ -236,7 +246,11 @@ public class TransactionController {
 	 */
 	@PostMapping("/transactions/manage/delete/{id}")
 	public String deleteTransaction(@PathVariable(name = "id") Long id) {
+		Long branchOfficeId = transactionServiceImpl.getTransactionById(id)
+			.getBody().getBranchOffice().getId();
 		transactionServiceImpl.deleteTransactionById(id);
-		return "redirect:/transactions";
+
+		return String.format("redirect:/transactions/branch_office=%d",
+				branchOfficeId);
 	}
 }

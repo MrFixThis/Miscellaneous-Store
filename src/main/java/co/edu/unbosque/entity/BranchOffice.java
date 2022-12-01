@@ -1,6 +1,8 @@
 package co.edu.unbosque.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -23,6 +25,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * @author Bryan Baron
@@ -48,31 +51,31 @@ public class BranchOffice {
 	private Inventory inventory;
 
 	@JsonIgnore
-	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST},
+	@EqualsAndHashCode.Exclude @ToString.Exclude
+	@ManyToMany(cascade = CascadeType.ALL,
 		fetch = FetchType.EAGER)
 	@JoinTable(
 		name = "branch_office_clients",
-		joinColumns = @JoinColumn(
-					name = "branch_office_id", nullable = false),
-		inverseJoinColumns = @JoinColumn(
-					name = "client_id", nullable = false)
+		joinColumns = @JoinColumn(name = "branch_office_id", nullable = false),
+		inverseJoinColumns = @JoinColumn(name = "client_id", nullable = false)
 	)
 	private Set<Client> clients;
 
 	@JsonIgnore
-	@EqualsAndHashCode.Exclude
+	@EqualsAndHashCode.Exclude @ToString.Exclude
 	@OneToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH,
 		CascadeType.REMOVE}, fetch = FetchType.LAZY, mappedBy = "branchOffice")
 	private Set<Worker> workers;
 
 	@JsonIgnore
-	@EqualsAndHashCode.Exclude
+	@EqualsAndHashCode.Exclude @ToString.Exclude
 	@OneToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH,
 		CascadeType.REMOVE}, fetch = FetchType.EAGER, mappedBy = "branchOffice")
-	private Set<Transaction> transactions;
+	private List<Transaction> transactions;
 
 	{
 		clients = new HashSet<>();
 		workers = new HashSet<>();
+		transactions = new ArrayList<>();
 	}
 }

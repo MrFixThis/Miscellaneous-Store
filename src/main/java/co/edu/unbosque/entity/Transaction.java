@@ -60,7 +60,8 @@ public class Transaction {
 	private Long transactionCost;
 
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH},
+		fetch = FetchType.LAZY)
 	@JoinColumn(name = "branch_office_id", nullable = false)
 	private BranchOffice branchOffice;
 

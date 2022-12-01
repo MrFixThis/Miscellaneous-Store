@@ -6,7 +6,7 @@
 <html lang="en">
     <head>
 		<%@include file="./headContent.jsp"%>
-		<script src="../../js/data_validation.js" defer></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/data_validation.js" defer></script>
     </head>
     <body class="pt-5">
 		<%@include file="./navbar.jsp"%>
@@ -350,7 +350,7 @@
 							</c:when>
 							<c:otherwise>
 								<div class="btn-group me-4" role="group">
-									<form action="/branch_offices/${branchOffice.getId()}/transactions">
+									<form action="/transactions/branch_office=${branchOffice.getId()}">
 										<input type="submit" value="Transactions"
 											class="btn btn-outline-warning btn-lg mb-4">
 									</form>

@@ -46,7 +46,7 @@
 							  <td>${magazineLot.getAvailableUnits()}</td>
 							  <td>$${magazineLot.getPricePerUnit()}</td>
 							  <td class="text-center" ${tableMod}>
-								  <form action="/transactions/create/branch_office=${branchOffice.getId()}/product_type=Magazine&product_id=${magazineLot.getIsbn()}">
+								  <form action="/transactions/create/branch_office=${branchOffice.getId()}/product_type=MAGAZINE&product_id=${magazineLot.getIsbn()}">
 									<input type="submit" value="Select"
 										class="btn btn-primary btn-sm">
 								  </form>
@@ -91,7 +91,7 @@
 							  <td>${bookLot.getAvailableUnits()}</td>
 							  <td>$${bookLot.getPricePerUnit()}</td>
 							  <td class="text-center" ${tableMod}>
-								  <form action="/transactions/create/branch_office=${branchOffice.getId()}/product_type=Book&product_id=${bookLot.getIsbn()}">
+								  <form action="/transactions/create/branch_office=${branchOffice.getId()}/product_type=BOOK&product_id=${bookLot.getIsbn()}">
 									<input type="submit" value="Select"
 										class="btn btn-primary btn-sm">
 								  </form>
@@ -136,7 +136,7 @@
 							  <td>${discLot.getAvailableUnits()}</td>
 							  <td>$${discLot.getPricePerUnit()}</td>
 							  <td class="text-center" ${tableMod}>
-								  <form action="/transactions/create/branch_office=${branchOffice.getId()}/product_type=Disc&product_id=${discLot.getId()}">
+								  <form action="/transactions/create/branch_office=${branchOffice.getId()}/product_type=DISC&product_id=${discLot.getId()}">
 									<input type="submit" value="Select"
 										class="btn btn-primary btn-sm">
 								  </form>
@@ -182,7 +182,7 @@
 							  <td>${vinylRecordLot.getAvailableUnits()}</td>
 							  <td>$${vinylRecordLot.getPricePerUnit()}</td>
 							  <td class="text-center" ${tableMod}>
-								  <form action="/transactions/create/branch_office=${branchOffice.getId()}/product_type=Vinyl Record&product_id=${vinylRecordLot.getId()}">
+								  <form action="/transactions/create/branch_office=${branchOffice.getId()}/product_type=VINYL_RECORD&product_id=${vinylRecordLot.getId()}">
 									<input type="submit" value="Select"
 										class="btn btn-primary btn-sm">
 								  </form>

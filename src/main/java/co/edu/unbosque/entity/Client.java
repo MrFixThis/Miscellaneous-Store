@@ -20,6 +20,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * @author Bryan Baron
@@ -66,7 +67,8 @@ public class Client {
 	private Integer purchasesNumber;
 
 	@JsonIgnore
-	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST},
+	@EqualsAndHashCode.Exclude @ToString.Exclude
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH},
 		fetch = FetchType.EAGER, mappedBy = "clients")
 	private Set<BranchOffice> branchOffices;
 

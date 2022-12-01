@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="locker" value="${!action.equals('post') ? 'readonly' : 'disabled'}"/>
+<c:set var="locker" value="${clients.size() == 0 ? 'disabled' : ''}"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
 		<%@include file="./headContent.jsp"%>
-		<script src="../../js/data_validation.js" defer></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/data_validation.js" defer></script>
     </head>
     <body class="pt-5">
 		<%@include file="./navbar.jsp"%>
@@ -41,17 +41,19 @@
 						<div class="input-group mb-3">
 						  <span class="input-group-text text-muted">Product name</span>
 						  <input type="text" name="productName" class="form-control"
-							  value="${!action.equals('post') ? transaction.getProductName() : productName}" ${locker}>
+							  value="${!action.equals('post') ? transaction.getProductName() : productName}" readonly >
 					  </div>
 					</div>
 					<div class="input-group mb-3">
 						<span class="input-group-text text-muted">Price per unit</span>
 						<span class="input-group-text text-muted">$</span>
 						<input type="text" name="productPrice" class="form-control"
-							value="${!action.equals('post') ? transaction.getProductPrice() : productPrice}" ${locker}>
+							value="${!action.equals('post') ? transaction.getProductPrice() : productPrice}" readonly>
 						<span class="input-group-text text-muted">Product type</span>
 						<input type="text" name="productType" class="form-control"
-							value="${!action.equals('post') ? transaction.getProductType() : productType}" ${locker}>
+							value="${!action.equals('post')
+							? transaction.getProductType()
+							: productType}" readonly>
 					</div>
 				</div>
 				<div class="text-success"><hr class="w-50 mx-auto"></div>
@@ -60,17 +62,17 @@
 				</h5>
 				<hr class="w-25 mx-auto">
 				<h5 class="h5 text-muted text-center mt-4">
-					<em>Clients</em>
+					<em>Client</em>
 				</h5>
 				<div class="container justify-content-md-center">
 					<c:choose>
-						<c:when test="${action.equals('post') && clients.size() != 0}">
+						<c:when test="${action.equals('get') || action.equals('post') && clients.size() != 0}">
 							<div class="form-floating mt-3" >
 								<select name="clientId" class="form-select" id="floatingSelect" ${!action.equals('post') ? 'disabled' : ''}>
 									<c:choose>
 										<c:when test="${!action.equals('post')}">
 											<option value="${client.getId()}">
-												${transaction.getClientName()} - ${transaction.getClientIdentificationNumber()}
+												${transaction.getClientName()} - ${transaction.getClientIdentificationNumber()} -
 												${transaction.getClientIdentificationType()}
 											</option>
 										</c:when>
@@ -105,13 +107,19 @@
 						</c:otherwise>
 					</c:choose>
 				</div>
-				<div class="container mt-4" style="width: 600px;">
+				<div class="container mt-4" ${action.equals('post') ? "style='width: 600px;'" : ""}>
 					<div class="input-group mb-3">
 						<div class="input-group mb-3">
 							<span class="input-group-text text-muted">Quantity of the product</span>
 							<input type="number" name="productQuantity" class="NBR form-control"
 								value="${transaction.getProductQuantity()}" min="1" max="${maxQuantity}"
 									onkeydown="return false" ${!action.equals('post') || action.equals('post') && clients == null ? 'readonly' : ''}>
+							<c:if test="${!action.equals('post')}">
+								<span class="input-group-text text-muted">Transaction cost</span>
+								<span class="input-group-text text-muted">$</span> <input type="text" name="transactionCost" class="NBR form-control"
+									value="${transaction.getTransactionCost()}"
+									${!action.equals('post') || action.equals('post') && clients == null ? 'readonly' : ''}>
+							</c:if>
 						</div>
 					</div>
 				</div>
@@ -120,12 +128,13 @@
 					<c:choose>
 						<c:when test="${action.equals('post')}">
 							<input id="sbtn" type="submit" value="Complete Registration"
-								class="btn btn-outline-primary btn-lg mb-4" disabled>
+							   class="btn btn-outline-primary btn-lg mb-4" disabled>
 						</c:when>
 						<c:otherwise>
 							<form></form>
 							<div class="btn-group" role="group">
-								<form action="/transactions/manage/delete/${transaction.getId()}">
+								<form action="/transactions/manage/delete/${transaction.getId()}"
+									  method="POST">
 									<input type="submit" value="Delete Subject"
 										class="btn btn-outline-danger btn-lg mb-4">
 								</form>

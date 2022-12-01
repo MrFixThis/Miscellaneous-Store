@@ -154,22 +154,6 @@ public class BranchOfficeController {
 		return String.format("redirect:/branch_offices/%d", id);
 	}
 
-	/*
-	 *
-	 */
-	@GetMapping("/branch_offices/{id}/transactions")
-	public String showTransactions(Model model,
-			@PathVariable(name = "id") Long id) {
-
-		BranchOffice branchOffice =
-			branchOfficeServiceImpl.getBranchOfficeById(id).getBody();
-
-		model.addAttribute("action", "post");
-		model.addAttribute("branchOffice", branchOffice);
-
-		return "transactionProducts";
-	}
-
 	/**
 	 *
 	 */

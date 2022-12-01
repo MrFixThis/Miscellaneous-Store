@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * @author Bryan Baron
@@ -73,7 +74,7 @@ public class Administrator {
 	private Long basicSalary;
 
 	@JsonIgnore
-	@EqualsAndHashCode.Exclude
+	@EqualsAndHashCode.Exclude @ToString.Exclude
 	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH},
 		fetch = FetchType.LAZY, mappedBy = "administrator")
 	private BranchOffice branchOffice;
