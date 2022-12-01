@@ -73,7 +73,7 @@ public class BranchOfficeController {
 	/**
 	 *
 	 */
-	@GetMapping({"/", "/branch_offices"})
+	@GetMapping("/branch_offices")
 	public String showBranchOffices(Model model) {
 		List<BranchOffice> branchOffices =
 			branchOfficeServiceImpl.getBranchOffices().getBody();

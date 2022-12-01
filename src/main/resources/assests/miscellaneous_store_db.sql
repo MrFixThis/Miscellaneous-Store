@@ -164,3 +164,12 @@ CREATE TABLE IF NOT EXISTS miscellaneous_store_db.transaction (
     REFERENCES miscellaneous_store_db.branch_office(id)
     ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS miscellaneous_store_db.supervisor (
+  id BIGINT AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  surname VARCHAR(255) NOT NULL,
+  username VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  PRIMARY KEY(id)
+);
