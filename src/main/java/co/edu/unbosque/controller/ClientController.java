@@ -44,7 +44,9 @@ public class ClientController {
 	public String createClient(Client newClient,
 			@RequestParam(name = "birthDate") String birthDate) {
 
+		Integer newClientPN = newClient.getPurchasesNumber();
 		newClient.setDateOfBirth(Date.valueOf(birthDate));
+		newClient.setPurchasesNumber(newClientPN == null ? 0 : newClientPN);
 		clientServiceImpl.createClient(newClient);
 
 		return "redirect:/clients";

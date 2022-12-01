@@ -1,11 +1,13 @@
 package co.edu.unbosque.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import co.edu.unbosque.entity.BranchOffice;
+import co.edu.unbosque.entity.Client;
 import co.edu.unbosque.exception.BranchOfficeNotFoundException;
 import co.edu.unbosque.exception.ClientNotFoundException;
 import co.edu.unbosque.repository.BranchOfficeRepository;
@@ -20,6 +22,7 @@ import lombok.AllArgsConstructor;
 public class BranchOfficeServiceImpl implements BranchOfficeService {
 
 	private BranchOfficeRepository branchOfficeRepository;
+	private ClientServiceImpl clientServiceImpl;
 
 	/**
 	 * Creates a new BranchOffice
@@ -106,6 +109,15 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 
 		branchOffice.setAdministrator(updatedBranchOffice.getAdministrator());
 		branchOffice.setInventory(updatedBranchOffice.getInventory());
+        branchOffice.getClients().addAll(updatedBranchOffice
+				.getClients()
+				.stream()
+				.map(c -> {
+					Client cl =
+						clientServiceImpl.getClientById(c.getId()).getBody();
+					cl.getBranchOffices().add(updatedBranchOffice);
+					return cl;
+				}).collect(Collectors.toList()));
 
 		branchOffice = branchOfficeRepository.save(branchOffice);
 		return ResponseEntity.ok(branchOffice);

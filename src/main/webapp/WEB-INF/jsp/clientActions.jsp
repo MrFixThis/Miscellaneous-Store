@@ -96,19 +96,19 @@
 				<h5 class="h5 text-muted text-center mt-4">
 					<strong>Shopping Information</strong>
 				</h5>
-				<div class="container mt-4">
+				<div class="container mt-4" style="width: 600px;">
 					<div class="input-group mb-3">
 						<span class="input-group-text text-muted">Purchases Number</span>
 						<input type="text" class="form-control" name="purchasesNumber"
 							value="${client.getPurchasesNumber()}" readonly>
-						<span class="input-group-text text-muted">Client of branch office</span>
-						<select class="form-select" id="floatingSelect" ${action.equals('put') ? 'disabled' : ''}>
-							<c:forEach items="${cBranchOffices}" var="branchOffice">
-								<option value="${branchOffice.getId()}">
-									${branchOffice.getId()}
-								</option>
-							 </c:forEach>
-						</select>
+						<%-- <span class="input-group-text text-muted">Client of branch office</span> --%>
+						<%-- <select class="form-select" id="floatingSelect" ${action.equals('put') ? 'disabled' : ''}> --%>
+						<%-- 	<c:forEach items="${cBranchOffices}" var="branchOffice"> --%>
+						<%-- 		<option value="${branchOffice.getId()}"> --%>
+						<%-- 			${branchOffice.getId()} --%>
+						<%-- 		</option> --%>
+						<%-- 	 </c:forEach> --%>
+						<%-- </select> --%>
 					</div>
 				</div>
 				<div class="text-success"><hr class="w-50 mx-auto"></div>

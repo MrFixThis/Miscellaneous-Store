@@ -68,8 +68,7 @@ public class Client {
 
 	@JsonIgnore
 	@EqualsAndHashCode.Exclude @ToString.Exclude
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH},
-		fetch = FetchType.EAGER, mappedBy = "clients")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "clients")
 	private Set<BranchOffice> branchOffices;
 
 	{

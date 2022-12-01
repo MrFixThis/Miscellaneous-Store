@@ -52,8 +52,7 @@ public class BranchOffice {
 
 	@JsonIgnore
 	@EqualsAndHashCode.Exclude @ToString.Exclude
-	@ManyToMany(cascade = CascadeType.ALL,
-		fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 		name = "branch_office_clients",
 		joinColumns = @JoinColumn(name = "branch_office_id", nullable = false),

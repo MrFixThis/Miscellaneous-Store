@@ -113,7 +113,7 @@
 							<span class="input-group-text text-muted">Quantity of the product</span>
 							<input type="number" name="productQuantity" class="NBR form-control"
 								value="${transaction.getProductQuantity()}" min="1" max="${maxQuantity}"
-									onkeydown="return false" ${!action.equals('post') || action.equals('post') && clients == null ? 'readonly' : ''}>
+									onkeydown="return false" ${!action.equals('post') || action.equals('post') && clients.size() == 0 ? 'readonly' : ''}>
 							<c:if test="${!action.equals('post')}">
 								<span class="input-group-text text-muted">Transaction cost</span>
 								<span class="input-group-text text-muted">$</span> <input type="text" name="transactionCost" class="NBR form-control"

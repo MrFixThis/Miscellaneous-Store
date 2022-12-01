@@ -33,7 +33,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class TransactionController {
 
-	@FunctionalInterface private interface Procedure<T> { T apply(); };
 	private TransactionServiceImpl transactionServiceImpl;
 	private BranchOfficeServiceImpl branchOfficeServiceImpl;
 	private ClientServiceImpl clientServiceImpl;
@@ -139,6 +138,7 @@ public class TransactionController {
 
 		// increasing the current client's number of purchases
 		client.setPurchasesNumber(client.getPurchasesNumber() + 1);
+		clientServiceImpl.updateClientById(clientId, client);
 
 		// creation of the new transaction
 		newTransaction.setClientName(String.format("%s %s", client.getFirstName(),
@@ -149,13 +149,6 @@ public class TransactionController {
 				newTransaction.getProductPrice());
 		newTransaction.setBranchOffice(branchOffice);
 		transactionServiceImpl.createTransaction(newTransaction);
-
-
-		// creating the new branch_office_clients' entry
-		client.getBranchOffices().add(branchOffice);
-		clientServiceImpl.updateClientById(clientId, client);
-		// branchOffice.getClients().add(client);
-		// branchOfficeServiceImpl.updateBranchOfficeById(branchOfficeId, branchOffice);
 
 		// decrementing the available units of the product purchased
 		long finalUnits = 0L;
@@ -208,6 +201,10 @@ public class TransactionController {
 			}
 		}
 
+		// creating a new branch_office_clients entry
+		// branchOffice.getClients().add(client);
+		// branchOfficeServiceImpl.updateBranchOfficeById(branchOfficeId, branchOffice);
+
 		return String.format("redirect:/transactions/%d", newTransaction.getId());
 	} // TODO: Improve this implementation
 
@@ -253,4 +250,6 @@ public class TransactionController {
 		return String.format("redirect:/transactions/branch_office=%d",
 				branchOfficeId);
 	}
+
+	@FunctionalInterface private interface Procedure<T> { T apply(); };
 }
