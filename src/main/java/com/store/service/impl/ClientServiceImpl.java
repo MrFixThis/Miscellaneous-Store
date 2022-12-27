@@ -1,7 +1,9 @@
 package com.store.service.impl;
 
+import java.net.URI;
 import java.util.List;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +33,8 @@ public class ClientServiceImpl implements ClientService {
 	@Override
 	public ResponseEntity<Client> createClient(Client client) {
 		final Client savedClient = clientRepository.save(client);
-		return ResponseEntity.ok(savedClient);
+		return ResponseEntity.created(URI.create(String.format("/api/v1/clients/%d",
+					savedClient.getId()))).allow(HttpMethod.GET).build();
 	}
 
 	/**

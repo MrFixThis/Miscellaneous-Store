@@ -1,8 +1,10 @@
 package com.store.service.impl;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +38,8 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 			BranchOffice branchOffice) {
 		final BranchOffice savedBranchOffice =
 			branchOfficeRepository.save(branchOffice);
-		return ResponseEntity.ok(savedBranchOffice);
+		return ResponseEntity.created(URI.create(String.format("/api/v1/branch_offices/%d",
+					savedBranchOffice.getId()))).allow(HttpMethod.GET).build();
 	}
 
 	/**

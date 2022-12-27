@@ -1,10 +1,13 @@
 package com.store.service.impl;
 
+import java.net.URI;
 import java.util.List;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.store.exception.BranchOfficeNotFoundException;
 import com.store.exception.TransactionNotFoundException;
 import com.store.model.Transaction;
 import com.store.repository.TransactionRepository;
@@ -31,7 +34,8 @@ public class TransactionServiceImpl implements TransactionService {
 	public ResponseEntity<Transaction> createTransaction(Transaction transaction) {
 		final Transaction savedTransaction =
 			transactionRepository.save(transaction);
-		return ResponseEntity.ok(savedTransaction);
+		return ResponseEntity.created(URI.create(String.format("/api/v1/transactions/%d",
+					savedTransaction.getId()))).allow(HttpMethod.GET).build();
 	}
 
 	/**
@@ -45,7 +49,7 @@ public class TransactionServiceImpl implements TransactionService {
 		throws TransactionNotFoundException {
 		final Transaction transaction = transactionRepository.findById(id)
 			.orElseThrow(() -> new TransactionNotFoundException(
-							String.format("transaction with id %d not found",
+							String.format("Transaction with id %d not found",
 								id)
 							));
 		return ResponseEntity.ok(transaction);
@@ -63,6 +67,21 @@ public class TransactionServiceImpl implements TransactionService {
 	}
 
 	/**
+	 * Retrives all the Transaction entities related to a BranchOffice entity
+	 *
+	 * @return the result of the CRUD's retrive operation over Transaction
+	 */
+	public ResponseEntity<List<Transaction>> getTransactionsByBranchOfficeId(
+			Long branchOfficeId) {
+		final List<Transaction> transactions =
+			transactionRepository.findTransactionsByBranchOfficeId(branchOfficeId)
+			.orElseThrow(() -> new BranchOfficeNotFoundException(
+						String.format("Branch office with id %d not found",
+							branchOfficeId)));
+		return ResponseEntity.ok(transactions);
+	}
+
+	/**
 	 * Updates an id-specified Transaction entity
 	 *
 	 * @param id the id of the Transaction entity to update
@@ -75,7 +94,7 @@ public class TransactionServiceImpl implements TransactionService {
 			throws TransactionNotFoundException {
 		Transaction transaction = transactionRepository.findById(id)
 			.orElseThrow(() -> new TransactionNotFoundException(
-							String.format("transaction with id %d not found",
+							String.format("Transaction with id %d not found",
 								id)
 							));
 
@@ -102,7 +121,7 @@ public class TransactionServiceImpl implements TransactionService {
 		throws TransactionNotFoundException {
 		Transaction transaction = transactionRepository.findById(id)
 			.orElseThrow(() -> new TransactionNotFoundException(
-							String.format("transaction with id %d not found",
+							String.format("Transaction with id %d not found",
 								id)
 							));
 		transactionRepository.delete(transaction);

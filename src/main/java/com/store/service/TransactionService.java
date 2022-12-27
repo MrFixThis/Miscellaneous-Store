@@ -37,6 +37,13 @@ public interface TransactionService {
 	ResponseEntity<List<Transaction>> getTransactions();
 
 	/**
+	 * Retrives all the Transaction entities related to a BranchOffice entity
+	 *
+	 * @return the result of the CRUD's retrive operation over Transaction
+	 */
+	ResponseEntity<List<Transaction>> getTransactionsByBranchOfficeId(Long branchOfficeId);
+
+	/**
 	 * Updates an id-specified Transaction entity
 	 *
 	 * @param id the id of the Transaction entity to update

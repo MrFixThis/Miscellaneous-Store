@@ -1,8 +1,7 @@
 package com.store.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -70,11 +69,11 @@ public class BranchOffice {
 	@EqualsAndHashCode.Exclude @ToString.Exclude
 	@OneToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH,
 		CascadeType.REMOVE}, fetch = FetchType.EAGER, mappedBy = "branchOffice")
-	private List<Transaction> transactions;
+	private Set<Transaction> transactions;
 
 	{
 		clients = new HashSet<>();
 		workers = new HashSet<>();
-		transactions = new ArrayList<>();
+		transactions = new LinkedHashSet<>();
 	}
 }

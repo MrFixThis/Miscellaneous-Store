@@ -1,8 +1,10 @@
 package com.store.service.impl;
 
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +33,8 @@ public class MagazineLotServiceImpl implements MagazineLotService {
 	@Override
 	public ResponseEntity<MagazineLot> createMagazineLot(MagazineLot magazineLot) {
 		final MagazineLot savedMagazineLot = magazineLotRepository.save(magazineLot);
-		return ResponseEntity.ok(savedMagazineLot);
+		return ResponseEntity.created(URI.create(String.format("/api/magazine_lots/%s",
+					savedMagazineLot.getIsbn()))).allow(HttpMethod.GET).build();
 	}
 
 	/**

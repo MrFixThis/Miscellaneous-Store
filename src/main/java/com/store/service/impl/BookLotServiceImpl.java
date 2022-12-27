@@ -1,8 +1,10 @@
 package com.store.service.impl;
 
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +33,8 @@ public class BookLotServiceImpl implements BookLotService {
 	@Override
 	public ResponseEntity<BookLot> createBookLot(BookLot bookLot) {
 		final BookLot savedBookLot = bookLotRepository.save(bookLot);
-		return ResponseEntity.ok(savedBookLot);
+		return ResponseEntity.created(URI.create(String.format("/api/v1/book_lots/%s",
+					savedBookLot.getIsbn()))).allow(HttpMethod.GET).build();
 	}
 
 	/**

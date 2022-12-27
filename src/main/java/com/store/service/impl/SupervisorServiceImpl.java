@@ -1,8 +1,11 @@
 package com.store.service.impl;
 
+import static org.apache.commons.codec.digest.DigestUtils.sha256Hex;
+
+import java.net.URI;
 import java.util.List;
 
-import static org.apache.commons.codec.digest.DigestUtils.sha256Hex;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +38,8 @@ public class SupervisorServiceImpl implements SupervisorService {
 		supervisor.setPassword(sha256Hex(supervisor.getPassword()));
 		savedSupervisor = supervisorRepository.save(supervisor);
 
-		return ResponseEntity.ok(savedSupervisor);
+		return ResponseEntity.created(URI.create(String.format("/api/v1/supervisors/%d",
+					savedSupervisor.getId()))).allow(HttpMethod.GET).build();
 	}
 
 	/**

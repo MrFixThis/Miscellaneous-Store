@@ -1,7 +1,9 @@
 package com.store.service.impl;
 
+import java.net.URI;
 import java.util.List;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +32,8 @@ public class DiscLotServiceImpl implements DiscLotService {
 	@Override
 	public ResponseEntity<DiscLot> createDiscLot(DiscLot discLot) {
 		final DiscLot savedDiscLot = discLotRepository.save(discLot);
-		return ResponseEntity.ok(savedDiscLot);
+		return ResponseEntity.created(URI.create(String.format("/api/v1/disc_lots/%d",
+					savedDiscLot.getId()))).allow(HttpMethod.GET).build();
 	}
 
 	/**

@@ -1,7 +1,9 @@
 package com.store.service.impl;
 
+import java.net.URI;
 import java.util.List;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +34,8 @@ public class AdministratorServiceImpl implements AdministratorService {
 			Administrator administrator) {
 		final Administrator savedAdministrator =
 			administratorRepository.save(administrator);
-		return ResponseEntity.ok(savedAdministrator);
+		return ResponseEntity.created(URI.create(String.format("/api/v1/administrators/%d",
+					savedAdministrator.getId()))).allow(HttpMethod.GET).build();
 	}
 
 	/**

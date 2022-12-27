@@ -1,7 +1,9 @@
 package com.store.service.impl;
 
+import java.net.URI;
 import java.util.List;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +32,8 @@ public class InventoryServiceImpl implements InventoryService {
 	@Override
 	public ResponseEntity<Inventory> createInventory(Inventory inventory) {
 		final Inventory savedInventory = inventoryRepository.save(inventory);
-		return ResponseEntity.ok(savedInventory);
+		return ResponseEntity.created(URI.create(String.format("/api/v1/inventories/%d",
+					savedInventory.getId()))).allow(HttpMethod.GET).build();
 	}
 
 	/**

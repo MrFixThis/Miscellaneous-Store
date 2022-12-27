@@ -1,7 +1,9 @@
 package com.store.service.impl;
 
+import java.net.URI;
 import java.util.List;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +33,8 @@ public class WorkerServiceImpl implements WorkerService {
 	public ResponseEntity<Worker> createWorker(
 			Worker worker) {
 		final Worker savedWorker = workerRepository.save(worker);
-		return ResponseEntity.ok(savedWorker);
+		return ResponseEntity.created(URI.create(String.format("/api/v1/workers/%d",
+					savedWorker.getId()))).allow(HttpMethod.GET).build();
 	}
 
 	/**

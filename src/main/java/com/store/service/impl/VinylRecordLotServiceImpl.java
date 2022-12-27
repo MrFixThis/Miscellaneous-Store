@@ -1,7 +1,9 @@
 package com.store.service.impl;
 
+import java.net.URI;
 import java.util.List;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -29,9 +31,10 @@ public class VinylRecordLotServiceImpl implements VinylRecordLotService {
 	 */
 	@Override
 	public ResponseEntity<VinylRecordLot> createVinylRecordLot(VinylRecordLot vinylRecordLot) {
-		final VinylRecordLot savedVinylRecord =
+		final VinylRecordLot savedVinylRecordLot =
 			vinylRecordLotRepository.save(vinylRecordLot);
-		return ResponseEntity.ok(savedVinylRecord);
+		return ResponseEntity.created(URI.create(String.format("/api/v1/vinyl_record_lots/%d",
+					savedVinylRecordLot.getId()))).allow(HttpMethod.GET).build();
 	}
 
 	/**
