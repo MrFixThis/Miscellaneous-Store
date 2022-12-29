@@ -5,16 +5,15 @@ import java.sql.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PreRemove;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.store.util.TransactionManager;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,7 +30,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Builder
-public class VinylRecordLot implements TransactionManager {
+public class VinylRecordLot {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,7 +55,8 @@ public class VinylRecordLot implements TransactionManager {
 	private Long availableUnits;
 
 	@JsonIgnore
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH},
+		fetch = FetchType.LAZY)
 	@JoinColumn(name = "inventory_id")
 	private Inventory vinylRecordLotInventory;
 
@@ -64,9 +64,9 @@ public class VinylRecordLot implements TransactionManager {
 	 * Truncates a possible post-delete re-persistence of the current entity.
 	 * @see com.store.util.TransactionManager#preRemove()
 	 */
-	@PreRemove
-	public void preRemove() {
-		this.vinylRecordLotInventory.getInventoryVinylRecordLots().remove(this);
-		this.vinylRecordLotInventory = null;
-	}
+	// @PreRemove
+	// public void preRemove() {
+	// 	this.vinylRecordLotInventory.getInventoryVinylRecordLots().remove(this);
+	// 	this.vinylRecordLotInventory = null;
+	// }
 }

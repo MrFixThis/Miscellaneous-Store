@@ -25,7 +25,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 /**
  * @author Bryan Baron
@@ -42,18 +41,17 @@ public class BranchOffice {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@OneToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "administrator_id")
 	private Administrator administrator;
 
-	@OneToOne(cascade = {
-		CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
+		CascadeType.REMOVE})
 	@JoinColumn(name = "inventory_id")
 	private Inventory inventory;
 
 	@JsonIgnore
-	@EqualsAndHashCode.Exclude @ToString.Exclude
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(
 		name = "branch_office_clients",
 		joinColumns = @JoinColumn(name = "branch_office_id", nullable = false),
@@ -62,15 +60,13 @@ public class BranchOffice {
 	private Set<Client> clients;
 
 	@JsonIgnore
-	@EqualsAndHashCode.Exclude @ToString.Exclude
-	@OneToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH,
-		CascadeType.REMOVE}, fetch = FetchType.LAZY, mappedBy = "branchOffice")
+	@OneToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE},
+		mappedBy = "branchOffice")
 	private Set<Worker> workers;
 
 	@JsonIgnore
-	@EqualsAndHashCode.Exclude @ToString.Exclude
-	@OneToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH,
-		CascadeType.REMOVE}, fetch = FetchType.EAGER, mappedBy = "branchOffice")
+	@OneToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE},
+		fetch = FetchType.EAGER, mappedBy = "branchOffice")
 	private Set<Transaction> transactions;
 
 	{

@@ -5,6 +5,7 @@ import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -32,7 +33,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Builder
-public class MagazineLot implements TransactionManager {
+public class MagazineLot {
 	@Id
 	@Column(name = "isbn")
 	@GeneratedValue(generator = "UUID")
@@ -55,7 +56,8 @@ public class MagazineLot implements TransactionManager {
 	private Long availableUnits;
 
 	@JsonIgnore
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH},
+		fetch = FetchType.LAZY)
 	@JoinColumn(name = "inventory_id", nullable = false)
 	private Inventory magazineLotInventory;
 
@@ -63,9 +65,9 @@ public class MagazineLot implements TransactionManager {
 	 * Truncates a possible post-delete re-persistence of the current entity.
 	 * @see com.store.util.TransactionManager#preRemove()
 	 */
-	@PreRemove
-	public void preRemove() {
-		this.magazineLotInventory.getInventoryMagazineLots().remove(this);
-		this.magazineLotInventory = null;
-	}
+	// @PreRemove
+	// public void preRemove() {
+	// 	this.magazineLotInventory.getInventoryMagazineLots().remove(this);
+	// 	this.magazineLotInventory = null;
+	// }
 }

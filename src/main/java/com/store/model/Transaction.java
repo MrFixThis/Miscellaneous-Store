@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -60,7 +60,7 @@ public class Transaction {
 	@Column(name = "transaction_cost", nullable = false)
 	private Long transactionCost;
 
-	@JsonIgnoreProperties("inventory")
+	@JsonIgnore
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "branch_office_id", nullable = false)
 	private BranchOffice branchOffice;

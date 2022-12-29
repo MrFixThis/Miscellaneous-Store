@@ -13,7 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -75,7 +75,7 @@ public class Worker {
 	@Column(name = "basic_salary", nullable = false)
 	private Long basicSalary;
 
-	@JsonIgnore
+	@JsonIgnoreProperties({"administrator", "inventory"})
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH},
 		fetch = FetchType.LAZY)
 	@JoinColumn(name = "branch_office_id")

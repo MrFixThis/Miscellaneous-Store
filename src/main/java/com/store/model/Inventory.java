@@ -21,7 +21,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 /**
  * @author Bryan Baron
@@ -42,33 +41,23 @@ public class Inventory {
 	private String description;
 
 	@JsonIgnore
-	@EqualsAndHashCode.Exclude @ToString.Exclude
-	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH},
-		mappedBy = "inventory", fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "inventory", fetch = FetchType.LAZY)
 	private BranchOffice branchOffice;
 
-	@EqualsAndHashCode.Exclude @ToString.Exclude
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
-		CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER,
-		mappedBy = "magazineLotInventory")
+	@OneToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE},
+	fetch = FetchType.EAGER, mappedBy = "magazineLotInventory")
 	private Set<MagazineLot> inventoryMagazineLots;
 
-	@EqualsAndHashCode.Exclude @ToString.Exclude
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
-		CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER,
-		mappedBy = "bookLotInventory")
+	@OneToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE},
+	fetch = FetchType.EAGER, mappedBy = "bookLotInventory")
 	private Set<BookLot> inventoryBookLots;
 
-	@EqualsAndHashCode.Exclude @ToString.Exclude
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
-		CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER,
-		mappedBy = "discLotInventory")
+	@OneToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE},
+	fetch = FetchType.EAGER, mappedBy = "discLotInventory")
 	private Set<DiscLot> inventoryDiscLots;
 
-	@EqualsAndHashCode.Exclude @ToString.Exclude
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
-		CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER,
-		mappedBy = "vinylRecordLotInventory")
+	@OneToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE},
+	fetch = FetchType.EAGER, mappedBy = "vinylRecordLotInventory")
 	private Set<VinylRecordLot> inventoryVinylRecordLots;
 
 	{

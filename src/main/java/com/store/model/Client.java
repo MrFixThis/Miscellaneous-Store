@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,14 +14,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 /**
  * @author Bryan Baron
@@ -67,9 +67,9 @@ public class Client {
 	@Column(name = "purchases_number", nullable = false)
 	private Integer purchasesNumber;
 
-	@JsonIgnore
-	@EqualsAndHashCode.Exclude @ToString.Exclude
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "clients")
+	@JsonIgnoreProperties({"administrator", "inventory"})
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH},
+		fetch = FetchType.EAGER, mappedBy = "clients")
 	private Set<BranchOffice> branchOffices;
 
 	{
