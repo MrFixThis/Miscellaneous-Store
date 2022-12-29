@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -61,12 +62,13 @@ public class Transaction {
 	private Long transactionCost;
 
 	@JsonIgnore
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH},
+		fetch = FetchType.LAZY)
 	@JoinColumn(name = "branch_office_id", nullable = false)
 	private BranchOffice branchOffice;
 
 	/**
-	 * Enum for Transaction entities' products types
+	 * Enum for Transaction's entities types of products
 	 */
 	public static enum ProductType {
 		MAGAZINE,

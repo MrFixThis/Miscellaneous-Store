@@ -5,7 +5,6 @@ import java.sql.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -76,8 +75,7 @@ public class Worker {
 	private Long basicSalary;
 
 	@JsonIgnoreProperties({"administrator", "inventory"})
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH},
-		fetch = FetchType.LAZY)
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "branch_office_id")
 	private BranchOffice branchOffice;
 }

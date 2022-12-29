@@ -70,7 +70,7 @@ public class DiscLot {
 	private Inventory discLotInventory;
 
 	/**
-	 * Enum for DiscLot's entities format
+	 * Enum for DiscLot's entities dic formats
 	 */
 	public static enum DiscFormat {
 		DVD,
