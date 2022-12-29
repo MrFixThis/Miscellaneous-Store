@@ -32,8 +32,10 @@ public class DiscLotServiceImpl implements DiscLotService {
 	@Override
 	public ResponseEntity<DiscLot> createDiscLot(DiscLot discLot) {
 		final DiscLot savedDiscLot = discLotRepository.save(discLot);
-		return ResponseEntity.created(URI.create(String.format("/api/v1/disc_lots/%d",
-					savedDiscLot.getId()))).allow(HttpMethod.GET).build();
+		return ResponseEntity.created(
+				URI.create(String.format("/api/v1/disc_lots/%d",
+					savedDiscLot.getId())))
+						.allow(HttpMethod.GET).body(savedDiscLot);
 	}
 
 	/**

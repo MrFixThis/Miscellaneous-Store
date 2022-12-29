@@ -19,6 +19,7 @@ import com.store.util.TransactionManager;
 import org.hibernate.annotations.GenericGenerator;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
+@Builder
 public class BookLot implements TransactionManager {
 	@Id
 	@Column(name = "isbn")

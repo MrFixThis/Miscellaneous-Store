@@ -33,8 +33,10 @@ public class WorkerServiceImpl implements WorkerService {
 	public ResponseEntity<Worker> createWorker(
 			Worker worker) {
 		final Worker savedWorker = workerRepository.save(worker);
-		return ResponseEntity.created(URI.create(String.format("/api/v1/workers/%d",
-					savedWorker.getId()))).allow(HttpMethod.GET).build();
+		return ResponseEntity.created(
+				URI.create(String.format("/api/v1/workers/%d",
+					savedWorker.getId())))
+						.allow(HttpMethod.GET).body(savedWorker);
 	}
 
 	/**

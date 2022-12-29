@@ -34,8 +34,10 @@ public class AdministratorServiceImpl implements AdministratorService {
 			Administrator administrator) {
 		final Administrator savedAdministrator =
 			administratorRepository.save(administrator);
-		return ResponseEntity.created(URI.create(String.format("/api/v1/administrators/%d",
-					savedAdministrator.getId()))).allow(HttpMethod.GET).build();
+		return ResponseEntity.created(
+				URI.create(String.format("/api/v1/administrators/%d",
+					savedAdministrator.getId())))
+						.allow(HttpMethod.GET).body(savedAdministrator);
 	}
 
 	/**

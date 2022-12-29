@@ -34,8 +34,10 @@ public class TransactionServiceImpl implements TransactionService {
 	public ResponseEntity<Transaction> createTransaction(Transaction transaction) {
 		final Transaction savedTransaction =
 			transactionRepository.save(transaction);
-		return ResponseEntity.created(URI.create(String.format("/api/v1/transactions/%d",
-					savedTransaction.getId()))).allow(HttpMethod.GET).build();
+		return ResponseEntity.created(
+				URI.create(String.format("/api/v1/transactions/%d",
+					savedTransaction.getId())))
+						.allow(HttpMethod.GET).body(savedTransaction);
 	}
 
 	/**

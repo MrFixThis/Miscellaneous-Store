@@ -32,8 +32,10 @@ public class InventoryServiceImpl implements InventoryService {
 	@Override
 	public ResponseEntity<Inventory> createInventory(Inventory inventory) {
 		final Inventory savedInventory = inventoryRepository.save(inventory);
-		return ResponseEntity.created(URI.create(String.format("/api/v1/inventories/%d",
-					savedInventory.getId()))).allow(HttpMethod.GET).build();
+		return ResponseEntity.created(
+				URI.create(String.format("/api/v1/inventories/%d",
+					savedInventory.getId())))
+						.allow(HttpMethod.GET).body(savedInventory);
 	}
 
 	/**

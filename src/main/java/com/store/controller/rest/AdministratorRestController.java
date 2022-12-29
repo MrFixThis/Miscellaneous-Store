@@ -35,8 +35,8 @@ public class AdministratorRestController {
 	 * @return the response of the POST request.
 	 */
 	@PostMapping
-	public ResponseEntity<Administrator>
-		createAdministrator(@RequestBody Administrator administrator) {
+	public ResponseEntity<Administrator> createAdministrator(
+			@RequestBody Administrator administrator) {
 		final ResponseEntity<Administrator> createdAdministrador =
 			administratorService.createAdministrator(administrator);
 		return createdAdministrador;

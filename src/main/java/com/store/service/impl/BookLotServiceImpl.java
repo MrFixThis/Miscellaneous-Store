@@ -33,8 +33,10 @@ public class BookLotServiceImpl implements BookLotService {
 	@Override
 	public ResponseEntity<BookLot> createBookLot(BookLot bookLot) {
 		final BookLot savedBookLot = bookLotRepository.save(bookLot);
-		return ResponseEntity.created(URI.create(String.format("/api/v1/book_lots/%s",
-					savedBookLot.getIsbn()))).allow(HttpMethod.GET).build();
+		return ResponseEntity.created(
+				URI.create(String.format("/api/v1/book_lots/%s",
+					savedBookLot.getIsbn())))
+						.allow(HttpMethod.GET).body(savedBookLot);
 	}
 
 	/**

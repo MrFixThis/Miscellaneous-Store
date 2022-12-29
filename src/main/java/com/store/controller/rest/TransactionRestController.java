@@ -85,9 +85,13 @@ public class TransactionRestController {
 	 */
 	@GetMapping
 	public ResponseEntity<List<Transaction>> getTransactions(
-			@RequestParam(name = "branchOfficeId") Long branchOfficeId) {
-		final ResponseEntity<List<Transaction>>  transactions =
-			transactionService.getTransactionsByBranchOfficeId(branchOfficeId);
+			@RequestParam(name = "branchOfficeId", required = false) Long branchOfficeId) {
+		ResponseEntity<List<Transaction>>  transactions = null;
+		if(branchOfficeId != null)
+			transactions =
+				transactionService.getTransactionsByBranchOfficeId(branchOfficeId);
+		else
+			transactions = transactionService.getTransactions();
 		return transactions;
 	}
 

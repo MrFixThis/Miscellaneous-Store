@@ -38,8 +38,10 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 			BranchOffice branchOffice) {
 		final BranchOffice savedBranchOffice =
 			branchOfficeRepository.save(branchOffice);
-		return ResponseEntity.created(URI.create(String.format("/api/v1/branch_offices/%d",
-					savedBranchOffice.getId()))).allow(HttpMethod.GET).build();
+		return ResponseEntity.created(
+				URI.create(String.format("/api/v1/branch_offices/%d",
+					savedBranchOffice.getId())))
+						.allow(HttpMethod.GET).body(savedBranchOffice);
 	}
 
 	/**

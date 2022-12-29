@@ -35,11 +35,13 @@ public class SupervisorServiceImpl implements SupervisorService {
 	public ResponseEntity<Supervisor> createSupervisor(Supervisor supervisor) {
 		Supervisor savedSupervisor = null;
 
-		supervisor.setPassword(sha256Hex(supervisor.getPassword()));
+		supervisor.setPassword(sha256Hex(supervisor.getPassword())); // TODO: Temporary 'till spring security is implemented
 		savedSupervisor = supervisorRepository.save(supervisor);
 
-		return ResponseEntity.created(URI.create(String.format("/api/v1/supervisors/%d",
-					savedSupervisor.getId()))).allow(HttpMethod.GET).build();
+		return ResponseEntity.created(
+				URI.create(String.format("/api/v1/supervisors/%d",
+					savedSupervisor.getId())))
+						.allow(HttpMethod.GET).body(savedSupervisor);
 	}
 
 	/**

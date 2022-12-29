@@ -33,8 +33,10 @@ public class ClientServiceImpl implements ClientService {
 	@Override
 	public ResponseEntity<Client> createClient(Client client) {
 		final Client savedClient = clientRepository.save(client);
-		return ResponseEntity.created(URI.create(String.format("/api/v1/clients/%d",
-					savedClient.getId()))).allow(HttpMethod.GET).build();
+		return ResponseEntity.created(
+				URI.create(String.format("/api/v1/clients/%d",
+					savedClient.getId())))
+						.allow(HttpMethod.GET).body(savedClient);
 	}
 
 	/**

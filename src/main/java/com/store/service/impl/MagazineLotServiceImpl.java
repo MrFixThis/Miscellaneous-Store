@@ -33,8 +33,10 @@ public class MagazineLotServiceImpl implements MagazineLotService {
 	@Override
 	public ResponseEntity<MagazineLot> createMagazineLot(MagazineLot magazineLot) {
 		final MagazineLot savedMagazineLot = magazineLotRepository.save(magazineLot);
-		return ResponseEntity.created(URI.create(String.format("/api/magazine_lots/%s",
-					savedMagazineLot.getIsbn()))).allow(HttpMethod.GET).build();
+		return ResponseEntity.created(
+				URI.create(String.format("/api/magazine_lots/%s",
+					savedMagazineLot.getIsbn())))
+						.allow(HttpMethod.GET).body(savedMagazineLot);
 	}
 
 	/**

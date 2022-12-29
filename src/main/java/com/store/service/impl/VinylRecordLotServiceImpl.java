@@ -33,8 +33,10 @@ public class VinylRecordLotServiceImpl implements VinylRecordLotService {
 	public ResponseEntity<VinylRecordLot> createVinylRecordLot(VinylRecordLot vinylRecordLot) {
 		final VinylRecordLot savedVinylRecordLot =
 			vinylRecordLotRepository.save(vinylRecordLot);
-		return ResponseEntity.created(URI.create(String.format("/api/v1/vinyl_record_lots/%d",
-					savedVinylRecordLot.getId()))).allow(HttpMethod.GET).build();
+		return ResponseEntity.created(
+				URI.create(String.format("/api/v1/vinyl_record_lots/%d",
+					savedVinylRecordLot.getId())))
+						.allow(HttpMethod.GET).body(savedVinylRecordLot);
 	}
 
 	/**
