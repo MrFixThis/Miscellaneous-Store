@@ -23,12 +23,7 @@ import lombok.AllArgsConstructor;
  * @author Bryan Baron
  */
 @Controller
-@AllArgsConstructor
 public class BranchOfficeController {
-
-	private BranchOfficeServiceImpl branchOfficeServiceImpl;
-	private AdministratorServiceImpl administratorServiceImpl;
-	private InventoryServiceImpl inventoryServiceImpl;
 
 	/**
 	 * Creates a new branch office entity

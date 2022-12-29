@@ -47,28 +47,24 @@ public class Inventory {
 		mappedBy = "inventory", fetch = FetchType.LAZY)
 	private BranchOffice branchOffice;
 
-	@JsonIgnore
 	@EqualsAndHashCode.Exclude @ToString.Exclude
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
 		CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER,
 		mappedBy = "magazineLotInventory")
 	private Set<MagazineLot> inventoryMagazineLots;
 
-	@JsonIgnore
 	@EqualsAndHashCode.Exclude @ToString.Exclude
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
 		CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER,
 		mappedBy = "bookLotInventory")
 	private Set<BookLot> inventoryBookLots;
 
-	@JsonIgnore
 	@EqualsAndHashCode.Exclude @ToString.Exclude
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
 		CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER,
 		mappedBy = "discLotInventory")
 	private Set<DiscLot> inventoryDiscLots;
 
-	@JsonIgnore
 	@EqualsAndHashCode.Exclude @ToString.Exclude
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
 		CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER,
