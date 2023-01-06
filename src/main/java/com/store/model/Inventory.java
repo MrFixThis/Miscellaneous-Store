@@ -43,7 +43,8 @@ public class Inventory {
 
 	@JsonIgnore
 	@EqualsAndHashCode.Exclude @ToString.Exclude
-	@OneToOne(mappedBy = "inventory", fetch = FetchType.LAZY)
+	@OneToOne(cascade = {CascadeType.REFRESH, CascadeType.REMOVE},
+		mappedBy = "inventory", fetch = FetchType.LAZY)
 	private BranchOffice branchOffice;
 
 	@EqualsAndHashCode.Exclude @ToString.Exclude

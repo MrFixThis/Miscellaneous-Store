@@ -2,13 +2,11 @@ package com.store.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author Bryan Baron
  */
 @Controller
-@RequestMapping(path = "/")
 public class HomeController {
 
 	/**
@@ -16,7 +14,7 @@ public class HomeController {
 	 *
 	 * @return the Sign In template.
 	 */
-	@GetMapping
+	@GetMapping("/signIn")
 	public String showSignInPage() {
 		return "signInPage";
 	}
@@ -26,7 +24,7 @@ public class HomeController {
 	 *
 	 * @return the Sign Up template.
 	 */
-	@GetMapping("signUp")
+	@GetMapping("/signUp")
 	public String showSignUpPage() {
 		return "signUpPage";
 	}

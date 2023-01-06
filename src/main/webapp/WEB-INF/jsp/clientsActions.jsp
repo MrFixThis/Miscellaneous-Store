@@ -5,12 +5,12 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-		<%@include file="./headContent.jsp"%>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/data_validation.js" defer></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/tooltip.js" defer></script>
+		<%@include file="./components/headContent.jsp"%>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/data_validation.js" defer></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/tooltip.js" defer></script>
     </head>
     <body class="pt-5">
-		<%@include file="./navbar.jsp"%>
+		<%@include file="./components/navbar.jsp"%>
 		<div class="container pt-2">
 			<div class="container mt-4">
 				<h1 class="h1 text-center">

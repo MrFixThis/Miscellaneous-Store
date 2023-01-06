@@ -3,16 +3,16 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-		<%@include file="./headContent.jsp"%>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/data_validation.js" defer></script>
+		<%@include file="./components/headContent.jsp"%>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/data_validation.js" defer></script>
     </head>
     <body class="pt-5">
-		<%@include file="./header.jsp"%>
+		<%@include file="./components/header.jsp"%>
 		<div class="container pt-2">
 			<div class="container mt-4">
 				<h1 class="h1 text-center">
 					<span class="badge" style="background-color: #985CC4">
-						Sign In
+						Sign Up
 					</span>
 				</h1>
 			</div>

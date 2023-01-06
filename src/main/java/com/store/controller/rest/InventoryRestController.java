@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.store.model.Inventory;
@@ -47,19 +46,14 @@ public class InventoryRestController {
 	 * Retrieves an Inventory entity specified by id.
 	 *
 	 * @param id of the Inventory entity being searched.
-	 * @param branchOfficeId id of the BranchOffice entity related to the
-	 * Inventory entity to retrieve.
 	 * @return response of the GET request.
 	 */
 	@GetMapping("/v1/inventories/{id}")
-	public ResponseEntity<Inventory> getInventory(
-			@PathVariable(name = "id") Long id,
-			@RequestParam(name = "branchOfficeId", required = false) Long branchOfficeId) {
-		final ResponseEntity<Inventory> inventory = branchOfficeId != null
-			? InventoryService.getInventoryByBranchOfficeId(branchOfficeId)
-			: InventoryService.getInventoryById(id);
+	public ResponseEntity<Inventory> getInventory(@PathVariable(name = "id") Long id) {
+		final ResponseEntity<Inventory> inventory =
+			InventoryService.getInventoryById(id);
 		return inventory;
-	}
+	} // TODO: implement the "return inventory by branchOffice" behavior
 
 	/**
 	 * Retrieves all the existent Inventory entities.

@@ -30,7 +30,7 @@ public class BranchOfficeController {
 	 */
 	@GetMapping("/actions")
 	public String showBranchOfficesActionsPage(
-			@RequestParam(name = "branchOfficeId") Long branchOfficeId) {
+			@RequestParam(name = "branchOfficeId", required = false) Long branchOfficeId) {
 		return "branchOfficesActions";
 	}
 }
