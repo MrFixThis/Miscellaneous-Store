@@ -21,7 +21,7 @@ import lombok.AllArgsConstructor;
  * @author Bryan Baron
  */
 @RestController
-@RequestMapping(path = "/api/v1/administrators")
+@RequestMapping(path = "/api")
 @AllArgsConstructor
 public class AdministratorRestController {
 
@@ -34,7 +34,7 @@ public class AdministratorRestController {
 	 * entity being created.
 	 * @return the response of the POST request.
 	 */
-	@PostMapping
+	@PostMapping("/v1/administrators")
 	public ResponseEntity<Administrator> createAdministrator(
 			@RequestBody Administrator administrator) {
 		final ResponseEntity<Administrator> createdAdministrador =
@@ -48,7 +48,7 @@ public class AdministratorRestController {
 	 * @param id id of the Administrator entity being searched.
 	 * @return the response of the GET request.
 	 */
-	@GetMapping("/{id}")
+	@GetMapping("/v1/administrators/{id}")
 	public ResponseEntity<Administrator> getAdministrator(
 			@PathVariable(name = "id") Long id) {
 		final ResponseEntity<Administrator> administrator =
@@ -61,7 +61,7 @@ public class AdministratorRestController {
 	 *
 	 * @return the response of the GET request.
 	 */
-	@GetMapping
+	@GetMapping("/v1/administrators")
 	public ResponseEntity<List<Administrator>> getAdministrators() {
 		final ResponseEntity<List<Administrator>> administrators =
 			administratorService.getAdministrators();
@@ -76,7 +76,7 @@ public class AdministratorRestController {
 	 * Administrator entity being updated.
 	 * @return the response of the PUT request.
 	 */
-	@PutMapping("/{id}")
+	@PutMapping("/v1/administrators/{id}")
 	public ResponseEntity<Administrator> updateAdministrator(@PathVariable Long id,
 			@RequestBody Administrator administrator) {
 		final ResponseEntity<Administrator> updatedAdministrator =
@@ -90,7 +90,7 @@ public class AdministratorRestController {
 	 * @param id id of the Administrator entity being deleted.
 	 * @return the response of the DELETE request.
 	 */
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/v1/administrators/{id}")
 	public ResponseEntity<?> deleteAdministrator(@PathVariable(name = "id") Long id) {
 		final ResponseEntity<?> deletedAdministrator =
 			administratorService.deleteAdministratorById(id);

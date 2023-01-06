@@ -46,7 +46,7 @@ public class BranchOffice {
 
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
 		CascadeType.REMOVE})
-	@JoinColumn(name = "inventory_id")
+	@JoinColumn(name = "inventory_id", updatable = false)
 	private Inventory inventory;
 
 	@JsonIgnore

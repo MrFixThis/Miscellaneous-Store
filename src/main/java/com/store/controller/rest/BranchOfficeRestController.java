@@ -26,7 +26,7 @@ import lombok.AllArgsConstructor;
  * @author Bryan Baron
  */
 @RestController
-@RequestMapping(path = "/api/v1/branch_offices")
+@RequestMapping(path = "/api")
 @AllArgsConstructor
 public class BranchOfficeRestController {
 
@@ -39,21 +39,23 @@ public class BranchOfficeRestController {
 	 *
 	 * @param administratorId id of the Administrator entity with which the
 	 * BranchOffice entity being created is related to.
-	 * @param inventory request body with the information of the new Inventory
-	 * entity related to the BranchOffice entity being created.
+	 * @param inventoryId id of the Inventory entity with which the
+	 * BranchOffice entity being created is related to.
 	 * @return response of the POST request.
 	 */
-	@PostMapping
+	@PostMapping("/v1/branch_offices")
 	public ResponseEntity<BranchOffice> createBranchOffice(
 			@RequestParam(name = "administratorId") Long administratorId,
-			@RequestBody Inventory inventory) {
+			@RequestParam(name = "inventoryId") Long inventoryId) {
 		final BranchOffice newBranchoffice = new BranchOffice();
 		final ResponseEntity<Administrator> administrator = administratorService
 			.getAdministratorById(administratorId);
+		final ResponseEntity<Inventory> inventory = inventoryService
+			.getInventoryById(inventoryId);
 		ResponseEntity<BranchOffice> createdBranchOffice = null;
 
 		newBranchoffice.setAdministrator(administrator.getBody());
-		newBranchoffice.setInventory(inventory);
+		newBranchoffice.setInventory(inventory.getBody());
 		createdBranchOffice = branchOfficeService.createBranchOffice(newBranchoffice);
 		return createdBranchOffice;
 	}
@@ -64,7 +66,7 @@ public class BranchOfficeRestController {
 	 * @param id id of the BranchOffice entity being searched.
 	 * @return the response of the GET request.
 	 */
-	@GetMapping("/{id}")
+	@GetMapping("/v1/branch_offices/{id}")
 	public ResponseEntity<BranchOffice> getBranchOffice(
 			@PathVariable(name = "id") Long id) {
 		final ResponseEntity<BranchOffice> branchOffice =
@@ -77,7 +79,7 @@ public class BranchOfficeRestController {
 	 *
 	 * @return the response of the GET request.
 	 */
-	@GetMapping
+	@GetMapping("/v1/branch_offices")
 	public ResponseEntity<List<BranchOffice>> getBranchOffices() {
 		final ResponseEntity<List<BranchOffice>> branchOffices =
 			branchOfficeService.getBranchOffices();
@@ -89,34 +91,23 @@ public class BranchOfficeRestController {
 	 *
 	 * @param id id of the BranchOffice entity being updated.
 	 * @param administratorId id of the Administrator entity with which the
-	 * BranchOffice entity being created is related to.
-	 * @param inventory request body with the information of the new Inventory
-	 * entity related to the BranchOffice entity being updated.
+	 * BranchOffice entity being updated is going to be related to.
 	 * @return the responnse of the PUT request.
 	 */
-	@PutMapping("/{id}")
+	@PutMapping("/v1/branch_offices/{id}")
 	public ResponseEntity<BranchOffice> updateBranchOffice(
 			@PathVariable(name = "id") Long id,
-			@RequestParam(name = "administratorId", required = false)
-				Long administratorId,
-			@RequestBody Inventory inventory) {
-
+			@RequestParam(name = "administratorId") Long administratorId) {
 		final BranchOffice branchOffice =
 			branchOfficeService.getBranchOfficeById(id).getBody();
+		final Administrator administrator =
+			administratorService.getAdministratorById(administratorId)
+			.getBody();
 		ResponseEntity<BranchOffice> updatedBranchOffice = null;
-		if(administratorId != null) {
-			final Administrator administrator =
-				administratorService.getAdministratorById(administratorId)
-				.getBody();
 
-			branchOffice.setAdministrator(administrator);
-			updatedBranchOffice =
-				branchOfficeService.updateBranchOfficeById(id, branchOffice);
-		} else {
-			final Inventory currentInventory = branchOffice.getInventory();
-			inventoryService.updateInventoryById(currentInventory.getId(),
-					inventory);
-		}
+		branchOffice.setAdministrator(administrator);
+		updatedBranchOffice =
+			branchOfficeService.updateBranchOfficeById(id, branchOffice);
 		return updatedBranchOffice;
 	}
 
@@ -126,7 +117,7 @@ public class BranchOfficeRestController {
 	 * @param id id of the BranchOffice entity being deleted.
 	 * @return response of the DELETE request.
 	 */
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/v1/branch_offices/{id}")
 	public ResponseEntity<?> deleteBranchOffice(@PathVariable(name = "id") Long id) {
 		final ResponseEntity<?> deletedBranchOffice =
 			branchOfficeService.deleteBranchOfficeById(id);

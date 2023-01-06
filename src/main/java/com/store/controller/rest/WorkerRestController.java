@@ -24,7 +24,7 @@ import lombok.AllArgsConstructor;
  * @author Bryan Baron
  */
 @RestController
-@RequestMapping(path = "/api/v1/workers")
+@RequestMapping(path = "/api")
 @AllArgsConstructor
 public class WorkerRestController {
 
@@ -40,7 +40,7 @@ public class WorkerRestController {
 	 * entity being created.
 	 * @return the response of the POST request.
 	 */
-	@PostMapping
+	@PostMapping("/v1/workers")
 	public ResponseEntity<Worker> createWorker(@RequestBody Worker worker,
 			@RequestParam(name = "branchOfficeId") Long branchOfficeId) {
 		final BranchOffice workerBranchOffice =
@@ -58,7 +58,7 @@ public class WorkerRestController {
 	 * @param id id of the Worker entity being searched.
 	 * @return the response of the GET request.
 	 */
-	@GetMapping("/{id}")
+	@GetMapping("/v1/workers/{id}")
 	public ResponseEntity<Worker> getWorker(@PathVariable(name = "id") Long id) {
 		final ResponseEntity<Worker> worker = workerService.getWorkerById(id);
 		return worker;
@@ -69,7 +69,7 @@ public class WorkerRestController {
 	 *
 	 * @return the response of the GET request.
 	 */
-	@GetMapping
+	@GetMapping("/v1/workers")
 	public ResponseEntity<List<Worker>> getWorkers() {
 		final ResponseEntity<List<Worker>> workers = workerService.getWorkers();
 		return workers;
@@ -85,7 +85,7 @@ public class WorkerRestController {
 	 * entity being updated.
 	 * @return the response of the PUT request.
 	 */
-	@PutMapping("/{id}")
+	@PutMapping("/v1/workers/{id}")
 	public ResponseEntity<Worker> updateWorker(@PathVariable(name = "id") Long id,
 			@RequestBody Worker worker,
 			@RequestParam(name = "branchOfficeId") Long branchOfficeId) {
@@ -104,7 +104,7 @@ public class WorkerRestController {
 	 * @param id id of the Worker entity being deleted.
 	 * @return the response of the DELETE request.
 	 */
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/v1/workers/{id}")
 	public ResponseEntity<?> deleteWorker(@PathVariable(name = "id") Long id) {
 		final ResponseEntity<?> deletedWorker = workerService.deleteWorkerById(id);
 		return deletedWorker;

@@ -23,12 +23,11 @@ import lombok.AllArgsConstructor;
  * @author Bryan Baron
  */
 @RestController
-@RequestMapping(path = "/api/v1/clients")
+@RequestMapping(path = "/api")
 @AllArgsConstructor
 public class ClientRestController {
 
 	private ClientService clientService;
-	// private BranchOfficeService branchOfficeService; //TODO: Fix the relationship
 
 	/**
 	 * Creates a new Client entity.
@@ -38,7 +37,7 @@ public class ClientRestController {
 	 * @param birthDate date of brith of the Client entity being created.
 	 * @return the response of the POST request.
 	 */
-	@PostMapping
+	@PostMapping("/v1/clients")
 	public ResponseEntity<Client> createClient(@RequestBody Client client,
 			@RequestParam(name = "birthDate") String birthDate) {
 		ResponseEntity<Client> createdClient = null;
@@ -53,7 +52,7 @@ public class ClientRestController {
 	 * @param id id of the Client entity being searched
 	 * @return the response of the GET request.
 	 */
-	@GetMapping("/{id}")
+	@GetMapping("/v1/clients/{id}")
 	public ResponseEntity<Client> getClient(@PathVariable(name = "id") Long id) {
 		final ResponseEntity<Client> client = clientService.getClientById(id);
 		return client;
@@ -64,7 +63,7 @@ public class ClientRestController {
 	 *
 	 * @return the response of the GET request.
 	 */
-	@GetMapping
+	@GetMapping("/v1/clients")
 	public ResponseEntity<List<Client>> getClients() {
 		final ResponseEntity<List<Client>> clients = clientService.getClients();
 		return clients;
@@ -79,7 +78,7 @@ public class ClientRestController {
 	 * @param birthDate date of brith of the Client entity being updated.
 	 * @return the response of the PUT request.
 	 */
-	@PutMapping("/{id}")
+	@PutMapping("/v1/clients/{id}")
 	public ResponseEntity<Client> updateClient(
 			@PathVariable(name = "id") Long id, @RequestBody Client client,
 			@RequestParam(name = "birthDate") String birthDate) {
@@ -95,7 +94,7 @@ public class ClientRestController {
 	 * @param id id of the Client entity being deleted.
 	 * @return the response of the DELETE request.
 	 */
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/v1/clients/{id}")
 	public ResponseEntity<?> deleteClient(@PathVariable(name = "id") Long id) {
 		final ResponseEntity<?> deletedClient =
 			clientService.deleteClientById(id);

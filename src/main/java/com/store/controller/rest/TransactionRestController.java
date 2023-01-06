@@ -26,7 +26,7 @@ import lombok.AllArgsConstructor;
  * @author Bryan Baron
  */
 @RestController
-@RequestMapping(path = "/api/v1/transactions")
+@RequestMapping(path = "/api")
 @AllArgsConstructor
 public class TransactionRestController {
 
@@ -45,7 +45,7 @@ public class TransactionRestController {
 	 * entity being created.
 	 * @return the response of the POST request.
 	 */
-	@PostMapping
+	@PostMapping("/v1/transactions")
 	public ResponseEntity<Transaction> createTransaction(
 			@RequestBody Transaction transaction,
 			@RequestParam(name = "branchOfficeId") Long branchOfficeId,
@@ -68,7 +68,7 @@ public class TransactionRestController {
 	 * @param id id of the Transaction entity being searched.
 	 * @return the response of the GET request.
 	 */
-	@GetMapping("/{id}")
+	@GetMapping("/v1/transactions/{id}")
 	public ResponseEntity<Transaction> getTransaction(
 			@PathVariable(name = "id") Long id) {
 		final ResponseEntity<Transaction> transaction =
@@ -83,15 +83,12 @@ public class TransactionRestController {
 	 * Transaction entities to retrieve.
 	 * @return the response of the GET request.
 	 */
-	@GetMapping
+	@GetMapping("/v1/transactions")
 	public ResponseEntity<List<Transaction>> getTransactions(
 			@RequestParam(name = "branchOfficeId", required = false) Long branchOfficeId) {
-		ResponseEntity<List<Transaction>>  transactions = null;
-		if(branchOfficeId != null)
-			transactions =
-				transactionService.getTransactionsByBranchOfficeId(branchOfficeId);
-		else
-			transactions = transactionService.getTransactions();
+		final ResponseEntity<List<Transaction>>  transactions = branchOfficeId != null
+			? transactionService.getTransactionsByBranchOfficeId(branchOfficeId)
+			: transactionService.getTransactions();
 		return transactions;
 	}
 
@@ -103,7 +100,7 @@ public class TransactionRestController {
 	 * entity being updated.
 	 * @return the response of the PUT request.
 	 */
-	@PutMapping("/{id}")
+	@PutMapping("/v1/transactions/{id}")
 	public ResponseEntity<Transaction> updateTransaction(
 			@PathVariable(name = "id") Long id,
 			@RequestBody Transaction transaction) {
@@ -118,7 +115,7 @@ public class TransactionRestController {
 	 * @param id id of the Transaction entity being deleted.
 	 * @return the response of the DELETE request.
 	 */
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/v1/transactions/{id}")
 	public ResponseEntity<?> deleteTransaction(@PathVariable(name = "id") Long id) {
 		ResponseEntity<?> deletedTransaction =
 			transactionService.deleteTransactionById(id);

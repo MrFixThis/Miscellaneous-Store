@@ -23,10 +23,20 @@ public interface InventoryService {
 	/**
 	 * Retrives an id-specified Inventory entity
 	 *
-	 * @param id the id of the Inventory entity to retrive
-	 * @return the result of the CRUD's retrive operation over Inventory
+	 * @param id the id of the Inventory entity to retrive.
+	 * @return the result of the CRUD's retrive operation over Inventory.
 	 */
 	ResponseEntity<Inventory> getInventoryById(Long id)
+			throws InventoryNotFoundException;
+
+	/**
+	 * Retrives an id-specified Inventory entity
+	 *
+	 * @param branchOfficeId id of the BranchOffice entity related to the
+	 * Inventory entity to retrieve.
+	 * @return the result of the CRUD's retrive operation over Inventory.
+	 */
+	ResponseEntity<Inventory> getInventoryByBranchOfficeId(Long branchOfficeId)
 			throws InventoryNotFoundException;
 
 	/**

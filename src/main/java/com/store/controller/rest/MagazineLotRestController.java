@@ -24,7 +24,7 @@ import lombok.AllArgsConstructor;
  * @author Bryan Baron
  */
 @RestController
-@RequestMapping(path = "/api/v1/magazine_lots")
+@RequestMapping(path = "/api")
 @AllArgsConstructor
 public class MagazineLotRestController {
 
@@ -40,7 +40,7 @@ public class MagazineLotRestController {
 	 * MagazineLot entity being created is related to.
 	 * @return the response of the POST request.
 	 */
-	@PostMapping
+	@PostMapping("/v1/magazine_lots")
 	public ResponseEntity<MagazineLot> createMagazineLot(
 			@RequestBody MagazineLot magazineLot,
 			@RequestParam(name = "inventoryId") Long inventoryId) {
@@ -59,7 +59,7 @@ public class MagazineLotRestController {
 	 * @param isbn isbn of the MagazineLot entity being searched.
 	 * @return the response of the GET request.
 	 */
-	@GetMapping("/{isbn}")
+	@GetMapping("/v1/magazine_lots/{isbn}")
 	public ResponseEntity<MagazineLot> getMagazineLot(
 			@PathVariable(name = "isbn") UUID isbn) {
 		final ResponseEntity<MagazineLot> magazineLot =
@@ -72,7 +72,7 @@ public class MagazineLotRestController {
 	 *
 	 * @return the response of the GET request.
 	 */
-	@GetMapping
+	@GetMapping("/v1/magazine_lots")
 	public ResponseEntity<List<MagazineLot>> getMagazineLots() {
 		final ResponseEntity<List<MagazineLot>> magazineLots =
 			magazineLotService.getMagazineLots();
@@ -87,7 +87,7 @@ public class MagazineLotRestController {
 	 * MagazineLot entity being udpated.
 	 * @return the response of the PUT request.
 	 */
-	@PutMapping("/{isbn}")
+	@PutMapping("/v1/magazine_lots/{isbn}")
 	public ResponseEntity<MagazineLot> updateMagazineLot(
 			@PathVariable(name = "isbn") UUID isbn,
 			@RequestBody MagazineLot magazineLot) {
@@ -102,7 +102,7 @@ public class MagazineLotRestController {
 	 * @param isbn isbn of the MagazineLot entity being deleted.
 	 * @return the response of the DELETE request.
 	 */
-	@PostMapping("/{isbn}")
+	@PostMapping("/v1/magazine_lots/{isbn}")
 	public ResponseEntity<?> deleteMagazineLot(
 			@PathVariable(name = "isbn") UUID isbn) {
 		final ResponseEntity<?> deletedMagazineLot =

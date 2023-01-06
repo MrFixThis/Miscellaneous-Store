@@ -24,13 +24,12 @@ import lombok.AllArgsConstructor;
  * @author Bryan Baron
  */
 @RestController
-@RequestMapping(path = "/api/v1/book_lots")
+@RequestMapping(path = "/api")
 @AllArgsConstructor
 public class BookLotRestController {
 
 	private BookLotService bookLotService;
 	private InventoryService inventoryService;
-
 
 	/**
 	 * Creates a new BookLot entity.
@@ -41,7 +40,7 @@ public class BookLotRestController {
 	 * created.
 	 * @return the response of the POST request.
 	 */
-	@PostMapping
+	@PostMapping("/v1/book_lots")
 	public ResponseEntity<BookLot> createBookLot(
 			@RequestParam(name = "inventoryId") Long inventoryId,
 			@RequestBody BookLot bookLot) {
@@ -60,7 +59,7 @@ public class BookLotRestController {
 	 * @param isbn isbn of the BookLot entity being searched.
 	 * @return the response of the GET request.
 	 */
-	@GetMapping("/{isbn}")
+	@GetMapping("/v1/book_lots/{isbn}")
 	public ResponseEntity<BookLot> getBookLot(@PathVariable(name = "isbn") UUID isbn) {
 		final ResponseEntity<BookLot> bookLot = bookLotService.getBookLotByIsbn(isbn);
 		return bookLot;
@@ -71,7 +70,7 @@ public class BookLotRestController {
 	 *
 	 * @return the response of the GET request.
 	 */
-	@GetMapping
+	@GetMapping("/v1/book_lots")
 	public ResponseEntity<List<BookLot>> getBookLots() {
 		final ResponseEntity<List<BookLot>> bookLots =
 			bookLotService.getBookLots();
@@ -86,7 +85,7 @@ public class BookLotRestController {
 	 * being udpated.
 	 * @return the response of the PUT request.
 	 */
-	@PutMapping("/{isbn}")
+	@PutMapping("/v1/book_lots/{isbn}")
 	public ResponseEntity<BookLot> updateBookLot(
 			@PathVariable(name = "isbn") UUID isbn,
 			@RequestBody BookLot bookLot) {
@@ -101,7 +100,7 @@ public class BookLotRestController {
 	 * @param isbn isbn of the BookLot entity being deleted.
 	 * @return the response of the DELETE request.
 	 */
-	@PostMapping("/{isbn}")
+	@PostMapping("/v1/book_lots/{isbn}")
 	public ResponseEntity<?> deleteBookLot(@PathVariable(name = "isbn") UUID isbn) {
 		final ResponseEntity<?> deletedBookLot =
 			bookLotService.deleteBookLotByIsbn(isbn);

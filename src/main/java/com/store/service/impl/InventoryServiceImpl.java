@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.store.exception.BranchOfficeNotFoundException;
 import com.store.exception.InventoryNotFoundException;
 import com.store.model.Inventory;
 import com.store.repository.InventoryRepository;
@@ -51,6 +52,24 @@ public class InventoryServiceImpl implements InventoryService {
 			.orElseThrow(() -> new InventoryNotFoundException(
 							String.format("Inventory with id %d not found", id)
 						));
+		return ResponseEntity.ok(inventory);
+	}
+
+	/**
+	 * Retrives an id-specified Inventory entity
+	 *
+	 * @param branchOfficeId id of the BranchOffice entity related to the
+	 * Inventory entity to retrieve.
+	 * @return the result of the CRUD's retrive operation over Inventory.
+	 */
+	@Override
+	public ResponseEntity<Inventory> getInventoryByBranchOfficeId(Long branchOfficeId)
+			throws InventoryNotFoundException {
+		final Inventory inventory =
+			inventoryRepository.findInventoryByBranchOfficeId(branchOfficeId)
+				.orElseThrow(() -> new BranchOfficeNotFoundException(
+							String.format("Branch office with id %d not found",
+								branchOfficeId)));
 		return ResponseEntity.ok(inventory);
 	}
 

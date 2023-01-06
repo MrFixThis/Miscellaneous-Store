@@ -23,7 +23,7 @@ import lombok.AllArgsConstructor;
  * @author Bryan Baron
  */
 @RestController
-@RequestMapping(path = "/api/v1/disc_lots")
+@RequestMapping(path = "/api")
 @AllArgsConstructor
 public class DiscLotRestController {
 
@@ -39,7 +39,7 @@ public class DiscLotRestController {
 	 * DiscLot entity being created is related to.
 	 * @return the response of the POST request.
 	 */
-	@PostMapping
+	@PostMapping("/v1/disc_lots")
 	public ResponseEntity<DiscLot> createDiscLot(@RequestBody DiscLot discLot,
 			@RequestParam(name = "inventoryId") Long inventoryId) {
 		final ResponseEntity<Inventory> discLotInventory =
@@ -57,7 +57,7 @@ public class DiscLotRestController {
 	 * @param id id of the DiscLot entity being searched.
 	 * @return the response of the GET request.
 	 */
-	@GetMapping("/{id}")
+	@GetMapping("/v1/disc_lots/{id}")
 	public ResponseEntity<DiscLot> getDiscLot(
 			@PathVariable(name = "id") Long id) {
 		final ResponseEntity<DiscLot> discLot = discLotService.getDiscLotById(id);
@@ -69,7 +69,7 @@ public class DiscLotRestController {
 	 *
 	 * @return the response of the GET request.
 	 */
-	@GetMapping
+	@GetMapping("/v1/disc_lots")
 	public ResponseEntity<List<DiscLot>> getDiscLots() {
 		final ResponseEntity<List<DiscLot>> discLots = discLotService.getDiscLots();
 		return discLots;
@@ -83,7 +83,7 @@ public class DiscLotRestController {
 	 * DiscLot entity being udpated.
 	 * @return the response of the PUT request.
 	 */
-	@PutMapping("/{id}")
+	@PutMapping("/v1/disc_lots/{id}")
 	public ResponseEntity<DiscLot> updateDiscLot(
 			@PathVariable(name = "id") Long id, @RequestBody DiscLot discLot) {
 		final ResponseEntity<DiscLot> updatedDiscLot =
@@ -97,7 +97,7 @@ public class DiscLotRestController {
 	 * @param id id of the DiscLot entity being deleted.
 	 * @return the response of the DELETE request.
 	 */
-	@PostMapping("/{id}")
+	@PostMapping("/v1/disc_lots/{id}")
 	public ResponseEntity<?> deleteDiscLot(@PathVariable(name = "id") Long id) {
 		final ResponseEntity<?> deletedDiscLot = discLotService.deleteDiscLotById(id);
 		return deletedDiscLot;

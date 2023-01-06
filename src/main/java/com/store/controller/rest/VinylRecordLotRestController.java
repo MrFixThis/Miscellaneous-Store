@@ -23,7 +23,7 @@ import lombok.AllArgsConstructor;
  * @author Bryan Baron
  */
 @RestController
-@RequestMapping(path = "/api/v1/vinyl_record_lots")
+@RequestMapping(path = "/api")
 @AllArgsConstructor
 public class VinylRecordLotRestController {
 
@@ -39,7 +39,7 @@ public class VinylRecordLotRestController {
 	 * VinylRecordLot entity being created is related to.
 	 * @return the response of the POST request.
 	 */
-	@PostMapping
+	@PostMapping("/v1/vinyl_record_lots")
 	public ResponseEntity<VinylRecordLot> createVinylRecordLot(
 			@RequestBody VinylRecordLot vinylRecordLot,
 			@RequestParam(name = "inventoryId") Long inventoryId) {
@@ -60,7 +60,7 @@ public class VinylRecordLotRestController {
 	 * @param id id of the VinylRecordLot entity being searched.
 	 * @return the response of the GET request.
 	 */
-	@GetMapping("/{id}")
+	@GetMapping("/v1/vinyl_record_lots/{id}")
 	public ResponseEntity<VinylRecordLot> getVinylRecordLot(
 			@PathVariable(name = "id") Long id) {
 		final ResponseEntity<VinylRecordLot> vinylRecordLot =
@@ -73,7 +73,7 @@ public class VinylRecordLotRestController {
 	 *
 	 * @return the response of the GET request.
 	 */
-	@GetMapping
+	@GetMapping("/v1/vinyl_record_lots")
 	public ResponseEntity<List<VinylRecordLot>> getVinylRecordLots() {
 		final ResponseEntity<List<VinylRecordLot>> vinylRecordLots =
 			vinylRecordLotService.getVinylRecordLots();
@@ -88,7 +88,7 @@ public class VinylRecordLotRestController {
 	 * VinylRecordLot entity being udpated.
 	 * @return the response of the PUT request.
 	 */
-	@PutMapping("/{id}")
+	@PutMapping("/v1/vinyl_record_lots/{id}")
 	public ResponseEntity<VinylRecordLot> updateVinylRecordLot(
 			@PathVariable(name = "id") Long id,
 			@RequestBody VinylRecordLot vinylRecordLot) {
@@ -103,7 +103,7 @@ public class VinylRecordLotRestController {
 	 * @param id id of the VinylRecordLot entity being deleted.
 	 * @return the response of the DELETE request.
 	 */
-	@PostMapping("/{id}")
+	@PostMapping("/v1/vinyl_record_lots/{id}")
 	public ResponseEntity<?> deleteVinylRecordLot(
 			@PathVariable(name = "id") Long id) {
 		final ResponseEntity<?> deletedVinylRecordLot =

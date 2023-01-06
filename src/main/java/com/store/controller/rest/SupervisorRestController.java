@@ -21,7 +21,7 @@ import lombok.AllArgsConstructor;
  * @author Bryan Baron
  */
 @RestController
-@RequestMapping(path = "/api/v1/supervisors")
+@RequestMapping(path = "/api")
 @AllArgsConstructor
 public class SupervisorRestController {
 
@@ -34,7 +34,7 @@ public class SupervisorRestController {
 	 * entity being created.
 	 * @return the response of the POST request.
 	 */
-	@PostMapping
+	@PostMapping("/v1/supervisors")
 	public ResponseEntity<Supervisor> createSupervisor(
 			@RequestBody Supervisor supervisor) {
 		final ResponseEntity<Supervisor> createdSupervisor =
@@ -48,7 +48,7 @@ public class SupervisorRestController {
 	 * @param id id of the Supervisor entity being searched.
 	 * @return the response of the GET request.
 	 */
-	@GetMapping("/{id}")
+	@GetMapping("/v1/supervisors/{id}")
 	public ResponseEntity<Supervisor> getSupervisor(
 			@PathVariable(name = "id") Long id) {
 		final ResponseEntity<Supervisor> supervisor =
@@ -61,7 +61,7 @@ public class SupervisorRestController {
 	 *
 	 * @return the response of the GET request.
 	 */
-	@GetMapping
+	@GetMapping("/v1/supervisors")
 	public ResponseEntity<List<Supervisor>> getSupervisors() {
 		final ResponseEntity<List<Supervisor>> supervisors =
 			supervisorService.getSupervisors();
@@ -77,7 +77,7 @@ public class SupervisorRestController {
 	 * entity being updated.
 	 * @return the response of the PUT request.
 	 */
-	@PutMapping("/{id}")
+	@PutMapping("/v1/supervisors/{id}")
 	public ResponseEntity<Supervisor> updateSupervisor(
 			@PathVariable(name = "id") Long id,
 			@RequestBody Supervisor supervisor) {
@@ -92,7 +92,7 @@ public class SupervisorRestController {
 	 * @param id id of the Supervisor entity being deleted.
 	 * @return the response of the DELETE request.
 	 */
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/v1/supervisors/{id}")
 	public ResponseEntity<?> deleteSupervisor(@PathVariable(name = "id") Long id) {
 		final ResponseEntity<?> deletedSupervisor =
 			supervisorService.deleteSupervisorById(id);
