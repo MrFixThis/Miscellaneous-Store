@@ -28,12 +28,15 @@ public class AdministratorController {
 	/**
 	 * Shows the Administrators' actions page.
 	 *
+	 * @param operation specifier of the operation to perform over the
+	 * Administrator entity to manipulate.
 	 * @param administratorId id of the Administrator entity to manipulate.
 	 * @return the Administrator's actions template.
 	 */
 	@GetMapping("/actions")
 	public String showAdministratorsActionsPage(
-			@RequestParam(name = "administratorId") Long administratorId) {
+			@RequestParam(name = "operation", defaultValue = "inspect") String operation,
+			@RequestParam(name = "administratorId", required = false) Long administratorId) {
 		return "employeesActions";
 	}
 }

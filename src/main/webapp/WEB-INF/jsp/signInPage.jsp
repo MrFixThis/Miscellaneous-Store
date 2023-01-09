@@ -45,9 +45,9 @@
 					<input id="sbtn" type="submit" value="Sign in"
 						class="btn btn-lg btn-outline-primary" disabled>
 				</div>
-				<c:if test="${!isLoged}">
-					<label class="text-danger text-right mt-2">Incorrect username or password</label>
-				</c:if>
+				<%-- <c:if test="${!isLoged}"> --%>
+				<%-- 	<label class="text-danger text-right mt-2">Incorrect username or password</label> --%>
+				<%-- </c:if> --%>
 			</form>
 		</div>
 	</body>

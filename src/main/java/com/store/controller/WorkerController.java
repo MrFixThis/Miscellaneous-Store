@@ -28,11 +28,14 @@ public class WorkerController {
 	/**
 	 * Shows the Workers' actions page.
 	 *
+	 * @param operation specifier of the operation to perform over the
+	 * Worker entity to manipulate.
 	 * @param workerId id of the Worker entity to manipulate.
 	 * @return the Worker's actions template.
 	 */
 	@GetMapping("/actions")
 	public String showWorkersActionsPage(
+			@RequestParam(name = "operation", defaultValue = "inspect") String operation,
 			@RequestParam(name = "workerId") Long workerId) {
 		return "employeesActions";
 	}

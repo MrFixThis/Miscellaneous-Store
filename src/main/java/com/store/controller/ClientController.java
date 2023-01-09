@@ -26,12 +26,15 @@ public class ClientController {
 	/**
 	 * Shows the Clients' actions page.
 	 *
+	 * @param operation specifier of the operation to perform over the
+	 * Client entity to manipulate.
 	 * @param clientId id of the Client entity to manipulate.
 	 * @return the Client's actions template.
 	 */
 	@GetMapping("/actions")
 	public String showClientsActionsPage(
-			@RequestParam(name = "clientId") Long clientId) {
+			@RequestParam(name = "operation", defaultValue = "inspect") String operation,
+			@RequestParam(name = "clientId", required = false) Long clientId) {
 		return "clientsActions";
 	}
 }

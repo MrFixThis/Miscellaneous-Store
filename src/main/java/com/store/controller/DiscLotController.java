@@ -15,6 +15,8 @@ public class DiscLotController {
 	/**
 	 * Shows the DiscLots' actions page.
 	 *
+	 * @param operation specifier of the operation to perform over the
+	 * DiscLot entity to manipulate.
 	 * @param inventoryId id of the Inventory entity with which the DiscLot
 	 * entity being manipulated is related to.
 	 * @param discLotId id of the DiscLot entity to manipulate.
@@ -22,8 +24,9 @@ public class DiscLotController {
 	 */
 	@GetMapping("/actions")
 	public String showDiscLotsActionsPage(
+			@RequestParam(name = "operation", defaultValue = "inspect") String operation,
 			@RequestParam(name = "inventoryId") Long inventoryId,
-			@RequestParam(name = "discLotId") Long discLotId) {
+			@RequestParam(name = "discLotId", required = false) Long discLotId) {
 		return "discLotsActions";
 	}
 }

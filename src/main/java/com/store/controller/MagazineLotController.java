@@ -15,6 +15,8 @@ public class MagazineLotController {
 	/**
 	 * Shows the MagazineLots' actions page.
 	 *
+	 * @param operation specifier of the operation to perform over the
+	 * MagazineLot entity to manipulate.
 	 * @param inventoryId id of the Inventory entity with which the MagazineLot
 	 * entity being manipulated is related to.
 	 * @param magazineLotIsbn isbn of the MagazineLot entity to manipulate.
@@ -22,8 +24,9 @@ public class MagazineLotController {
 	 */
 	@GetMapping("/actions")
 	public String showMagazineLotsActionsPage(
+			@RequestParam(name = "operation", defaultValue = "inspect") String operation,
 			@RequestParam(name = "inventoryId") Long inventoryId,
-			@RequestParam(name = "magazineLotIsbn") Long magazineLotIsbn) {
+			@RequestParam(name = "magazineLotIsbn", required = false) Long magazineLotIsbn) {
 		return "magazineLotsActions";
 	}
 }

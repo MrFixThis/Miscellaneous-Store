@@ -28,6 +28,8 @@ public class TransactionController {
 	/**
 	 * Shows the Transactions' actions page.
 	 *
+	 * @param operation specifier of the operation to perform over the
+	 * Transaction entity to manipulate.
 	 * @param branchOfficeId id of the BranchOffice entity related to the
 	 * Transaction entity being manipulated.
 	 * @param transactionId id of the Transaction entity to manipulate.
@@ -35,6 +37,7 @@ public class TransactionController {
 	 */
 	@GetMapping("/actions")
 	public String showTransactionsActionsPage(
+			@RequestParam(name = "operation", defaultValue = "inspect") String operation,
 			@RequestParam(name = "branchOfficeId") Long branchOfficeId,
 			@RequestParam(name = "transactionId") Long transactionId) {
 		return "transactionActions";

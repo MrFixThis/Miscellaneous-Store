@@ -25,11 +25,14 @@ public class BranchOfficeController {
 	/**
 	 * Shows the BranchOffices' actions page.
 	 *
+	 * @param operation specifier of the operation to perform over the
+	 * BranchOffice entity to manipulate.
 	 * @param branchOfficeId id of the BranchOffice entity to manipulate.
 	 * @return the BranchOffice's actions template.
 	 */
 	@GetMapping("/actions")
 	public String showBranchOfficesActionsPage(
+			@RequestParam(name = "operation", defaultValue = "inspect") String operation,
 			@RequestParam(name = "branchOfficeId", required = false) Long branchOfficeId) {
 		return "branchOfficesActions";
 	}

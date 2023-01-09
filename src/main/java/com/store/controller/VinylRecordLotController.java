@@ -15,6 +15,8 @@ public class VinylRecordLotController {
 	/**
 	 * Shows the VinylRecordLots' actions page.
 	 *
+	 * @param operation specifier of the operation to perform over the
+	 * vinylRecordLot entity to manipulate.
 	 * @param inventoryId id of the Inventory entity with which the VinylRecordLot
 	 * entity being manipulated is related to.
 	 * @param vinylRecordLotId id of the VinylRecordLot entity to manipulate.
@@ -22,8 +24,9 @@ public class VinylRecordLotController {
 	 */
 	@GetMapping("/actions")
 	public String showVinylRecordLotsActionsPage(
+			@RequestParam(name = "operation", defaultValue = "inspect") String operation,
 			@RequestParam(name = "inventoryId") Long inventoryId,
-			@RequestParam(name = "vinylRecordLotId") Long vinylRecordLotId) {
+			@RequestParam(name = "vinylRecordLotId", required = false) Long vinylRecordLotId) {
 		return "vinylRecordLotsActions";
 	}
 }
