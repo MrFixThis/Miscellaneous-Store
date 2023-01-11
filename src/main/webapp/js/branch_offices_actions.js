@@ -1,222 +1,174 @@
 import Fetcher from "./page_information.js"
 
 const fetcher = new Fetcher()
-const queryParams = fetcher.getQueryParameters()
 
-let branchOffice = null
-const branchOfficesData = await fetcher.getOrUpdateInformation({
-	url: `${Fetcher.baseURL}/v1/branch_offices`
-})
-const adminsData = await fetcher.getOrUpdateInformation({
-	url: `${Fetcher.baseURL}/v1/administrators`
-})
+const $pageTittleBadge = $("#mainTittleBadge").children(".badge")
+const $adminActionZone = $("#adminActionZone")
+const $inventoryInfoArea = $("#inventoryInfoArea").children("textarea")
 
-const mainDataForm = $("#mainDataForm")
+const renderDefaultConent = async () => {
+	const adminsData = await fetcher.sendOrGetInformation({
+		url: `${Fetcher.baseURL}/v1/administrators`
+	})
+	if(adminsData.err) { throw adminErr.err }
 
-const renderTittleBadge = () => {
-	let tittlePrefix = null
-	switch(queryParams.operation) {
-		case "create":
-			tittlePrefix = "Register New"
-			break
-		case "update":
-			tittlePrefix = "Update"
-			break
-		default:
-			tittlePrefix = "See"
-	}
+	const $createOrUpdateBtn = $("#createOrUpdateBtn")
+	let $adminSelect = null
+	let url = null
 
-	$("#tittleBadge").append(`
-		<div class="container mt-4">
-			<h1 class="h1 text-center">
-				<span class="badge" style="background-color: #46E385">
-					${tittlePrefix} Branch Office
-				</span>
-			</h1>
-		</div>
-	`)
-}
+	if(adminsData.info.length != 0) {
+		let admins = ``
 
-const renderAdminSection = () => {
-	const adminSection = mainDataForm.children("#adminSection")
-	const isInspecting = queryParams.operation == null
-	let areAdminsBusy = 0
-	branchOffice = branchOfficesData.info.filter(branchOffice => {
-		areAdminsBusy = branchOffice.administrator != null ? ++areAdminsBusy : areAdminsBusy
-		if(branchOffice.id == queryParams.branchOfficeId) return branchOffice
-	})[0]
-
-	adminSection.append(`
-		<h3 class="h3 text-muted text-center">
-			<strong>
-				Administrator
-				${queryParams.operation == "update" && !branchOffice?.administrator
-					? `Assignment`
-					: `Specification`
-				}
-			</strong>
-		</h3>
-	`)
-
-	if(adminsData.info.length != 0 || branchOffice?.administrator) {
-		adminSection.append(`
-			<div class="form-floating mt-3">
-				<select name="administrator" class="form-select adminsSelector" id="floatingSelect" ${isInspecting ? "disabled" : ""}>
-				</select>
-				<label for="floatingSelect" class"text-center">
-					${!isInspecting ? "Select one of them" : "Current administrator"}
-				</label>
-			</div>
+		$adminActionZone.html(`
+			<select name="administrator" class="form-select" id="floatingSelect"></select>
+			<label for="floatingSelect" class"text-center">Select one of them</label>
 		`)
+		$adminSelect = $adminActionZone.children("select")
 
-		let adminsSelector = $(".adminsSelector")
-		if(!isInspecting) {
-			adminsSelector.append(`
-				<option value="${branchOffice?.administrator.id}">
-					${branchOffice?.administrator.firstName}
-					${branchOffice?.administrator.middleName}
-					${branchOffice?.administrator.paternalLastName}
-					${branchOffice?.administrator.maternalLastName}
-					- ${branchOffice?.administrator.role}
+		adminsData.info.map(admin => {
+			admins += `
+				<option value="${admin.id}"> ${admin.firstName} ${admin.middleName}
+					${admin.paternalLastName} ${admin.maternalLastName} - ${admin.role}
 				</option>
-			`)
-		} else {
-			adminsData.info.map(administrator => {
-				adminsSelector.append(`
-					<option value="${administrator.id}">
-						${administrator.firstName}
-						${administrator.middleName}
-						${administrator.paternalLastName}
-						${administrator.maternalLastName}
-						- ${administrator.role}
-					</option>
-				`)
-			})
-		}
+			`
+		})
+		$adminSelect.append(admins)
 	} else {
-		areAdminsBusy =  branchOfficesData.info.length == areAdminsBusy ? true : false
-		adminSection.append(`
+		url = "/administrators/actions"
+		$adminActionZone.html(`
 			<div class="container mt-4">
 				<h5 class="h5 text-center text-muted">
-					<em>
-						${areAdminsBusy
-							? `All the administrators are busy`
-							: `There is no administrators registered`
-						}
-					</em>
+					<em>There is no administrators registered</em>
 				</h5>
 				<div class="container mt-4 text-center">
-					<form action="/administrators/actions">
-						<input type="submit" value="Register New"
-							class="btn btn-outline-primary btn-sm">
-					</form>
+				<button id="adminActionBtn" type="button"
+					class="btn btn-outline-primary btn-sm">Register New</button>
 				</div>
 			</div>
 		`)
+		$("#adminActionBtn").on("click", function(_) { location.href = url })
+		$createOrUpdateBtn.prop("disabled", true)
+		$inventoryInfoArea.prop("readonly", true)
 	}
-	if(queryParams.operation) mainDataForm.append(`<hr class="w-50 mx-auto">`)
+
+	$createOrUpdateBtn.on("click", function(event) {
+		event.preventDefault()
+
+		const adminId = $adminSelect.val()
+		const inventoryDesc = $inventoryInfoArea.val()
+
+		const newInventory = fetcher.sendOrGetInformation({
+			dataType: "json",
+			url: `${Fetcher.baseURL}/v1/inventories`,
+			type: "POST",
+			data: {
+				description: inventoryDesc
+			}
+		})
+		if(newInventory.err) { throw newInventory.err }
+
+		const newBranchOffice = fetcher.sendOrGetInformation({
+			dataType: "json",
+			url: `${Fetcher.baseURL}/v1/branch_offices`,
+			type: "POST",
+			data: {
+				administrator: adminId,
+				inventory: newInventory.info.id
+			}
+		})
+		if(newBranchOffice.err) { throw newBranchOffice.err }
+
+		url = `/branch_offices/actions?branchOfficeId=${newBranchOffice.info.id}`
+		location.replace(url)
+	})
 }
 
-const renderInventorySection = () => {
-	if(queryParams.operation == "update" && !branchOffice?.administrator) return
-	const inventorySection = mainDataForm.children("#inventorySection")
+const displayCurrentBranchOfficeInfo = async () => {
+	const queryParams = fetcher.obtainQueryParameters()
+	const branchOfficeData = await fetcher.sendOrGetInformation({
+		url: `${Fetcher.baseURL}/v1/branch_offices/${queryParams.branchOfficeId}`
+	})
+	if(branchOfficeData.err) { throw branchOfficeData.err }
 
-	inventorySection.append(`
-		<h3 class="h3 text-muted text-center mt-4">
-			<strong>Inventory ${queryParams.operation ? `Creation` : ``}</strong>
-		</h3>
-		<div class="text-success"><hr class="w-25 mx-auto"></div>
+	renderProductSection(branchOfficeData.info)
+}
+
+const renderProductSection = (branchOffice) => {
+	const $productSection = $("#productSection")
+	const clickEvent = function(event) { location.href = event.data.url }
+	const productsIdentifiers = {
+		magazine: "inventoryMagazineLots",
+		book: "inventoryBookLots",
+		disc: "inventoryDiscLots",
+		vinyl_record: "inventoryVinylRecordLots"
+	}
+	let products = null
+	let productName = null
+	let isVinylReord = null
+	let hasISBN = false
+	let url = null
+
+	$productSection.append(`
 		<h5 class="h5 text-muted text-center mt-4">
-			<strong>Description of the inventory</strong>
+			<strong>Product List</strong>
 		</h5>
-		<div class="container mt-4">
-			<div class="form-floating">
-			  <textarea name="description" class="TXT form-control" id="floatingTextarea2"
-					style="resize:none; height: 100px" maxlength="255"
-					${!queryParams.operation ? "readonly" : ""}>${branchOffice?.inventory.description}</textarea>
-			  <label class="text-muted" for="floatingTextarea2">What's mainly in the inventory?</label>
-			</div>
-		</div>
-		${queryParams.operation ? `<div class="text-success"><hr class="w-50 mx-auto"></div>` : ``}
+		<hr class="w-25 mx-auto text-success">
 	`)
 
-	if(!queryParams.operation) {
-		const productsIdentifiers = {
-			magazine: "inventoryMagazineLots",
-			book: "inventoryBookLots",
-			disc: "inventoryDiscLots",
-			vinylRecord: "inventoryVinylRecordLots"
-		}
-		let products = null
+	for(let pI in productsIdentifiers) {
+		products = branchOffice.inventory[productsIdentifiers[pI]]
+		isVinylReord = pI.includes("vinyl_record")
+		hasISBN = pI.includes("magazine") || pI.includes("book")
+		productName = isVinylReord ? pI.replace("_", " ") : pI
+		url = `/${pI}_lots/actions?inp=true&inventoryId=${branchOffice.inventory.id}`
 
-		inventorySection.append(`
-			<div id="productSection" class="container justify-content-md-center">
-				<h5 class="h5 text-muted text-center mt-4">
-					<strong>Product List</strong>
-				</h5>
-				<hr class="w-25 mx-auto">
-			</div>
-		`)
+		if(products.length != 0) {
+			url = url.replace(/inp=.*&/, "")
 
-		const productSection = inventorySection.children("#productSection")
-		for(let pI in productsIdentifiers) {
-			products = branchOffice?.inventory[productsIdentifiers[pI]]
-			let isVinylReord = pI.includes("vinylRecord")
-
-			if(products.length != 0) {
-				productSection.append(`
-					<table id="${pI}_table" class="table mt-4 table-bordered border rounded">
-						<thead class="table-secondary text-center">
-							<tr>
-							  <th scope="col">${!(pI.includes("magazine") || pI.includes("book")) ? `ID` : `ISBN`}</th>
-							  <th scope="col" class="col col-sm-5">${isVinylReord ? `Production ` : ``}Name</th>
-							  <th scope="col">Available Units</th>
-							  <th scope="col" class="col col-sm-3">Price P/U</th>
-							  <th scope="col" ${queryParams.operation != "update" ? `style="display: none"` : ``}>Action</th>
-							</tr>
-						</thead>
-						<tbody></tbody>
-					</table>
-					${isVinylReord ? `<hr class="w-75 mx-auto">` : ``}
+			$productSection.append(`
+				<table id="${pI}_table" class="table mt-4 table-bordered border rounded">
+					<thead class="table-secondary text-center">
+						<tr>
+						  <th scope="col">${hasISBN ? `ISBN` : `ID`}</th>
+						  <th scope="col" class="col col-sm-5">${isVinylReord ? `Production ` : ``}Name</th>
+						  <th scope="col">Available Units</th>
+						  <th scope="col" class="col col-sm-3">Price P/U</th>
+						  <th scope="col" class="actionColumn">Action</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+				<hr class="w-75 mx-auto text-success">
+			`)
+			products.map(product => {
+				$(`#${pI}_table`).children("tbody").append(`
+					<tr class="actionColumn">
+						<th scope="row" class="text-center">${hasISBN ? product.isbn : product.id}</th>
+						  <td>${isVinylReord ? product.recordProductionName : product.name}</td>
+						  <td>${product.availableUnits}</td>
+						  <td>${product.pricePerUnit}</td>
+						  <td class="text-center">
+								<button id="product_actionBtn_${product.id}" type="button"
+									class="btn btn-primary btn-sm">See more</button>
+						  </td>
+					</tr>
 				`)
-				products.map(product => {
-					$(`#${pI}_table`).children("tbody").append(`
-
-					`)
-				})
-			} else {
-				const productName = isVinylReord ? pI.replace("R", " r") : pI
-				const urlName = `${productName.replace(/\s/, "_")}_lots`
-
-				productSection.append(`
-					<div class="container mt-4">
-						<h5 class="h5 text-center text-muted mb-4">
-							<em>There is no ${productName} lots available in the inventory</em>
-						</h5>
-					</div>
-					<div class="container mt-4 mb-4 text-center">
-						<form action="/${urlName}/actions?operation=create&inventoryId=${branchOffice.inventory.id}">
-							<input type="submit" value="Add New Lot"
-								class="btn btn-outline-primary">
-						</form>
-					</div>
-				`)
-			}
+				$(`#product_actionBtn_${product.id}`).on("click", {url: url}, clickEvent)})
+		} else {
+			$productSection.append(`
+				<div class="container mt-4">
+					<h5 class="h5 text-center text-muted mb-4">
+						<em>There is no ${productName} lots available in the inventory</em>
+					</h5>
+				</div>
+				<div id="${pI}_actionBtn" class="container mt-4 mb-4 text-center">
+					<button type="button" class="btn btn-outline-primary">Add new Lot</button>
+				</div>
+				<hr class="w-75 mx-auto text-success">
+			`)
+			$(`#${pI}_actionBtn`).on("click", {url: url}, clickEvent)
 		}
 	}
 }
 
-const renderMainActionButtons = () => {
-
-}
-
-$(() => {
-	renderTittleBadge()
-	if(branchOfficesData.err || adminsData.err) {
-		console.error(boErr.err || adminErr.err)
-	} else {
-		renderAdminSection()
-		renderInventorySection()
-		renderMainActionButtons()
-	}
-})
+$(renderDefaultConent)

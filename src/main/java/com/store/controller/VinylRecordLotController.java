@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Bryan Baron
  */
 @Controller
-@RequestMapping(path = "/vinylRecord_lots")
+@RequestMapping(path = "/vinyl_record_lots")
 public class VinylRecordLotController {
 
 	/**

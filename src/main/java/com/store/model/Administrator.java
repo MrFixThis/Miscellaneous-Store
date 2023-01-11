@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -74,8 +75,8 @@ public class Administrator {
 	@Column(name = "basic_salary", nullable = false)
 	private Long basicSalary;
 
-	@JsonIgnore
+	@JsonIgnoreProperties({"administrator", "inventory"})
 	@OneToOne(cascade = {CascadeType.REFRESH, CascadeType.REMOVE},
-		fetch = FetchType.LAZY, mappedBy = "administrator")
+		mappedBy = "administrator")
 	private BranchOffice branchOffice;
 }

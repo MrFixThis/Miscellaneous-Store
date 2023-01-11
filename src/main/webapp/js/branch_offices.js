@@ -1,19 +1,28 @@
 import Fetcher from "./page_information.js"
 
-const fetcher = new Fetcher({
-	url: `${Fetcher.baseURL}/v1/branch_offices`
-})
+const fetcher = new Fetcher({ url: `${Fetcher.baseURL}/v1/branch_offices` })
 
-const $boCards = $("#cardContainer")
+const $branchOfficesCards = $("#cardContainer")
 
 const renderBranchOfficesCards = async () => {
-	const branchOfficesData = await fetcher.getOrUpdateInformation()
-	if(branchOfficesData.err) { console.error(branchOfficesData.err); return }
+	const branchOfficesData = await fetcher.sendOrGetInformation()
+	if(branchOfficesData.err) { throw branchOfficesData.err }
+
+	let url = null
+	const setClickEvent = (url, nbr) => {
+		const element = `#actionBtn${nbr ? `_${nbr}` : ``}`
+		$(element).on("click", function(_) {
+			location.href = url
+		})
+	}
 
 	if(branchOfficesData.info?.lenght != 0) {
+		let isWithoutAdmin = null
 		branchOfficesData.info.map(branchOffice => {
-			let isWithoutAdmin = branchOffice.administrator == null
-			$boCards.append(`
+			isWithoutAdmin = branchOffice.administrator == null
+			url = `/branch_offices/actions?${isWithoutAdmin ? `operation=update&` : ``}branchOfficeId=${branchOffice.id}`
+
+			$branchOfficesCards.append(`
 				<div class="col-md-auto">
 					<div class="card text-center mb-4" style="width: 18rem; background-color: ${isWithoutAdmin ? "#FFEFD4" : "#FAEFFF"}">
 					  <div class="card-body">
@@ -23,29 +32,29 @@ const renderBranchOfficesCards = async () => {
 							: `<p class="card-text">Managed by ${branchOffice.administrator?.firstName}
 								${branchOffice.administrator.paternalLastName}</p>`
 						}
-						<a href="/branch_offices/actions?${isWithoutAdmin ? `operation=update&` : ``}branchOfficeId=${branchOffice.id}"
-							class="btn btn-${isWithoutAdmin ? `warning` : `primary`}">
-							${isWithoutAdmin ? `Assign administrator` : `See more`}
-						</a>
+						<button id="actionBtn_${branchOffice.id}" class="btn btn-${isWithoutAdmin ? `warning` : `primary`}"
+							type="button">${isWithoutAdmin ? `Assign administrator` : `See more`}</button>
 					  </div>
 					</div>
 				</div>
 			`)
+			setClickEvent(url, branchOffice.id)
 		})
 	} else {
-		$boCards.append(`
+		url = "/branch_offices/actions?operation=create"
+
+		$branchOfficesCards.append(`
 			<div class="container mt-4">
 				<h3 class="h3 text-center text-muted">
 					<em>There is no branch offices active</em>
 				</h3>
 				<div class="container mt-4 text-center">
-					<form action="/branch_offices/actions?operation=create">
-						<input type="submit" value="Register New"
-							class="btn btn-outline-primary">
-					</form>
+					<button id="actionBtn" class="btn btn-outline-primary"
+						type="button">Register New</button>
 				</div>
 			</div>
 		`)
+		setClickEvent(url)
 	}
 }
 
